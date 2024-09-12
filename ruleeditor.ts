@@ -419,7 +419,7 @@ namespace microcode {
             if (this.queuedCursorMove) {
                 switch (this.queuedCursorMove) {
                     case CursorDir.Right:
-                        control.raiseEvent(KEY_DOWN, controller.right.id)
+                        // control.raiseEvent(KEY_DOWN, controller.right.id)
                         break
                     // Add other cases as needed
                 }

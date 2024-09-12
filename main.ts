@@ -1,3 +1,1 @@
-setTimeout(() => {
-    const app = new microcode.App()
-}, 1)
+const app = new microcode.App()

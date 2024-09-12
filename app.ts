@@ -12,15 +12,14 @@ namespace microcode {
 
         constructor() {
             // One interval delay to ensure all static constructors have executed.
-            setTimeout(() => {
-                reportEvent("app.start")
+            basic.pause(500)
+            reportEvent("app.start")
 
-                controller.setRepeatDefault(250, 30)
-                keymap.setupKeys()
-                this.sceneManager = new SceneManager()
-                const home = new Home(this)
-                this.pushScene(home)
-            }, 1)
+            controller.setRepeatDefault(250, 30)
+            keymap.setupKeys()
+            this.sceneManager = new SceneManager()
+            const home = new Home(this)
+            this.pushScene(home)
         }
 
         public saveBuffer(slot: string, buf: Buffer) {
