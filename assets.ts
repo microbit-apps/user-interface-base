@@ -1,5 +1,5 @@
 namespace microcode {
-    let extraImage: Image = null
+    let extraImage: Bitmap = null
 
     //% shim=TD_NOOP
     function extraSamples(name: string) {
@@ -93,7 +93,7 @@ namespace microcode {
     }
 
     export class icons {
-        public static get(name: string, nullIfMissing = false): Image {
+        public static get(name: string, nullIfMissing = false): Bitmap {
             // editor icons
             if (name == "delete") return icondb.btn_delete
             if (name == "plus") return icondb.btn_plus
@@ -241,7 +241,7 @@ namespace microcode {
         }
     }
 
-    export const wordLogo = img` 
+    export const wordLogo = bmp` 
     .111111.......111111...1111.......................................................1111111.................................1111..................
     11bbbbbb.....11bbbbbb.11bbbb....................................................111bbbbbbb1..............................11bbbb.................
     1bbbbbbbb...11bbbbbbbf1bbbbbf..................................................11bbbbbbbbbbb.............................1bbbbbf................
@@ -265,7 +265,7 @@ namespace microcode {
     .bbbbbff.......bbbbbff.bbbbff...fbbbbbbbfff...bbbbff..........fbbbbbbbfff........fbbbbbbbfff.......fbbbbbbbfff.....fbbbbbbbbbbff...fbbbbbbbbff..
     ..fffff.........fffff...ffff......fffffff......ffff.............fffffff............fffffff...........fffffff.........ffffffffff......ffffffff...
     `
-    export const microbitLogo = img`
+    export const microbitLogo = bmp`
         ............................
         ......5555555555555555......
         ....55555555555555555555....
@@ -284,7 +284,7 @@ namespace microcode {
         .......4444444444444444.....
     `
 
-    export const editorBackground = img`
+    export const editorBackground = bmp`
     8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
     8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
     8888888888888888888888188888881888888888881888888888888888888888888888888888888888888888888888888888885888888888888888888881888888888888888888818888888888888188
@@ -305,13 +305,13 @@ namespace microcode {
 }
 
 namespace icondb {
-    const note4x3 = img`
+    const note4x3 = bmp`
     . f f .
     f c c .
     f c c .
 `
     export function melodyToImage(melody: microcode.Melody) {
-        const ret = image.create(16, 16)
+        const ret = bitmap.create(16, 16)
         ret.fill(1)
         for (let col = 0; col < microcode.MELODY_LENGTH; col++) {
             if (melody.notes[col] === ".") continue
@@ -319,14 +319,14 @@ namespace icondb {
             const color = 15
             const ncol = col << 2,
                 nrow = row * 3 + 1
-            ret.drawTransparentImage(note4x3, ncol, nrow)
+            ret.drawTransparentBitmap(note4x3, ncol, nrow)
         }
         return ret
     }
 
     // - upscale 5x5 image to 16 x 16, add halo
-    export function renderMicrobitLEDs(led55: Image) {
-        const ret = image.create(16, 16)
+    export function renderMicrobitLEDs(led55: Bitmap) {
+        const ret = bitmap.create(16, 16)
         ret.fill(15)
         for (let row = 0; row < 5; row++) {
             for (let col = 0; col < 5; col++) {
@@ -359,7 +359,7 @@ namespace icondb {
 
     /*
     export const iconEditor = renderMicrobitLEDs(
-        img`
+        bmp`
         . . . . .
         . 1 . 1 .
         . . . . . 
@@ -368,7 +368,7 @@ namespace icondb {
         `
     )
     */
-    export const iconEditor = img`
+    export const iconEditor = bmp`
     f f f f f f f f f f f f f f f f 
     f f f f f f f f f f f f f f f f 
     f f f f f f f f f f f f f f f f 
@@ -386,7 +386,7 @@ namespace icondb {
     f f f e 2 2 e 2 2 e 2 2 e f f f 
     f f f f e e f e e f e e f f f f 
     `
-    function renderImg(i: Image) {
+    function renderImg(i: Bitmap) {
         let r = ""
         for (let y = 0; y < i.height; ++y) {
             let line = ""
@@ -403,7 +403,7 @@ namespace icondb {
         tempo: 0,
     })
     */
-    export const melodyEditor = img`
+    export const melodyEditor = bmp`
     1111111111111111
     111111111ff11111
     11111111fcc11111
@@ -422,7 +422,7 @@ namespace icondb {
     fcc111111111fcc1    
     `
 
-    export const disk = img`
+    export const disk = bmp`
     . . . . . . . . . . . . . . . .
     . . 8 d d d d 8 8 d d 8 . . . .
     . . 8 d d d d 8 8 d d 8 8 . . .
@@ -441,7 +441,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
 `
 
-    export const disk1 = img`
+    export const disk1 = bmp`
     . . . . . . . . . . . . . . . .
     . . 8 d d d d 8 8 d d 8 . . . .
     . . 8 d d d d 8 8 d d 8 8 . . .
@@ -460,7 +460,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
 `
 
-    export const disk2 = img`
+    export const disk2 = bmp`
     . . . . . . . . . . . . . . . .
     . . 8 d d d d 8 8 d d 8 . . . .
     . . 8 d d d d 8 8 d d 8 8 . . .
@@ -479,7 +479,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
 `
 
-    export const disk3 = img`
+    export const disk3 = bmp`
     . . . . . . . . . . . . . . . .
     . . 8 d d d d 8 8 d d 8 . . . .
     . . 8 d d d d 8 8 d d 8 8 . . .
@@ -498,7 +498,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
 `
 
-    export const largeDiskIcon = img`
+    export const largeDiskIcon = bmp`
     .666666666666666666666666666666.
     66666666666666666666666666666666
     66666666666666666666666666666666
@@ -534,7 +534,7 @@ namespace icondb {
     .bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.
 `
 
-    export const MISSING = img`
+    export const MISSING = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
@@ -553,7 +553,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
     `
 
-    export const solid_red = img`
+    export const solid_red = bmp`
     . . . . . . . . . . . . . . . .
     . . . 2 2 2 2 2 2 2 2 2 2 . . .
     . . 2 2 4 4 4 4 4 4 4 4 2 2 . .
@@ -572,7 +572,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
 `
 
-    export const solid_black = img`
+    export const solid_black = bmp`
     . . . . . . . . . . . . . . . .
     . . . c c c c c c c c c c . . .
     . . c c f f f f f f f f c c . .
@@ -591,7 +591,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
 `
 
-    export const arm_open = img`
+    export const arm_open = bmp`
     . . . . . . . . . . c c c . . .
     . . . . . . . . c c b b b c c .
     . . . . . . . c b b b b b b b c
@@ -610,7 +610,7 @@ namespace icondb {
     . . . . . . . . . . c c c . . .
     `
 
-    export const arm_close = img`
+    export const arm_close = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     . . . . . c c c c c c c c c . .
@@ -631,7 +631,7 @@ namespace icondb {
     ///
     /// BUTTON ICONS
     ///
-    export const btn_stop = img`
+    export const btn_stop = bmp`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -650,7 +650,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . . 
     `
 
-    export const btn_delete = img`
+    export const btn_delete = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . c f f . . . . . . .
         . . . . . c . . . f . . . . . .
@@ -669,7 +669,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
     `
 
-    export const btn_plus = img`
+    export const btn_plus = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
@@ -688,7 +688,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
     `
 
-    export const arith_plus = img`
+    export const arith_plus = bmp`
     . . . . . . . .
     . . . f f . . .
     . . . f f . . .
@@ -699,7 +699,7 @@ namespace icondb {
     . . . . . . . .
 `
 
-    export const arith_equals = img`
+    export const arith_equals = bmp`
     . . . . . . . .
     . f f f f f f .
     . f f f f f f .
@@ -711,7 +711,7 @@ namespace icondb {
 
 `
 
-    export const loop = img`
+    export const loop = bmp`
     4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
     4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
     4 4 4 f f f f 4 4 4 4 4 4 4 4 4 
@@ -730,7 +730,7 @@ namespace icondb {
     4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 
         `
 
-    export const btn_when_insertion_point = img`
+    export const btn_when_insertion_point = bmp`
     dddddddddddddddddd
     dcddcddcddcddcddcd
     dddddddddddddddddd
@@ -751,7 +751,7 @@ namespace icondb {
     dddddddddddddddddd
     `
 
-    export const btn_do_insertion_point = img`
+    export const btn_do_insertion_point = bmp`
     bbbbbbbbbbbbbbbbbb
     bdbbdbbdbbdbbdbbdb
     bbbbbbbbbbbbbbbbbb
@@ -772,7 +772,7 @@ namespace icondb {
     bbbbbbbbbbbbbbbbbb
     `
 
-    export const rule_arrow = img`
+    export const rule_arrow = bmp`
     d d d . . . . . . . . . . .
     d d d d . . . . . . . . . .
     d d d d d . . . . . . . . .
@@ -795,7 +795,7 @@ namespace icondb {
     d d d . . . . . . . . . . .
 `
 
-    export const showScreen = img`
+    export const showScreen = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . 2 4 . .
         . . . . 2 . . . . . . 2 4 4 2 .
@@ -814,7 +814,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
 `
 
-    export const showNumber = img`
+    export const showNumber = bmp`
     . . . . . . . . . . 4 4 4 4 4 4
     . . . . . . . . . 4 5 5 5 5 5 5
     . . . . 2 . . . 4 5 4 4 4 4 4 4
@@ -837,7 +837,7 @@ namespace icondb {
     /// GENERIC LANGUAGE TILES (NOT HARDWARE SPECIFIC)
     ///
 
-    export const rule_handle = img`
+    export const rule_handle = bmp`
         . f f f f f f f .
         f 1 1 1 1 1 1 1 f
         f 1 1 1 1 1 1 1 f
@@ -849,7 +849,7 @@ namespace icondb {
         . f f f f f f f .
     `
 
-    export const tile_switch_page = img`
+    export const tile_switch_page = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . f f f f . . . . . . .
@@ -868,7 +868,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
     `
 
-    export const tile_start_page = img`
+    export const tile_start_page = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
@@ -887,7 +887,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . . 
     `
 
-    export const tile_page_1 = img`
+    export const tile_page_1 = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . f f f f f f f . . .
@@ -905,7 +905,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const tile_page_2 = img`
+    export const tile_page_2 = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . f f f f f f f . . .
@@ -923,7 +923,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const tile_page_3 = img`
+    export const tile_page_3 = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . f f f f f f f . . .
@@ -941,7 +941,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const tile_page_4 = img`
+    export const tile_page_4 = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . f f f f f f f . . .
@@ -959,7 +959,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const tile_page_5 = img`
+    export const tile_page_5 = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . f f f f f f f . . .
@@ -981,7 +981,7 @@ namespace icondb {
     ///
     /// HARDWARE-SPECIFIC LANGUAGE TILES
     ///
-    export const tile_button_a = img`
+    export const tile_button_a = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . 8 . . .
@@ -999,7 +999,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const tile_button_b = img`
+    export const tile_button_b = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . 8 8 8 8 8 8 8 8 8 8 8 . . .
@@ -1017,7 +1017,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const tile_timer = img`
+    export const tile_timer = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . . f . . . . . . . .
@@ -1035,7 +1035,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const tile_timespan_short = img`
+    export const tile_timespan_short = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . b b b b b b b b b b . . .
@@ -1053,7 +1053,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const tile_timespan_long = img`
+    export const tile_timespan_long = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . b b b b b b b b b b . . .
@@ -1071,7 +1071,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const tile_timespan_fiveSeconds = img`
+    export const tile_timespan_fiveSeconds = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . b b b b b b b b b b . . .
@@ -1089,7 +1089,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const tile_timespan_random = img`
+    export const tile_timespan_random = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . b b b b b b b b b b . . .
@@ -1107,7 +1107,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const tile_pin_0 = img`
+    export const tile_pin_0 = bmp`
         . . 4 5 4 d . . . . 4 5 4 d . .
         . . 4 5 4 d . . . . 4 5 4 d . .
         . . 4 5 4 d . . . . 4 5 4 d . .
@@ -1125,7 +1125,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const tile_pin_1 = img`
+    export const tile_pin_1 = bmp`
         . . 4 5 4 d . . . . 4 5 4 d . .
         . . 4 5 4 d . . . . 4 5 4 d . .
         . . 4 5 4 d . . . . 4 5 4 d . .
@@ -1143,7 +1143,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const tile_pin_2 = img`
+    export const tile_pin_2 = bmp`
         . . 4 5 4 d . . . . 4 5 4 d . .
         . . 4 5 4 d . . . . 4 5 4 d . .
         . . 4 5 4 d . . . . 4 5 4 d . .
@@ -1162,7 +1162,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
     `
 
-    export const radio_value = img`
+    export const radio_value = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . 8 . . . 8 . . . . . .
     . . . 8 . . 8 8 8 . . 8 . . . .
@@ -1180,7 +1180,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
 `
-    export const radio_receive = img`
+    export const radio_receive = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . 8 . . . 8 . . . . . .
     . . . 8 . . 8 8 8 . . 8 . . . .
@@ -1198,7 +1198,7 @@ namespace icondb {
     . . . . . . . 4 . . . . . . . .
     . . . . . . . . . . . . . . . .
 `
-    export const radio_send = img`
+    export const radio_send = bmp`
     . . . . . . . . . . . . . . . .
     . . . . 8 8 8 8 8 8 8 . . . . .
     . . . 8 . . . . . . . 8 . . . .
@@ -1217,7 +1217,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
 `
 
-    export const radio_set_group = img`
+    export const radio_set_group = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . 8 . . . 8 . . . . . .
     . . . 8 . . 8 8 8 . . 8 . . . .
@@ -1236,7 +1236,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
 `
 
-    export const microbit_logo = img`
+    export const microbit_logo = bmp`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -1254,7 +1254,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
 `
-    export const microbit_logo_btn = img`
+    export const microbit_logo_btn = bmp`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -1273,7 +1273,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
 `
 
-    export const finger_press = img`
+    export const finger_press = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . f . . . . . . . .
         . . . . . . . f . . . . . . . .
@@ -1291,7 +1291,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const finger_release = img`
+    export const finger_release = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . f . . . . . . . .
         . . . . . . f f f . . . . . . .
@@ -1309,7 +1309,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const tile_color_black = img`
+    export const tile_color_black = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . 1 1 1 1 1 . . . . . .
     . . . 1 1 f f f f f b b . . . .
@@ -1327,7 +1327,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     `
-    export const tile_color_red = img`
+    export const tile_color_red = bmp`
     . . . . . . . . . . . . . . . . 
     . . . . . 1 1 1 1 1 . . . . . . 
     . . . 1 1 2 2 2 2 2 b b . . . . 
@@ -1345,7 +1345,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `
-    export const tile_color_blue = img`
+    export const tile_color_blue = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . 1 1 1 1 1 . . . . . .
     . . . 1 1 8 8 8 8 8 b b . . . .
@@ -1363,7 +1363,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     `
-    export const tile_sparkle = img`
+    export const tile_sparkle = bmp`
     c c c c c c c c c c c c c c c c
     c c d c c c c c c c c c c c c c
     c d 1 d c c c c c c c c c d c c
@@ -1382,7 +1382,7 @@ namespace icondb {
     c c c c c c c c c c c c c c c c
     `
 
-    export const tile_rainbow = img`
+    export const tile_rainbow = bmp`
     . . . . . . . . . . . . . . . . 
     . . 2 2 2 2 2 2 2 2 2 2 2 2 . . 
     . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . 
@@ -1401,7 +1401,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .     
     `
 
-    export const tile_color_green = img`
+    export const tile_color_green = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . 1 1 1 1 1 . . . . . .
     . . . 1 1 7 7 7 7 7 b b . . . .
@@ -1419,7 +1419,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     `
-    export const tile_color_magenta = img`
+    export const tile_color_magenta = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . 1 1 1 1 1 . . . . . .
     . . . 1 1 a a a a a b b . . . .
@@ -1437,7 +1437,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     `
-    export const tile_color_yellow = img`
+    export const tile_color_yellow = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . 1 1 1 1 1 . . . . . .
     . . . 1 1 5 5 5 5 5 b b . . . .
@@ -1457,7 +1457,7 @@ namespace icondb {
     `
 
     /*
-    export const tile_coin_1 = img`
+    export const tile_coin_1 = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . 4 4 4 4 4 . . . . . .
     . . . 4 4 5 5 5 5 5 4 4 . . . .
@@ -1475,7 +1475,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
 `
-    export const tile_coin_2 = img`
+    export const tile_coin_2 = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . 4 4 4 4 4 . . . . . .
     . . . 4 4 5 5 5 5 5 4 4 . . . .
@@ -1493,7 +1493,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
 `
-    export const tile_coin_3 = img`
+    export const tile_coin_3 = bmp`
 . . . . . . . . . . . . . . . .
 . . . . . 4 4 4 4 4 . . . . . .
 . . . 4 4 5 5 5 5 5 4 4 . . . .
@@ -1512,7 +1512,7 @@ namespace icondb {
 . . . . . . . . . . . . . . . .
 `
 
-    export const tile_coin_5 = img`
+    export const tile_coin_5 = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . 4 4 4 4 4 . . . . . .
     . . . 4 4 5 5 5 5 5 4 4 . . . .
@@ -1530,7 +1530,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .`
 
-    export const tile_coin_4 = img`
+    export const tile_coin_4 = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . 4 4 4 4 4 . . . . . .
     . . . 4 4 5 5 5 5 5 4 4 . . . .
@@ -1550,7 +1550,7 @@ namespace icondb {
 `
 */
 
-    export const rgbLed = img`
+    export const rgbLed = bmp`
     . . . . f f f f f f f . . . . . 
     . . f f f 4 4 f 9 9 f f f . . . 
     . f 5 5 f 4 4 f 9 9 f b b f . . 
@@ -1569,7 +1569,7 @@ namespace icondb {
     . . . . d b b b b b b d d 4 4 . 
 `
 
-    export const magnet = img`
+    export const magnet = bmp`
     . . . . . . . . . . . . 6 . . . 
     . . . . . . . . . . 6 . . . 6 . 
     . . . . . . . . . . . . . . . . 
@@ -1587,7 +1587,7 @@ namespace icondb {
     . . . . . . . . . . . . . 5 5 4 
     . . . . . . . . . . 6 . . 4 4 .   
 `
-    export const thermometer = img`
+    export const thermometer = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . f . . . . . . . .
     . . . . . . f d f . . . . . . .
@@ -1606,7 +1606,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
 `
 
-    export const temp_warmer = img`
+    export const temp_warmer = bmp`
 . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . .
 . . . . . . . f . . . . . . . .
@@ -1625,7 +1625,7 @@ namespace icondb {
 . . . . . . . . . . . . . . . .
 `
 
-    export const temp_colder = img`
+    export const temp_colder = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     . . . . . f f f f f . . . . . .
@@ -1644,7 +1644,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
 `
 
-    export const led_light_sensor = img`
+    export const led_light_sensor = bmp`
 . . . . . . . . . . . . . . . .
 . . 8 8 8 8 5 5 5 8 8 8 8 . . .
 . . 8 8 8 5 4 4 4 5 8 8 8 . . .
@@ -1663,7 +1663,7 @@ namespace icondb {
 . . . . . . . . . . . . . . . .
 `
 
-    export const light_sensor = img`
+    export const light_sensor = bmp`
 . . . . . . . . . . . . . . . .
 . . 8 8 8 8 5 5 5 8 8 8 8 . . .
 . . 8 8 8 5 4 4 4 5 8 8 8 . . .
@@ -1682,7 +1682,7 @@ namespace icondb {
 . . . . . . . . . . . . . 4 4 .
 `
 
-    export const microphone = img`
+    export const microphone = bmp`
 . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . .
 . . . . . . . b c . . . . . . .
@@ -1701,7 +1701,7 @@ namespace icondb {
 . . . . . . . . . . . . . . . .
 `
 
-    export const speaker = img`
+    export const speaker = bmp`
 . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . .
@@ -1720,7 +1720,7 @@ namespace icondb {
 . . . . . . . . . . . . . . . .
 `
 
-    export const speakerFun = img`
+    export const speakerFun = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . . 3 . . . 5 . . .
     . . . . . . . 3 . . . . . . 2 .
@@ -1739,7 +1739,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
 `
 
-    export const music = img`
+    export const music = bmp`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -1757,7 +1757,7 @@ namespace icondb {
     . . . b b b . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
 `
-    export const note_on = img`
+    export const note_on = bmp`
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1 1 1 1 1 1 1 c c c c 1 1 1 1 1
 1 1 1 1 1 1 c f f f f c 1 1 1 1
@@ -1776,7 +1776,7 @@ namespace icondb {
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 `
 
-    export const note_off = img`
+    export const note_off = bmp`
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
@@ -1795,7 +1795,7 @@ namespace icondb {
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 `
 
-    export const accelerometer = img`
+    export const accelerometer = bmp`
 . . . . . . . . . . . . . . . .
 . . . . . . . . 8 . . . . . . .
 . . . . . . . 8 8 8 . . . . . .
@@ -1814,7 +1814,7 @@ namespace icondb {
 . . . . . . . . . . . . . . . .
 `
 
-    export const soundGiggle = img`
+    export const soundGiggle = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . 4 4 4 4 4 . . . . . .
@@ -1832,7 +1832,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const soundHappy = img`
+    export const soundHappy = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . 4 4 4 4 4 . . . . . .
@@ -1850,7 +1850,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const soundHello = img`
+    export const soundHello = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . 8 8 8 . .
@@ -1868,7 +1868,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const soundMysterious = img`
+    export const soundMysterious = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . 6 6 6 6 6 6 . . . . . .
@@ -1886,7 +1886,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const soundSad = img`
+    export const soundSad = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . 4 4 4 4 4 . . . . . .
@@ -1904,7 +1904,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const soundSlide = img`
+    export const soundSlide = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
@@ -1922,7 +1922,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const soundSoaring = img`
+    export const soundSoaring = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . 9 9 9 9 9 . . . . . .
@@ -1940,7 +1940,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const soundSpring = img`
+    export const soundSpring = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . 2 d . . . . . . . . . . .
@@ -1958,7 +1958,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const soundTwinkle = img`
+    export const soundTwinkle = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . 3 . . . 3 . . . 3 . . . .
@@ -1976,7 +1976,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const soundYawn = img`
+    export const soundYawn = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . 4 4 4 4 4 . . . . . .
@@ -1995,7 +1995,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
     `
 
-    export const moveShake = img`
+    export const moveShake = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . 8 . . 8 . .
@@ -2014,7 +2014,7 @@ namespace icondb {
         . . . . . . . . . . . . . . . .
     `
 
-    export const moveTiltDown = img`
+    export const moveTiltDown = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     . . . . . . . 8 8 8 8 . . . . .
@@ -2032,7 +2032,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
 `
-    export const moveTiltUp = img`
+    export const moveTiltUp = bmp`
 . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     . . . . . . 8 8 8 8 . . . . . .
@@ -2050,7 +2050,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
 `
-    export const moveTiltLeft = img`
+    export const moveTiltLeft = bmp`
 . . . . . . . . . . . . . . . .
     . . . . . . . . . . 8 . . . . .
     . . . . . . f f . 8 8 . . . . .
@@ -2068,7 +2068,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
 `
-    export const moveTiltRight = img`
+    export const moveTiltRight = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . 8 . . . . . . . . . .
     . . . . . 8 8 . f f . . . . . .
@@ -2087,7 +2087,7 @@ namespace icondb {
     . . . . . . . . . . . . . . . .
 `
 
-    export const moveFaceUp = img`
+    export const moveFaceUp = bmp`
 . . . . . . . . . . . . . . . .
 . . . . . . . 8 . . . . . . . .
 . . . . . . 8 8 8 . . . . . . .
@@ -2105,7 +2105,7 @@ f f f f f f f f f f f f f f f .
 . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . .
 `
-    export const moveFaceDown = img`
+    export const moveFaceDown = bmp`
 . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . .
@@ -2124,7 +2124,7 @@ f f f f f f f f f f f f f f f .
 . . . . . . . . . . . . . . . .
 `
 
-    export const diceToss = img`
+    export const diceToss = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     . . . . . b b b b b b b b . . .
@@ -2142,7 +2142,7 @@ f f f f f f f f f f f f f f f .
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .`
 
-    export const cupXread = img`
+    export const cupXread = bmp`
 . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . .
@@ -2160,7 +2160,7 @@ f f f f f f f f f f f f f f f .
 . . . d 1 d f d f d d b . . . .
 . . . . 1 d d d d d d . . . . .
 `
-    export const cupYread = img`
+    export const cupYread = bmp`
 . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . .
@@ -2178,7 +2178,7 @@ f f f f f f f f f f f f f f f .
 . . . d 1 d d f d d d b . . . .
 . . . . 1 d d d d d d . . . . .
 `
-    export const cupZread = img`
+    export const cupZread = bmp`
 . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . .
@@ -2196,7 +2196,7 @@ f f f f f f f f f f f f f f f .
 . . . d 1 d f f f d d b . . . .
 . . . . 1 d d d d d d . . . . .
 `
-    export const cupXassign = img`
+    export const cupXassign = bmp`
 . . . . . . . . . 4 4 4 4 4 4 4
 . . . . . . . . 4 5 5 5 5 5 5 5
 . . . . . . . 4 5 4 4 4 4 4 4 4
@@ -2214,7 +2214,7 @@ f f f f f f f f f f f f f f f .
 . . . d 1 d f d f d d b . . . .
 . . . . 1 d d d d d d . . . . .
 `
-    export const cupYassign = img`
+    export const cupYassign = bmp`
 . . . . . . . . . 4 4 4 4 4 4 4
 . . . . . . . . 4 5 5 5 5 5 5 5
 . . . . . . . 4 5 4 4 4 4 4 4 4
@@ -2232,7 +2232,7 @@ f f f f f f f f f f f f f f f .
 . . . d 1 d d f d d d b . . . .
 . . . . 1 d d d d d d . . . . .
 `
-    export const cupZassign = img`
+    export const cupZassign = bmp`
 . . . . . . . . . 4 4 4 4 4 4 4
 . . . . . . . . 4 5 5 5 5 5 5 5
 . . . . . . . 4 5 4 4 4 4 4 4 4
@@ -2250,7 +2250,7 @@ f f f f f f f f f f f f f f f .
 . . . d 1 d f f f d d b . . . .
 . . . . 1 d d d d d d . . . . .
 `
-    export const cupXwritten = img`
+    export const cupXwritten = bmp`
 4 4 4 4 4 4 4 . . . . . . . . .
 5 5 5 5 5 5 5 4 . . . . . . . .
 4 4 4 4 4 4 4 5 4 . . . . . . .
@@ -2268,7 +2268,7 @@ f f f f f f f f f f f f f f f .
 . . . d 1 d f d f d d b . . . .
 . . . . 1 d d d d d d . . . . .
 `
-    export const cupYwritten = img`
+    export const cupYwritten = bmp`
 4 4 4 4 4 4 4 . . . . . . . . .
 5 5 5 5 5 5 5 4 . . . . . . . .
 4 4 4 4 4 4 4 5 4 . . . . . . .
@@ -2286,7 +2286,7 @@ f f f f f f f f f f f f f f f .
 . . . d 1 d d f d d d b . . . .
 . . . . 1 d d d d d d . . . . .
 `
-    export const cupZwritten = img`
+    export const cupZwritten = bmp`
 4 4 4 4 4 4 4 . . . . . . . . .
 5 5 5 5 5 5 5 4 . . . . . . . .
 4 4 4 4 4 4 4 5 4 . . . . . . .
@@ -2305,7 +2305,7 @@ f f f f f f f f f f f f f f f .
 . . . . 1 d d d d d d . . . . .
 `
 
-    export const largeEditIcon = img`
+    export const largeEditIcon = bmp`
     .666666666666666666666666666666.
     66666666666666666666666666666666
     66666666666666666666666666666666
@@ -2341,7 +2341,7 @@ f f f f f f f f f f f f f f f .
     .bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.
 `
 
-    export const largeNewProgramIcon = img`
+    export const largeNewProgramIcon = bmp`
     .11111111..............11111111.
     1bbbbbbbb..............bbbbbbbb1
     1..............................1
@@ -2377,7 +2377,7 @@ f f f f f f f f f f f f f f f .
     .bbbbbbbb..............bbbbbbbb.
 `
 
-    export const sampleFlashingHeart = img`
+    export const sampleFlashingHeart = bmp`
     .ffffffffffffffffffffffffffffff.
     ffffffffffffffffffffffffffffffff
     fffffffffffffffffffffff2ffffffff
@@ -2412,7 +2412,7 @@ f f f f f f f f f f f f f f f .
     bffffffffffffffffffffffffffffffb
     .bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.
 `
-    export const sampleSmileyButtons = img`
+    export const sampleSmileyButtons = bmp`
     .111111111111111111111111111111.
     11111111111111111111111111111111
     11111111111111111111111111111111
@@ -2448,7 +2448,7 @@ f f f f f f f f f f f f f f f .
     .bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.
 `
     /*
-    export const sampleDice = img`
+    export const sampleDice = bmp`
     .111111111111111111111111111111.
     11111111111111111111111111111111
     11111111111111111111111111111111
@@ -2484,7 +2484,7 @@ f f f f f f f f f f f f f f f .
     .bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.
 `*/
 
-    export const sampleFirefly = img`
+    export const sampleFirefly = bmp`
 .ffffffffffffffffffffffffffffff.
 ffffffffffffffffffffffffffffffff
 ffffffffffffffffffffffffffffffff
@@ -2519,7 +2519,7 @@ ffffffffffffffffffffffffffffffff
 bffffffffffffffffffffffffffffffb
 ..bbbbbbbbbbbbbbbbbbbbbbbbbbbbb.
 `
-    export const sampleClapLights = img`
+    export const sampleClapLights = bmp`
     .ffffffff8fffffffffffffffffffff.
     fffffffff8ffffffffffffffffffffff
     fffffffff8ffffffffffffffffffffff
@@ -2554,7 +2554,7 @@ bffffffffffffffffffffffffffffffb
     bffffffffffffffffffff4555555554b
     ..bbbbbbbbbbbbbbbbbbbbbbbbbbbbb.
 `
-    export const sampleRockPaperScissors = img`
+    export const sampleRockPaperScissors = bmp`
     .111111111111111111111111111111.
     11111111111111111111111111111111
     11111111111111111111111111111111
@@ -2589,7 +2589,7 @@ bffffffffffffffffffffffffffffffb
     b111111111111111111111111111111b
     .bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.
 `
-    export const sampleTeleportDuck = img`
+    export const sampleTeleportDuck = bmp`
     .111111111111111111111111111111.
     11111111111111111111111111111111
     11111111111111116111111111111111
@@ -2624,7 +2624,7 @@ bffffffffffffffffffffffffffffffb
     b111111111111111111111111111111b
     .bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.
 `
-    export const samplePetHamster = img`
+    export const samplePetHamster = bmp`
     .999999999999999999999999999999.
     99999999999999999999999999999999
     99999999999999999999999999999999
@@ -2660,7 +2660,7 @@ bffffffffffffffffffffffffffffffb
     .bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.
 `
 
-    export const sampleHeadsOrTails = img`
+    export const sampleHeadsOrTails = bmp`
     .111111111111111111111111111111.
     111111111fff11111111111111111111
     11111111f11111111111111111111111
@@ -2696,7 +2696,7 @@ bffffffffffffffffffffffffffffffb
     .bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.
 `
 
-    export const sampleReactionTime = img`
+    export const sampleReactionTime = bmp`
     .ffffffffffffffffffff455555554f.
     fffffffffffffffff1ff455555554fff
     fffffffffff1fffff1ff45555554ffff
@@ -2731,7 +2731,7 @@ bffffffffffffffffffffffffffffffb
     bddddddddddddddddddddddddddddddb
     .bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.
 `
-    export const sampleHotPotato = img`
+    export const sampleHotPotato = bmp`
     .ffffffffffffffffffffffffffffff.
     ffffffffffffffff5fffffffffffffff
     ffffffffffffffff55ffffffffffffff
@@ -2767,7 +2767,7 @@ bffffffffffffffffffffffffffffffb
     .bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.
 `
 
-    export const sampleRailCrossingLight = img`
+    export const sampleRailCrossingLight = bmp`
     .999999991999999999999999999999.
     99999999999999199999999919999999
     9999ccccc99999999999999999991999
@@ -2802,7 +2802,7 @@ bffffffffffffffffffffffffffffffb
     b7777ccceeeeeeeeeeeeeeeeeeeee554
     .bbbbbbbbbbbbbbbbbbbbbbbbbbbb44.
     `
-    export const settingsGear = img`
+    export const settingsGear = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . d d . . . . . . .
     . . . d d . d b b c . d d . . .
@@ -2821,7 +2821,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . . . . . . . . . . . .
 `
 
-    const one = img`
+    const one = bmp`
 . . . . . .
 . . f f . .
 . f f f . .
@@ -2832,7 +2832,7 @@ bffffffffffffffffffffffffffffffb
 . . . . . .
 `
 
-    const two = img`
+    const two = bmp`
 . . . . . .
 . . f f . .
 . f . . f .
@@ -2842,7 +2842,7 @@ bffffffffffffffffffffffffffffffb
 . f f f f .
 . . . . . .
 `
-    const three = img`
+    const three = bmp`
 . . . . . .
 . f f f . .
 . . . . f .
@@ -2852,7 +2852,7 @@ bffffffffffffffffffffffffffffffb
 . f f f . .
 . . . . . .
 `
-    const four = img`
+    const four = bmp`
 . . . . . .
 . f . . f .
 . f . . f .
@@ -2862,7 +2862,7 @@ bffffffffffffffffffffffffffffffb
 . . . . f .
 . . . . . .
 `
-    const five = img`
+    const five = bmp`
 . . . . . .
 . f f f f .
 . f . . . .
@@ -2873,7 +2873,7 @@ bffffffffffffffffffffffffffffffb
 . . . . . .
 `
 
-    export const servo_power = img`
+    export const servo_power = bmp`
 . . . . . . . . . . . . . . . .
 . . . 8 8 8 . . . . . 7 7 . . .
 . . 8 8 8 8 8 . . . 7 7 7 7 . .
@@ -2892,7 +2892,7 @@ bffffffffffffffffffffffffffffffb
 . . . . . . . . . . . . . 4 4 .
 `
 
-    export const servo_set_angle = img`
+    export const servo_set_angle = bmp`
     . . . . . . . . . . . . . . . . 
     . . . 8 8 8 . . . . 4 . . . . . 
     . . 8 8 8 8 8 . . . 2 . . . . . 
@@ -2911,7 +2911,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . . . . . . . b . 4 4 . 
     `
 
-    export const blocks1 = img`
+    export const blocks1 = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
@@ -2930,7 +2930,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . . . . . . . . . . . .
 `
 
-    export const blocks2 = img`
+    export const blocks2 = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
@@ -2948,7 +2948,7 @@ bffffffffffffffffffffffffffffffb
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const blocks3 = img`
+    export const blocks3 = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
@@ -2966,7 +2966,7 @@ bffffffffffffffffffffffffffffffb
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const blocks4 = img`
+    export const blocks4 = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
@@ -2984,7 +2984,7 @@ bffffffffffffffffffffffffffffffb
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const blocks5 = img`
+    export const blocks5 = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
@@ -3002,7 +3002,7 @@ bffffffffffffffffffffffffffffffb
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const kita_slider = img`
+    export const kita_slider = bmp`
         . . . . . . 6 6 6 6 6 . . . . .
         . . . . . 6 6 6 f 6 6 6 . . . .
         . . . . . 6 6 f f f 6 6 . . . .
@@ -3020,7 +3020,7 @@ bffffffffffffffffffffffffffffffb
         . . . . . 6 6 6 f 6 6 6 . 5 5 4
         . . . . . . 6 6 6 6 6 . . 4 4 .
     `
-    export const reflected_light_sensor = img`
+    export const reflected_light_sensor = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     . . f f f f f d d d d d . . . .
@@ -3039,7 +3039,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . . . . . . . . . 4 4 .
 `
 
-    export const kita_key_1 = img`
+    export const kita_key_1 = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . 6 6 6 6 6 6 6 6 . . . . .
@@ -3057,7 +3057,7 @@ bffffffffffffffffffffffffffffffb
         . . . . . . . . . . . . . 5 5 4
         . . . . . . . . . . . . . 4 4 .
     `
-    export const kita_key_2 = img`
+    export const kita_key_2 = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . 6 6 6 6 6 6 6 6 . . . . .
@@ -3076,7 +3076,7 @@ bffffffffffffffffffffffffffffffb
         . . . . . . . . . . . . . 4 4 .
     `
 
-    export const kita_rotary = img`
+    export const kita_rotary = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . 6 6 6 6 6 6 6 . . . . .
@@ -3095,7 +3095,7 @@ bffffffffffffffffffffffffffffffb
         . . . . . . . . . . . . . 4 4 .
     `
 
-    export const kita_rotary_left = img`
+    export const kita_rotary_left = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
@@ -3114,7 +3114,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . . . . . . . . . . . .
 `
 
-    export const kita_rotary_right = img`
+    export const kita_rotary_right = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
@@ -3133,7 +3133,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . . . . . . . . . . . .
 `
 
-    export const car = img`
+    export const car = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     . . . . f f f f f f f f . . . .
@@ -3152,7 +3152,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . . . . . . . . . . . .
 `
 
-    export const car_forward = img`
+    export const car_forward = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . c . . . . . . . .
     . . . . . . c 7 c . . . . . . .
@@ -3170,7 +3170,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
 `
-    export const car_forward_fast = img`
+    export const car_forward_fast = bmp`
     . . . . . . . c . . . . . . . .
     . . . . . . c 7 c . . . . . . .
     . . . . . c 7 7 7 c . . . . . .
@@ -3189,7 +3189,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . c 7 7 7 c d . . . . .    
     `
 
-    export const car_reverse = img`
+    export const car_reverse = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     . . . . . . c c c c c . . . . .
@@ -3208,7 +3208,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . . . . . . . . . . . .
 `
 
-    export const car_left_turn = img`
+    export const car_left_turn = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . c c c . . . . . . . .
     . . . . c 7 7 c . . . . . . . .
@@ -3227,7 +3227,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . . . . . . . . . . . .
 `
 
-    export const car_left_spin = img`
+    export const car_left_spin = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     . . . . . c c c c c . . . . . .
@@ -3246,7 +3246,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . . . . . . . . . . . .    
     `
 
-    export const car_right_turn = img`
+    export const car_right_turn = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . . c c c . . . . .
     . . . . . . . . c 7 7 c . . . .
@@ -3265,7 +3265,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . . . . . . . . . . . .
 `
 
-    export const car_right_spin = img`
+    export const car_right_spin = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     . . . . . c c c c c . . . . . .
@@ -3284,7 +3284,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . . . . . . . . . . . .    
     `
 
-    export const car_stop = img`
+    export const car_stop = bmp`
 . . . . . . . . . . . . . . . . 
 . . . . . d d d d d d . . . . . 
 . . . . d 1 1 1 1 1 1 d . . . . 
@@ -3303,7 +3303,7 @@ bffffffffffffffffffffffffffffffb
 . . . . . . . . . . . . . . . . 
 `
 
-    export const car_wall = img`
+    export const car_wall = bmp`
     . . . . . . . . . . . . . . . .
     d d d d d d d d d d d d d d d d
     2 2 2 2 d 2 2 2 2 d 2 2 2 2 d 2
@@ -3322,7 +3322,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . . . . . f . . . . f .
 `
 
-    export const line_sensor = img`
+    export const line_sensor = bmp`
     . . . . . . . . . . . . . . . .
     . b d d d d c f f c d d d d b .
     . b d d d d c f f c d d d d b .
@@ -3340,7 +3340,7 @@ bffffffffffffffffffffffffffffffb
     . b d d d d c c f f f f f f f f
     . . . . . . . . . f . . . . f .
 `
-    export const line_neither_on = img`
+    export const line_neither_on = bmp`
 . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . .
@@ -3358,7 +3358,7 @@ bffffffffffffffffffffffffffffffb
 . d d . . . . . . . . . d d . .
 . . . . . . . . . . . . . . . .
 `
-    export const line_left_on = img`
+    export const line_left_on = bmp`
     . c f f f c . . . . . . . . . .
     . c f f f c . . . . . . . . . .
     . c f f f b . . . . . . . . . .
@@ -3375,7 +3375,7 @@ bffffffffffffffffffffffffffffffb
     . d 7 d f c . . . . . d 1 d . .
     . d d f f c . . . . . . d d . .
     . b f f f c . . . . . . . . . .`
-    export const line_right_on = img`
+    export const line_right_on = bmp`
     . . . . . . . . . c f f f c . .
     . . . . . . . . . c f f f c . .
     . . . . . . . . . b f f f c . .
@@ -3393,7 +3393,7 @@ bffffffffffffffffffffffffffffffb
     . d d . . . . . . c f f d d . .
     . . . . . . . . . c f f f b . .
 `
-    export const line_both_on = img`
+    export const line_both_on = bmp`
     . . . . . c f f f c . . . . . .
     . . . . . c f f f c . . . . . .
     . . . . . b f f f b . . . . . .
@@ -3412,7 +3412,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . c f f f c . . . . . .
 `
 
-    export const line_none_from_left = img`
+    export const line_none_from_left = bmp`
 . c f f f c . . . . . . . . . .
 . c f f f c . . . . . . . . . .
 . c f f f c . . . . . . . . . .
@@ -3431,7 +3431,7 @@ bffffffffffffffffffffffffffffffb
 . c f f f c . . . . . . . . . .
 `
 
-    export const line_none_from_right = img`
+    export const line_none_from_right = bmp`
     . . . . . . . . . . c f f f c .
     . . . . . . . . . . c f f f c .
     . . . . . . . . . . c f f f c .
@@ -3450,7 +3450,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . . . . . . c f f f c .    
     `
 
-    export const distance_sensor = img`
+    export const distance_sensor = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . . . . . . . . . . . .
     . . . 6 6 6 . . . . 6 6 6 . . .
@@ -3469,7 +3469,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . . . . . . . . . 4 4 .
 `
 
-    export const soil_moisture = img`
+    export const soil_moisture = bmp`
     . . . . . . . . . . . . . . . .
     . . . . 8 . . . . . . . . . . .
     . . . . 9 8 . . . . . 8 . . . .
@@ -3488,7 +3488,7 @@ bffffffffffffffffffffffffffffffb
     . . . . . . . . . . . . . 4 4 .
 `
 
-    export const relay = img`
+    export const relay = bmp`
     . . . . . . . . . . . . . . . .
     . . . . . f f f f f f . . . . .
     . . . . f b b b b b b f . . . .
@@ -3508,7 +3508,7 @@ bffffffffffffffffffffffffffffffb
 `
 
     /* maybe use these later
-    export const rc_high = img`
+    export const rc_high = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
@@ -3526,7 +3526,7 @@ bffffffffffffffffffffffffffffffb
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const rc_low = img`
+    export const rc_low = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
@@ -3544,7 +3544,7 @@ bffffffffffffffffffffffffffffffb
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const rc_low_to_high = img`
+    export const rc_low_to_high = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
@@ -3562,7 +3562,7 @@ bffffffffffffffffffffffffffffffb
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const rc_high_to_low = img`
+    export const rc_high_to_low = bmp`
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
@@ -3580,7 +3580,7 @@ bffffffffffffffffffffffffffffffb
         . . . . . . . . . . . . . . . .
         . . . . . . . . . . . . . . . .
     `
-    export const loud = img`
+    export const loud = bmp`
 . . . . . . . . . . . . . . . .
 . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 .
 . 2 f f 2 2 2 2 2 2 f f f 2 2 .

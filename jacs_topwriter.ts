@@ -1374,7 +1374,7 @@ namespace jacs {
                 if (debugOut) console.log(bin.toHex())
                 microcode.profile()
                 console.log(`jacscript bytecode: ${bin.length}b`)
-                return jdc.deploy(bin)
+                return 0
             }
         }
 

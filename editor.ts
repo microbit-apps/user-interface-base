@@ -87,7 +87,7 @@ namespace microcode {
 
         public saveAndCompileProgram() {
             this.app.save(SAVESLOT_AUTO, this.progdef)
-            new jacs.TopWriter().emitProgram(this.progdef)
+            // new jacs.TopWriter().emitProgram(this.progdef)
         }
 
         private pickDiskSLot() {
@@ -356,7 +356,7 @@ namespace microcode {
                         this.app.popScene()
                         this.app.pushScene(new Home(this.app))
                         // back to home screen from editor, stop jacscript by running empty program
-                        jacs.stop()
+                        // jacs.stop()
                     }
                 } else {
                     if (this.navigator.atRuleStart()) {
@@ -491,7 +491,7 @@ namespace microcode {
                 this.diskBtn.draw()
                 const wasVisible = this.connectBtn.visible()
                 this.connectBtn.setVisible(
-                    jdc.numServiceInstances(jacs.ServiceClass.DotMatrix) == 0
+                    false // jdc.numServiceInstances(jacs.ServiceClass.DotMatrix) == 0
                 )
                 if (wasVisible !== this.connectBtn.visible()) this.changed()
                 if (this.connectBtn.visible()) this.connectBtn.draw()

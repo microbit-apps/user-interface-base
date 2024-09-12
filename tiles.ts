@@ -774,7 +774,7 @@ namespace microcode {
             return false
         const ext = jdExternalClass(tile)
         if (ext && !jacs.debugOut) {
-            const count = jdc.numServiceInstances(ext)
+            const count = 1 // jdc.numServiceInstances(ext)
             // special case for buttons, which already exist on micro:bit (6 of them)
             // we also have light sensor on board micro:bit (1 of them), as well as in Kit A
             return ext == jacs.ServiceClass.Button

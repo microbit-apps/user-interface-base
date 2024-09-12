@@ -3,10 +3,13 @@
     "version": "2.5.47",
     "description": "Physical computing library for micro:bit V2",
     "dependencies": {
-        "game---light": "*",
-        "device": "*",
-        "codal-jacdac-pxt": "github:microsoft/codal-jacdac/pxt#v2.2.3"
-    },
+        "core": "*",
+        "radio": "*",
+        "microphone": "*",
+        "datalogger": "*",
+        "settings": "*",
+        "pxt-arcadeshield": "github:microsoft/pxt-arcadeshield#v0.1.0"
+      },
     "files": [
         "analytics.ts",
         "config.ts",
@@ -31,14 +34,9 @@
         "affine.ts",
         "math.ts",
         "screen.ts",
-        "jacs_bytecode.ts",
-        "jacs_format.ts",
-        "jacs_stringify.ts",
-        "jacs_opwriter.ts",
-        "jacs_topwriter.ts",
-        "jacs_linker.ts",
         "binlib.ts",
         "version.ts",
+        "jacs.ts",
         "fieldeditors.ts",
         "navigator.ts",
         "cursorscene.ts",
@@ -49,17 +47,15 @@
         "pointerevents.ts",
         "tooltips.ts",
         "utils.ts",
-        "microbit-robot/protocol/protocol.ts"
+         "microbit-robot/protocol/protocol.ts"
     ],
     "testFiles": [],
     "targetVersions": {
-        "target": "1.10.10",
-        "targetId": "arcade"
+        "target": "7.1.2",
+        "targetId": "microbit"
     },
     "supportedTargets": [
-        "arcade"
+        "microbit"
     ],
-    "preferredEditor": "tsprj",
-    "disableTargetTemplateFiles": true,
-    "binaryonly": true
+    "preferredEditor": "tsprj"
 }

@@ -1,19 +1,19 @@
 // render cup icons
-const labelX = img`
+const labelX = bmp`
 f . f
 f . f
 . f .
 f . f
 f . f
 `
-const labelY = img`
+const labelY = bmp`
 f . f
 f . f
 . f .
 . f .
 . f .
 `
-const labelZ = img`
+const labelZ = bmp`
 f f f
 . . f
 . f .
@@ -21,7 +21,7 @@ f . .
 f f f
 `
 
-const cup = img`
+const cup = bmp`
 . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . .
 . . . . . . . . . . . . . . . .
@@ -40,7 +40,7 @@ const cup = img`
 . . . . 1 d d d d d d . . . . .
 `
 
-const inFromLeft = img`
+const inFromLeft = bmp`
 4 4 4 4 4 4 4 . . . . . . . . .
 5 5 5 5 5 5 5 4 . . . . . . . .
 4 4 4 4 4 4 4 5 4 . . . . . . .
@@ -51,7 +51,7 @@ const inFromLeft = img`
 . . . . . . 4 5 4 . . . . . . .
 `
 
-const inFromRight = img`
+const inFromRight = bmp`
 . . . . . . . . . 4 4 4 4 4 4 4
 . . . . . . . . 4 5 5 5 5 5 5 5
 . . . . . . . 4 5 4 4 4 4 4 4 4
@@ -62,7 +62,7 @@ const inFromRight = img`
 . . . . . . . 4 5 4 . . . . . .
 `
 
-const disk = img`
+const disk = bmp`
 . . . . . . . . . . . . . . . .
 . . 8 d d d d 8 8 d d 8 . . . .
 . . 8 d d d d 8 8 d d 8 8 . . .
@@ -82,7 +82,7 @@ const disk = img`
 `
 
 function makeLargeDisk() {
-    const ret = image.create(32, 33)
+    const ret = bitmap.create(32, 33)
     ret.fill(6)
     ret.drawTransparentImage(disk, 8, 8)
     ret.setPixel(0, 0, 0)
@@ -137,7 +137,7 @@ const h = [
 ]
 
 let src: string[] = []
-function render(i: Image, n: string) {
+function render(i: Bitmap, n: string) {
     src.push(`export const ${n} = img\``)
     for (let y = 0; y < i.height; ++y) {
         let l = ""

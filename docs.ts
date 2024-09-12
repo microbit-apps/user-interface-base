@@ -1,5 +1,5 @@
 namespace docs {
-    function imageToBuffer(img: Image) {
+    function imageToBuffer(img: Bitmap) {
         const w = img.width
         const h = img.height
         const buf = control.createBuffer(1 + w * h)
@@ -37,7 +37,7 @@ namespace docs {
     //% shim=TD_NOOP
     function _renderApp() {
         const images: RenderedImage[] = []
-        appendImage(images, "image", "home", screen)
+        appendImage(images, "image", "home", screen())
         renderIcons(images)
         const samples = renderSamples(images)
         appendImage(images, "image", "microcode", microcode.wordLogo)
@@ -114,8 +114,8 @@ namespace docs {
     }
 
     //% shim=TD_NOOP
-    function _renderProgram(): { [name: string]: Image } {
-        const r: { [name: string]: Image } = {}
+    function _renderProgram(): { [name: string]: Bitmap } {
+        const r: { [name: string]: Bitmap } = {}
         const loader = new microcode.Editor(app)
         loader.rendering = true
         app.pushScene(loader)
@@ -123,7 +123,7 @@ namespace docs {
 
         const pages = loader.nonEmptyPages()
 
-        let imgs: Image[] = []
+        let imgs: Bitmap[] = []
         let w = 0
         let h = 0
         const margin = 4
@@ -162,7 +162,7 @@ namespace docs {
             const rulesEditor = pageEditor.ruleEditors
             rulesEditor.forEach((ruleEditor, ri) => {
                 const bound = ruleEditor.bounds
-                const imgr = image.create(bound.width, bound.height)
+                const imgr = bitmap.create(bound.width, bound.height)
                 imgr.fill(loader.color)
                 imgr.blit(
                     0,
@@ -182,13 +182,13 @@ namespace docs {
             app.popScene()
         })
 
-        const res = image.create(w, h)
+        const res = bitmap.create(w, h)
         r["app"] = res
         res.fill(loader.color)
         let y = 0
         for (let i = 0; i < imgs.length; ++i) {
             const img = imgs[i]
-            res.drawTransparentImage(img, 0, y)
+            res.drawTransparentBitmap(img, 0, y)
             y += img.height + margin
         }
 
@@ -200,7 +200,7 @@ namespace docs {
         images: RenderedImage[],
         type: "icon" | "sample" | "icon_sample" | "image" | "program",
         name: string,
-        img: Image
+        img: Bitmap
     ) {
         const msg: RenderedImage = {
             type,

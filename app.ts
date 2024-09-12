@@ -17,15 +17,6 @@ namespace microcode {
 
                 controller.setRepeatDefault(250, 30)
                 keymap.setupKeys()
-
-                // start jacscript
-                jdc.setParameters(
-                    0x3e92f825,
-                    microcode.VERSION,
-                    "MicroCode on micro:bit V2"
-                )
-                jdc.start()
-
                 this.sceneManager = new SceneManager()
                 const home = new Home(this)
                 this.pushScene(home)

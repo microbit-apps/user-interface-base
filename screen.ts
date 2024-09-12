@@ -1,6 +1,6 @@
 namespace microcode {
     export class Screen {
-        private static image_: Image
+        private static image_: Bitmap
 
         public static WIDTH = screen.width
         public static HEIGHT = screen.height
@@ -43,7 +43,7 @@ namespace microcode {
         public static pos(v: Vec2) {
             return new Vec2(Screen.x(v.x), Screen.y(v.y))
         }
-        public static get image(): Image {
+        public static get image(): Bitmap {
             if (!Screen.image_) {
                 Screen.image_ = screen
                 Screen.updateBounds()
@@ -56,17 +56,17 @@ namespace microcode {
         }
 
         public static setImageSize(width: number, height: number) {
-            Screen.image_ = image.create(width, height)
+            Screen.image_ = bitmap.create(width, height)
             Screen.updateBounds()
         }
 
-        public static drawTransparentImage(from: Image, x: number, y: number) {
+        public static drawTransparentImage(from: Bitmap, x: number, y: number) {
             Screen.image.drawTransparentImage(from, Screen.x(x), Screen.y(y))
         }
 
         public static drawTransparentImageXfrm(
             xfrm: Affine,
-            from: Image,
+            from: Bitmap,
             x: number,
             y: number
         ) {

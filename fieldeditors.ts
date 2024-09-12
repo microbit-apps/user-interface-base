@@ -17,7 +17,7 @@ namespace microcode {
             onHide: () => void,
             onDelete?: () => void
         ): void {}
-        toImage(field: any): Image {
+        toImage(field: any): Bitmap {
             return undefined
         }
         toBuffer(field: any): Buffer {
@@ -37,7 +37,7 @@ namespace microcode {
         getField(): any {
             return null
         }
-        getIcon(): string | Image {
+        getIcon(): string | Bitmap {
             return null
         }
         getNewInstance(field: any = null): ModifierEditor {
@@ -50,7 +50,7 @@ namespace microcode {
 
     class IconFieldEditor extends FieldEditor {
         init() {
-            return img`
+            return bmp`
         . . . . .
         . 1 . 1 .
         . . . . . 
@@ -58,7 +58,7 @@ namespace microcode {
         . 1 1 1 .
         `
         }
-        clone(img: Image) {
+        clone(img: Bitmap) {
             return img.clone()
         }
         editor(
@@ -72,7 +72,7 @@ namespace microcode {
         toImage(field: any) {
             return icondb.renderMicrobitLEDs(field)
         }
-        toBuffer(img: Image) {
+        toBuffer(img: Bitmap) {
             const ret = Buffer.create(4)
             for (let index = 0; index < 25; index++) {
                 let byte = index >> 3
@@ -85,7 +85,7 @@ namespace microcode {
         }
         fromBuffer(br: BufferReader) {
             const buf = br.readBuffer(4)
-            const img = image.create(5, 5)
+            const img = bitmap.create(5, 5)
             for (let index = 0; index < 25; index++) {
                 let byte = index >> 3
                 let bit = index & 7
@@ -98,8 +98,8 @@ namespace microcode {
     }
 
     export class IconEditor extends ModifierEditor {
-        field: Image
-        constructor(field: Image = null) {
+        field: Bitmap
+        constructor(field: Bitmap = null) {
             super(Tid.TID_MODIFIER_ICON_EDITOR)
             this.fieldEditor = new IconFieldEditor()
             this.field = this.fieldEditor.clone(
@@ -111,7 +111,7 @@ namespace microcode {
             return this.field
         }
 
-        getIcon(): string | Image {
+        getIcon(): string | Bitmap {
             return this.firstInstance
                 ? getIcon(Tid.TID_MODIFIER_ICON_EDITOR)
                 : this.fieldEditor.toImage(this.field)
@@ -232,7 +232,7 @@ namespace microcode {
             return this.field
         }
 
-        getIcon(): string | Image {
+        getIcon(): string | Bitmap {
             return this.firstInstance
                 ? getIcon(Tid.TID_MODIFIER_MELODY_EDITOR)
                 : this.fieldEditor.toImage(this.field)
@@ -273,7 +273,7 @@ namespace microcode {
     }
 
     function iconEditor(
-        image5x5: Image,
+        image5x5: Bitmap,
         picker: Picker,
         onHide: () => void,
         onDelete?: () => void

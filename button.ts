@@ -120,7 +120,7 @@ namespace microcode {
             return xfrm
         }
 
-        public buildSprite(img: Image) {
+        public buildSprite(img: Bitmap) {
             this.icon = new Sprite({
                 parent: this,
                 img,
@@ -198,7 +198,7 @@ namespace microcode {
     }
 
     export class Button extends ButtonBase {
-        private iconId: string | Image
+        private iconId: string | Bitmap
         private _ariaId: string
         public onClick?: (button: Button) => void
 
@@ -225,7 +225,7 @@ namespace microcode {
         constructor(opts: {
             parent?: IPlaceable
             style?: ButtonStyle
-            icon: string | Image
+            icon: string | Bitmap
             ariaId?: string
             x: number
             y: number
@@ -252,7 +252,7 @@ namespace microcode {
                 ? icons.get(this.iconId)
                 : this.iconId
         }
-        public setIcon(iconId: string, img?: Image) {
+        public setIcon(iconId: string, img?: Bitmap) {
             this.iconId = iconId
             if (img) this.icon.setImage(img)
             else this.buildSprite(this.image_())
