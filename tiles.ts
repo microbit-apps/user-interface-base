@@ -773,7 +773,7 @@ namespace microcode {
         if (tid == Tid.TID_ACTUATOR_MICROPHONE || tid == Tid.TID_FILTER_ACCEL)
             return false
         const ext = jdExternalClass(tile)
-        if (ext && !jacs.debugOut) {
+        if (ext) {
             const count = 1 // jdc.numServiceInstances(ext)
             // special case for buttons, which already exist on micro:bit (6 of them)
             // we also have light sensor on board micro:bit (1 of them), as well as in Kit A
@@ -968,8 +968,8 @@ namespace microcode {
             case Tid.TID_SENSOR_MOISTURE:
                 return { allow: only5 }
             case Tid.TID_SENSOR_REFLECTED:
-            // return { allow: only5 }
-                 return { allow: ["on_off_event"] }
+                // return { allow: only5 }
+                return { allow: ["on_off_event"] }
             case Tid.TID_SENSOR_MICROPHONE:
                 return { allow: only5.concat([Tid.TID_FILTER_LOUD]) }
             case Tid.TID_SENSOR_TEMP:
@@ -1089,8 +1089,7 @@ namespace microcode {
 
     export function jdKind(tile: Tile): JdKind {
         const tid = getTid(tile)
-        if (isPressReleaseEvent(tid))
-            return JdKind.ServiceInstanceIndex
+        if (isPressReleaseEvent(tid)) return JdKind.ServiceInstanceIndex
         if (
             isLineEvent(tid) ||
             isFilterConstant(tid) ||
@@ -1099,8 +1098,7 @@ namespace microcode {
             tid == Tid.TID_MODIFIER_OFF
         )
             return JdKind.Literal
-        if (isTimespan(tid))
-            return JdKind.Timespan
+        if (isTimespan(tid)) return JdKind.Timespan
         if (
             isEmoji(tid) ||
             tid == Tid.TID_MODIFIER_ICON_EDITOR ||

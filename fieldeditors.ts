@@ -354,7 +354,7 @@ namespace microcode {
                         const note = (NUM_NOTES - 1 - row).toString()
                         const buf = Buffer.create(6)
                         setNote(buf, 0, note)
-                        new jacs.TopWriter().deployFreq(buf)
+                        // new jacs.TopWriter().deployFreq(buf)
                     }
                     melody.notes =
                         melody.notes.slice(0, col) +

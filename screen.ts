@@ -2,10 +2,10 @@ namespace microcode {
     export class Screen {
         private static image_: Bitmap
 
-        public static WIDTH = screen.width
-        public static HEIGHT = screen.height
-        public static HALF_WIDTH = screen.width >> 1
-        public static HALF_HEIGHT = screen.height >> 1
+        public static WIDTH = screen().width
+        public static HEIGHT = screen().height
+        public static HALF_WIDTH = screen().width >> 1
+        public static HALF_HEIGHT = screen().height >> 1
         public static LEFT_EDGE = -Screen.HALF_WIDTH
         public static RIGHT_EDGE = Screen.HALF_WIDTH
         public static TOP_EDGE = -Screen.HALF_HEIGHT
@@ -45,13 +45,13 @@ namespace microcode {
         }
         public static get image(): Bitmap {
             if (!Screen.image_) {
-                Screen.image_ = screen
+                Screen.image_ = screen()
                 Screen.updateBounds()
             }
             return Screen.image_
         }
         public static resetScreenImage() {
-            Screen.image_ = screen
+            Screen.image_ = screen()
             Screen.updateBounds()
         }
 
@@ -61,7 +61,7 @@ namespace microcode {
         }
 
         public static drawTransparentImage(from: Bitmap, x: number, y: number) {
-            Screen.image.drawTransparentImage(from, Screen.x(x), Screen.y(y))
+            Screen.image.drawTransparentBitmap(from, Screen.x(x), Screen.y(y))
         }
 
         public static drawTransparentImageXfrm(
@@ -71,7 +71,7 @@ namespace microcode {
             y: number
         ) {
             const w = xfrm.worldPos
-            Screen.image.drawTransparentImage(
+            Screen.image.drawTransparentBitmap(
                 from,
                 Screen.x(x + w.x),
                 Screen.y(y + w.y)
@@ -350,7 +350,7 @@ namespace microcode {
             x: number,
             y: number,
             color?: number,
-            font?: image.Font,
+            font?: bitmap.Font,
             offsets?: texteffects.TextEffectState[]
         ) {
             control.assert(color !== 0, ERROR_NOT_INTEGER)

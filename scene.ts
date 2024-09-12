@@ -103,8 +103,8 @@ namespace microcode {
                 this.draw()
                 if (Options.fps)
                     Screen.image.print(control.EventContext.lastStats, 1, 1, 15)
-                if (screen !== Screen.image)
-                    screen.drawImage(Screen.image, 0, 0)
+                if (screen() !== Screen.image)
+                    screen().drawImage(Screen.image, 0, 0)
             })
             control.eventContext().registerFrameHandler(SCREEN_PRIORITY, () => {
                 control.enablePerfCounter()
