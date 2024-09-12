@@ -16,7 +16,7 @@ namespace microcode {
             reportEvent("app.start")
 
             controller.setRepeatDefault(250, 30)
-            keymap.setupKeys()
+            // keymap.setupKeys()
             this.sceneManager = new SceneManager()
             const home = new Home(this)
             this.pushScene(home)
