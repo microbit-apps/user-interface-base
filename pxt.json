@@ -1,0 +1,17 @@
+{
+    "name": "user-interface-base",
+    "version": "0.0.0",
+    "files": [
+        "main.ts"
+    ],
+    "supportedTargets": [
+        "microbit"
+    ],
+    "dependencies": {
+        "core": "*",
+        "radio": "*",
+        "microphone": "*",
+        "pxt-arcadeshield": "github:microsoft/pxt-arcadeshield"
+    },
+    "testDependencies": {}
+}
