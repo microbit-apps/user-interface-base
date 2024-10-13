@@ -2,7 +2,12 @@
     "name": "user-interface-base",
     "version": "0.0.0",
     "files": [
-        "main.ts"
+        "affine.ts",
+        "bounds.ts",
+        "component.ts",
+        "math.ts",
+        "screen.ts",
+        "sprite.ts"
     ],
     "supportedTargets": [
         "microbit"
@@ -11,7 +16,7 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "pxt-arcadeshield": "github:microsoft/pxt-arcadeshield"
+        "pxt-arcadeshield": "github:microsoft/pxt-arcadeshield#v0.1.9"
     },
     "testDependencies": {}
 }
