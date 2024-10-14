@@ -7,7 +7,17 @@
         "component.ts",
         "math.ts",
         "screen.ts",
-        "sprite.ts"
+        "sprite.ts",
+
+        "accessibility.ts",
+        "keymap.ts",
+        "button.ts",
+        "scene.ts",
+        "cursor.ts",
+        "picker.ts",
+        "navigator.ts",
+        "cursorscene.ts",
+        "options.ts"
     ],
     "supportedTargets": [
         "microbit"
