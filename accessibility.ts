@@ -44,6 +44,6 @@ namespace accessibility {
     }
 
     export function ariaToTooltip(ariaId: string) {
-        return microcode.resolveTooltip(ariaId).replaceAll("_", " ")
+        return user_interface_base.resolveTooltip(ariaId).replaceAll("_", " ")
     }
 }

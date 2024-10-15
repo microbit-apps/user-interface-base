@@ -148,7 +148,6 @@ namespace user_interface_base {
             if (text) {
                 const pos = this.ariaPos || this.xfrm.localPos
                 const n = text.length
-                const font = microdata.font
                 const w = font.charWidth * n
                 const h = font.charHeight
                 const x = Math.max(

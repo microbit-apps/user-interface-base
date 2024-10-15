@@ -283,7 +283,7 @@ namespace user_interface_base {
 
         private image_() {
             return typeof this.iconId == "string"
-                ? icons.get(this.iconId)
+                ? getIcon(this.iconId,false)
                 : this.iconId
         }
         

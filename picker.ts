@@ -77,14 +77,14 @@ namespace user_interface_base {
                     this.picker.xfrm
                 )
                 // TODO: 
-                btn.buildSprite(icons.get(def.icon))
+                btn.buildSprite(getIcon(def.icon,false))
                 this.cell.add(btn.bounds)
             })
             this.layoutDraw()
         }
 
         private setButtonCoords(idx: number, btn: ButtonBase) {
-            btn.buildSprite(icons.get(this.defs[idx].icon))
+            btn.buildSprite(getIcon(this.defs[idx].icon,false))
             const row = Math.idiv(idx, this.picker.width)
             btn.xfrm.localPos.x =
                 (this.cell.width >> 1) +
@@ -226,7 +226,7 @@ namespace user_interface_base {
                     w.x + this.panel.left + 2,
                     w.y + this.panel.top + 4,
                     1,
-                    microdata.font
+                    font
                 )
             }
             if (this.group) this.group.draw()
