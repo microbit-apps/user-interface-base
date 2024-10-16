@@ -22,7 +22,7 @@ namespace user_interface_base {
             this.color_ = v
         }
 
-        constructor(public name: string) {
+        constructor(protected app: AppInterface, public name: string) {
             this.xfrm_ = new Affine()
             this.color_ = 12
         }
