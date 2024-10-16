@@ -26,7 +26,7 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "pxt-arcadeshield": "github:microsoft/pxt-arcadeshield#v0.1.9"
+        "pxt-arcadeshield": "github:microsoft/pxt-arcadeshield#4756469b2b27adcd8734e9611ed8475f864eb23f"
     },
     "testDependencies": {}
 }
