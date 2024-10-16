@@ -20,8 +20,8 @@ namespace user_interface_base {
         public cursor: Cursor
         public picker: Picker
 
-        constructor(navigator?: INavigator) {
-            super("scene")
+        constructor(app: AppInterface, navigator?: INavigator) {
+            super(app, "scene")
             this.backgroundColor = 11
             this.navigator = navigator
         }
@@ -154,8 +154,8 @@ namespace user_interface_base {
     export class CursorSceneWithPriorPage extends CursorScene {
         private goBack1PageFn: () => void;
 
-        constructor(goBack1PageFn: () => void, navigator?: INavigator) {
-            super()
+        constructor(app: AppInterface, goBack1PageFn: () => void, navigator?: INavigator) {
+            super(app)
             this.backgroundColor = 11
             
             if (navigator)
