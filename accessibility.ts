@@ -40,7 +40,8 @@ namespace accessibility {
     //% shim=TD_ID
     export function setLiveContent(msg: AccessibilityMessage) {
         const data = Buffer.fromUTF8(JSON.stringify(msg))
-        control.simmessages.send("accessibility", data, false)
+        // DON'T REMOVE THIS COMMENT (ask tball)
+        // control.simmessages.send("accessibility", data, false)
     }
 
     export function ariaToTooltip(ariaId: string) {
