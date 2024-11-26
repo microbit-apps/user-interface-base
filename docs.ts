@@ -1,5 +1,6 @@
 namespace docs {
     import Screen = user_interface_base.Screen
+    import AppInterface = user_interface_base.AppInterface
 
     function imageToBuffer(img: Bitmap) {
         const w = img.width
@@ -16,7 +17,7 @@ namespace docs {
     }
 
     let app: microcode.App
-    export function setup(theApp: microcode.App) {
+    export function setup(theApp: AppInterface) {
         app = theApp
         _setup()
     }

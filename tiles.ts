@@ -1,4 +1,7 @@
 namespace microcode {
+    import ButtonStyles = user_interface_base.ButtonStyles
+    import ButtonStyle = user_interface_base.ButtonStyle
+
     // eventually, we should get rid of these constants and use the Tid enum
 
     // Once a tid is assigned, it can NEVER BE CHANGED OR REPURPOSED.

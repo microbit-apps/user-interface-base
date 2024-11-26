@@ -1,4 +1,8 @@
 namespace microcode {
+    import PickerButtonDef = user_interface_base.PickerButtonDef
+    import Picker = user_interface_base.Picker
+    import ButtonStyles = user_interface_base.ButtonStyles
+
     export function getFieldEditor(tile: Tile): FieldEditor {
         if (tile instanceof ModifierEditor) return tile.fieldEditor
         return undefined

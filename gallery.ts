@@ -2,6 +2,8 @@
 
 namespace microcode {
     import Screen = user_interface_base.Screen
+    import CursorScene = user_interface_base.CursorScene
+    import CursorDir = user_interface_base.CursorDir
     import Button = user_interface_base.Button
     import ButtonStyles = user_interface_base.ButtonStyles
 
