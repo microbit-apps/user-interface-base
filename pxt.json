@@ -32,7 +32,8 @@
         "gallery.ts",
         "pointerevents.ts",
         "utils.ts",
-        "protocol.ts"
+        "protocol.ts",
+        "navigator.ts"
     ],
     "testFiles": [],
     "targetVersions": {
