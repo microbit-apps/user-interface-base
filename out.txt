@@ -1,0 +1,279 @@
+using project: /workspaces/MicroCode/pxt.json
+using config: /workspaces/MicroCode/mkc.json
+using editor: https://makecode.microbit.org/beta v7.1.15
+app.ts(26,28): error TS2345: Argument of type 'Home' is not assignable to parameter of type 'Scene'.
+  Property 'xfrm_' is missing in type 'Home'.
+assets.ts(314,21): error TS2552: Cannot find name 'bitmap'. Did you mean 'bitmaps'?
+assets.ts(329,21): error TS2552: Cannot find name 'bitmap'. Did you mean 'bitmaps'?
+docs.ts(88,19): error TS2339: Property 'Screen' does not exist on type 'typeof microcode'.
+docs.ts(104,19): error TS2339: Property 'Screen' does not exist on type 'typeof microcode'.
+docs.ts(121,23): error TS2345: Argument of type 'Editor' is not assignable to parameter of type 'Scene'.
+  Property 'xfrm_' is missing in type 'Editor'.
+docs.ts(145,23): error TS2339: Property 'Screen' does not exist on type 'typeof microcode'.
+docs.ts(148,27): error TS2345: Argument of type 'Editor' is not assignable to parameter of type 'Scene'.
+docs.ts(151,23): error TS2339: Property 'Screen' does not exist on type 'typeof microcode'.
+docs.ts(151,48): error TS2339: Property 'color' does not exist on type 'Editor'.
+docs.ts(153,35): error TS2339: Property 'Screen' does not exist on type 'typeof microcode'.
+docs.ts(165,30): error TS2304: Cannot find name 'bitmap'.
+docs.ts(166,34): error TS2339: Property 'color' does not exist on type 'Editor'.
+docs.ts(185,21): error TS2304: Cannot find name 'bitmap'.
+docs.ts(187,25): error TS2339: Property 'color' does not exist on type 'Editor'.
+editor.ts(25,33): error TS2552: Cannot find name 'Scene'. Did you mean 'scene'?
+editor.ts(26,20): error TS2304: Cannot find name 'RuleRowNavigator'.
+editor.ts(33,24): error TS2304: Cannot find name 'Cursor'.
+editor.ts(35,26): error TS2304: Cannot find name 'Placeable'.
+editor.ts(36,29): error TS2304: Cannot find name 'Placeable'.
+editor.ts(37,24): error TS2304: Cannot find name 'Picker'.
+editor.ts(43,18): error TS2339: Property 'color' does not exist on type 'Editor'.
+editor.ts(89,18): error TS2339: Property 'app' does not exist on type 'Editor'.
+editor.ts(94,25): error TS2304: Cannot find name 'PickerButtonDef'.
+editor.ts(102,26): error TS7006: Parameter 'index' implicitly has an 'any' type.
+editor.ts(103,26): error TS2339: Property 'app' does not exist on type 'Editor'.
+editor.ts(109,25): error TS2304: Cannot find name 'PickerButtonDef'.
+editor.ts(116,26): error TS7006: Parameter 'index' implicitly has an 'any' type.
+editor.ts(127,26): error TS2339: Property 'setIcon' does not exist on type 'Button'.
+editor.ts(133,49): error TS2304: Cannot find name 'Vec2'.
+editor.ts(134,17): error TS2304: Cannot find name 'Screen'.
+editor.ts(135,17): error TS2304: Cannot find name 'Screen'.
+editor.ts(142,27): error TS2339: Property 'xfrm' does not exist on type 'Button'.
+editor.ts(143,46): error TS2339: Property 'ariaId' does not exist on type 'Button'.
+editor.ts(143,58): error TS2339: Property 'bounds' does not exist on type 'Button'.
+editor.ts(144,17): error TS2339: Property 'reportAria' does not exist on type 'Button'.
+editor.ts(149,27): error TS2339: Property 'xfrm' does not exist on type 'Button'.
+editor.ts(150,46): error TS2339: Property 'ariaId' does not exist on type 'Button'.
+editor.ts(150,58): error TS2339: Property 'bounds' does not exist on type 'Button'.
+editor.ts(151,17): error TS2339: Property 'reportAria' does not exist on type 'Button'.
+editor.ts(158,28): error TS2339: Property 'xfrm' does not exist on type 'Button'.
+editor.ts(159,28): error TS2339: Property 'ariaId' does not exist on type 'Button'.
+editor.ts(160,28): error TS2339: Property 'bounds' does not exist on type 'Button'.
+editor.ts(165,36): error TS2304: Cannot find name 'CursorDir'.
+editor.ts(170,29): error TS2304: Cannot find name 'CursorDir'.
+editor.ts(170,56): error TS2304: Cannot find name 'BACK_BUTTON_ERROR_KIND'.
+editor.ts(173,28): error TS2304: Cannot find name 'CursorDir'.
+editor.ts(174,31): error TS2304: Cannot find name 'FORWARD_BUTTON_ERROR_KIND'.
+editor.ts(186,24): error TS2339: Property 'xfrm' does not exist on type 'Button'.
+editor.ts(191,35): error TS2304: Cannot find name 'Bounds'.
+editor.ts(192,23): error TS2304: Cannot find name 'Screen'.
+editor.ts(193,22): error TS2304: Cannot find name 'Screen'.
+editor.ts(194,24): error TS2304: Cannot find name 'Screen'.
+editor.ts(195,25): error TS2304: Cannot find name 'Screen'.
+editor.ts(197,32): error TS2339: Property 'occlusions' does not exist on type 'Button'.
+editor.ts(203,17): error TS2304: Cannot find name 'Vec2'.
+editor.ts(205,25): error TS2304: Cannot find name 'Vec2'.
+editor.ts(213,51): error TS2304: Cannot find name 'CursorDir'.
+editor.ts(220,46): error TS2304: Cannot find name 'CursorDir'.
+editor.ts(221,45): error TS2304: Cannot find name 'CursorDir'.
+editor.ts(222,43): error TS2304: Cannot find name 'CursorDir'.
+editor.ts(223,45): error TS2304: Cannot find name 'CursorDir'.
+editor.ts(230,30): error TS2339: Property 'app' does not exist on type 'Editor'.
+editor.ts(231,30): error TS2339: Property 'app' does not exist on type 'Editor'.
+editor.ts(231,58): error TS2339: Property 'app' does not exist on type 'Editor'.
+editor.ts(234,32): error TS2304: Cannot find name 'Placeable'.
+editor.ts(235,46): error TS2304: Cannot find name 'Vec2'.
+editor.ts(235,54): error TS2304: Cannot find name 'Screen'.
+editor.ts(236,35): error TS2304: Cannot find name 'Placeable'.
+editor.ts(237,49): error TS2304: Cannot find name 'Vec2'.
+editor.ts(238,17): error TS2304: Cannot find name 'Screen'.
+editor.ts(239,17): error TS2304: Cannot find name 'Screen'.
+editor.ts(241,31): error TS2304: Cannot find name 'Cursor'.
+editor.ts(242,31): error TS2304: Cannot find name 'Picker'.
+editor.ts(244,28): error TS2351: Cannot use 'new' with an expression whose type lacks a call or construct signature.
+editor.ts(244,32): error TS2475: 'const' enums can only be used in property or index access expressions or the right hand side of an import declaration or export assignment.
+editor.ts(246,24): error TS2304: Cannot find name 'ButtonStyles'.
+editor.ts(249,20): error TS2304: Cannot find name 'Screen'.
+editor.ts(253,31): error TS2351: Cannot use 'new' with an expression whose type lacks a call or construct signature.
+editor.ts(253,35): error TS2475: 'const' enums can only be used in property or index access expressions or the right hand side of an import declaration or export assignment.
+editor.ts(255,24): error TS2304: Cannot find name 'ButtonStyles'.
+editor.ts(258,20): error TS2304: Cannot find name 'Screen'.
+editor.ts(262,28): error TS2351: Cannot use 'new' with an expression whose type lacks a call or construct signature.
+editor.ts(262,32): error TS2475: 'const' enums can only be used in property or index access expressions or the right hand side of an import declaration or export assignment.
+editor.ts(264,24): error TS2304: Cannot find name 'ButtonStyles'.
+editor.ts(266,20): error TS2304: Cannot find name 'Screen'.
+editor.ts(270,33): error TS2339: Property 'app' does not exist on type 'Editor'.
+editor.ts(277,22): error TS2339: Property 'app' does not exist on type 'Editor'.
+editor.ts(356,30): error TS2339: Property 'app' does not exist on type 'Editor'.
+editor.ts(357,30): error TS2339: Property 'app' does not exist on type 'Editor'.
+editor.ts(357,58): error TS2339: Property 'app' does not exist on type 'Editor'.
+editor.ts(365,47): error TS2304: Cannot find name 'CursorDir'.
+editor.ts(377,21): error TS2304: Cannot find name 'Screen'.
+editor.ts(378,21): error TS2304: Cannot find name 'Screen'.
+editor.ts(390,21): error TS2304: Cannot find name 'Screen'.
+editor.ts(391,21): error TS2304: Cannot find name 'Screen'.
+editor.ts(400,36): error TS2304: Cannot find name 'CursorDir'.
+editor.ts(402,36): error TS2304: Cannot find name 'CursorDir'.
+editor.ts(413,26): error TS2339: Property 'setIcon' does not exist on type 'Button'.
+editor.ts(429,41): error TS2304: Cannot find name 'RuleRowNavigator'.
+editor.ts(432,33): error TS2339: Property 'visible' does not exist on type 'Button'.
+editor.ts(456,17): error TS2304: Cannot find name 'Screen'.
+editor.ts(456,40): error TS2339: Property 'color' does not exist on type 'Editor'.
+editor.ts(457,27): error TS2339: Property 'backgroundCaptured' does not exist on type 'Editor'.
+editor.ts(475,21): error TS2304: Cannot find name 'Screen'.
+editor.ts(476,24): error TS2304: Cannot find name 'Screen'.
+editor.ts(477,17): error TS2304: Cannot find name 'Screen'.
+editor.ts(480,21): error TS2304: Cannot find name 'Screen'.
+editor.ts(491,30): error TS2339: Property 'draw' does not exist on type 'Button'.
+editor.ts(492,52): error TS2339: Property 'visible' does not exist on type 'Button'.
+editor.ts(493,33): error TS2339: Property 'setVisible' does not exist on type 'Button'.
+editor.ts(496,52): error TS2339: Property 'visible' does not exist on type 'Button'.
+editor.ts(497,37): error TS2339: Property 'visible' does not exist on type 'Button'.
+editor.ts(497,64): error TS2339: Property 'draw' does not exist on type 'Button'.
+editor.ts(499,26): error TS2339: Property 'draw' does not exist on type 'Button'.
+editor.ts(503,40): error TS2304: Cannot find name 'IComponent'.
+editor.ts(503,52): error TS2304: Cannot find name 'IPlaceable'.
+editor.ts(504,24): error TS2304: Cannot find name 'Affine'.
+editor.ts(514,21): error TS2304: Cannot find name 'IPlaceable'.
+editor.ts(517,30): error TS2304: Cannot find name 'Affine'.
+fieldeditors.ts(16,21): error TS2304: Cannot find name 'Picker'.
+fieldeditors.ts(66,21): error TS2304: Cannot find name 'Picker'.
+fieldeditors.ts(88,25): error TS2304: Cannot find name 'bitmap'.
+fieldeditors.ts(177,21): error TS2304: Cannot find name 'Picker'.
+fieldeditors.ts(277,17): error TS2304: Cannot find name 'Picker'.
+fieldeditors.ts(286,19): error TS2304: Cannot find name 'PickerButtonDef'.
+fieldeditors.ts(313,38): error TS2304: Cannot find name 'LEDNavigator'.
+fieldeditors.ts(314,24): error TS2304: Cannot find name 'ButtonStyles'.
+fieldeditors.ts(322,17): error TS2304: Cannot find name 'Picker'.
+fieldeditors.ts(336,19): error TS2304: Cannot find name 'PickerButtonDef'.
+fieldeditors.ts(350,26): error TS7006: Parameter 'index' implicitly has an 'any' type.
+fieldeditors.ts(373,38): error TS2304: Cannot find name 'MelodyNavigator'.
+fieldeditors.ts(374,24): error TS2304: Cannot find name 'ButtonStyles'.
+gallery.ts(4,41): error TS2304: Cannot find name 'CursorScene'.
+gallery.ts(21,33): error TS2351: Cannot use 'new' with an expression whose type lacks a call or construct signature.
+gallery.ts(21,37): error TS2475: 'const' enums can only be used in property or index access expressions or the right hand side of an import declaration or export assignment.
+gallery.ts(23,32): error TS2304: Cannot find name 'ButtonStyles'.
+gallery.ts(32,34): error TS2339: Property 'app' does not exist on type 'SamplesGallery'.
+gallery.ts(33,34): error TS2339: Property 'app' does not exist on type 'SamplesGallery'.
+gallery.ts(34,34): error TS2339: Property 'app' does not exist on type 'SamplesGallery'.
+gallery.ts(34,64): error TS2339: Property 'app' does not exist on type 'SamplesGallery'.
+gallery.ts(41,30): error TS2339: Property 'navigator' does not exist on type 'SamplesGallery'.
+gallery.ts(47,45): error TS2339: Property 'navigator' does not exist on type 'SamplesGallery'.
+gallery.ts(50,35): error TS2304: Cannot find name 'CursorDir'.
+gallery.ts(51,24): error TS2304: Cannot find name 'CursorDir'.
+gallery.ts(53,22): error TS2339: Property 'app' does not exist on type 'SamplesGallery'.
+gallery.ts(54,22): error TS2339: Property 'app' does not exist on type 'SamplesGallery'.
+gallery.ts(54,50): error TS2339: Property 'app' does not exist on type 'SamplesGallery'.
+gallery.ts(61,18): error TS2339: Property 'color' does not exist on type 'SamplesGallery'.
+gallery.ts(65,13): error TS2304: Cannot find name 'Screen'.
+gallery.ts(66,17): error TS2304: Cannot find name 'Screen'.
+gallery.ts(67,17): error TS2304: Cannot find name 'Screen'.
+gallery.ts(68,17): error TS2304: Cannot find name 'Screen'.
+gallery.ts(69,17): error TS2304: Cannot find name 'Screen'.
+gallery.ts(72,47): error TS2339: Property 'draw' does not exist on type 'Button'.
+home.ts(2,31): error TS2304: Cannot find name 'CursorScene'.
+home.ts(14,28): error TS2351: Cannot use 'new' with an expression whose type lacks a call or construct signature.
+home.ts(14,32): error TS2475: 'const' enums can only be used in property or index access expressions or the right hand side of an import declaration or export assignment.
+home.ts(16,24): error TS2304: Cannot find name 'ButtonStyles'.
+home.ts(22,26): error TS2339: Property 'app' does not exist on type 'Home'.
+home.ts(23,26): error TS2339: Property 'app' does not exist on type 'Home'.
+home.ts(23,56): error TS2339: Property 'app' does not exist on type 'Home'.
+home.ts(27,31): error TS2351: Cannot use 'new' with an expression whose type lacks a call or construct signature.
+home.ts(27,35): error TS2475: 'const' enums can only be used in property or index access expressions or the right hand side of an import declaration or export assignment.
+home.ts(29,24): error TS2304: Cannot find name 'ButtonStyles'.
+home.ts(35,26): error TS2339: Property 'app' does not exist on type 'Home'.
+home.ts(36,26): error TS2339: Property 'app' does not exist on type 'Home'.
+home.ts(36,40): error TS2554: Expected 0 arguments, but got 1.
+home.ts(36,64): error TS2339: Property 'app' does not exist on type 'Home'.
+home.ts(40,28): error TS2351: Cannot use 'new' with an expression whose type lacks a call or construct signature.
+home.ts(40,32): error TS2475: 'const' enums can only be used in property or index access expressions or the right hand side of an import declaration or export assignment.
+home.ts(42,24): error TS2304: Cannot find name 'ButtonStyles'.
+home.ts(54,18): error TS2339: Property 'navigator' does not exist on type 'Home'.
+home.ts(59,25): error TS2304: Cannot find name 'PickerButtonDef'.
+home.ts(64,18): error TS2339: Property 'picker' does not exist on type 'Home'.
+home.ts(65,18): error TS2339: Property 'picker' does not exist on type 'Home'.
+home.ts(67,26): error TS7006: Parameter 'index' implicitly has an 'any' type.
+home.ts(76,26): error TS2339: Property 'app' does not exist on type 'Home'.
+home.ts(77,26): error TS2339: Property 'app' does not exist on type 'Home'.
+home.ts(77,56): error TS2339: Property 'app' does not exist on type 'Home'.
+home.ts(84,18): error TS2339: Property 'color' does not exist on type 'Home'.
+home.ts(85,29): error TS2339: Property 'app' does not exist on type 'Home'.
+home.ts(89,26): error TS2304: Cannot find name 'bitmap'.
+home.ts(90,13): error TS2304: Cannot find name 'Screen'.
+home.ts(92,17): error TS2304: Cannot find name 'Screen'.
+home.ts(93,17): error TS2304: Cannot find name 'Screen'.
+home.ts(99,28): error TS2304: Cannot find name 'Screen'.
+home.ts(101,13): error TS2304: Cannot find name 'Screen'.
+home.ts(102,17): error TS2304: Cannot find name 'Screen'.
+home.ts(103,17): error TS2304: Cannot find name 'Screen'.
+home.ts(104,17): error TS2304: Cannot find name 'Screen'.
+home.ts(105,17): error TS2304: Cannot find name 'Screen'.
+home.ts(112,29): error TS2304: Cannot find name 'Screen'.
+home.ts(113,23): error TS2304: Cannot find name 'Screen'.
+home.ts(114,13): error TS2304: Cannot find name 'Screen'.
+home.ts(116,17): error TS2304: Cannot find name 'Screen'.
+home.ts(116,38): error TS2304: Cannot find name 'Screen'.
+home.ts(119,13): error TS2304: Cannot find name 'Screen'.
+home.ts(121,17): error TS2304: Cannot find name 'Screen'.
+home.ts(122,23): error TS2304: Cannot find name 'Screen'.
+home.ts(127,33): error TS2304: Cannot find name 'resolveTooltip'.
+home.ts(128,17): error TS2304: Cannot find name 'Screen'.
+home.ts(130,21): error TS2304: Cannot find name 'Screen'.
+home.ts(131,27): error TS2304: Cannot find name 'Screen'.
+home.ts(133,35): error TS2339: Property 'font' does not exist on type 'typeof microcode'.
+home.ts(134,21): error TS2304: Cannot find name 'Screen'.
+home.ts(141,31): error TS2339: Property 'font' does not exist on type 'typeof microcode'.
+home.ts(145,29): error TS2339: Property 'draw' does not exist on type 'Button'.
+home.ts(146,26): error TS2339: Property 'draw' does not exist on type 'Button'.
+home.ts(147,26): error TS2339: Property 'draw' does not exist on type 'Button'.
+ruleeditor.ts(8,40): error TS2304: Cannot find name 'IComponent'.
+ruleeditor.ts(8,52): error TS2304: Cannot find name 'IPlaceable'.
+ruleeditor.ts(9,24): error TS2304: Cannot find name 'Affine'.
+ruleeditor.ts(14,16): error TS2304: Cannot find name 'Sprite'.
+ruleeditor.ts(16,17): error TS2304: Cannot find name 'Bounds'.
+ruleeditor.ts(17,21): error TS2304: Cannot find name 'Bounds'.
+ruleeditor.ts(18,27): error TS2304: Cannot find name 'CursorDir'.
+ruleeditor.ts(31,30): error TS2304: Cannot find name 'Affine'.
+ruleeditor.ts(33,30): error TS2351: Cannot use 'new' with an expression whose type lacks a call or construct signature.
+ruleeditor.ts(33,34): error TS2475: 'const' enums can only be used in property or index access expressions or the right hand side of an import declaration or export assignment.
+ruleeditor.ts(39,24): error TS2304: Cannot find name 'ButtonStyles'.
+ruleeditor.ts(42,30): error TS2304: Cannot find name 'Sprite'.
+ruleeditor.ts(65,38): error TS2351: Cannot use 'new' with an expression whose type lacks a call or construct signature.
+ruleeditor.ts(65,42): error TS2475: 'const' enums can only be used in property or index access expressions or the right hand side of an import declaration or export assignment.
+ruleeditor.ts(67,28): error TS2304: Cannot find name 'ButtonStyles'.
+ruleeditor.ts(94,36): error TS2351: Cannot use 'new' with an expression whose type lacks a call or construct signature.
+ruleeditor.ts(94,40): error TS2475: 'const' enums can only be used in property or index access expressions or the right hand side of an import declaration or export assignment.
+ruleeditor.ts(96,28): error TS2304: Cannot find name 'ButtonStyles'.
+ruleeditor.ts(126,32): error TS2351: Cannot use 'new' with an expression whose type lacks a call or construct signature.
+ruleeditor.ts(126,36): error TS2475: 'const' enums can only be used in property or index access expressions or the right hand side of an import declaration or export assignment.
+ruleeditor.ts(143,38): error TS2351: Cannot use 'new' with an expression whose type lacks a call or construct signature.
+ruleeditor.ts(143,42): error TS2475: 'const' enums can only be used in property or index access expressions or the right hand side of an import declaration or export assignment.
+ruleeditor.ts(163,38): error TS2351: Cannot use 'new' with an expression whose type lacks a call or construct signature.
+ruleeditor.ts(163,42): error TS2475: 'const' enums can only be used in property or index access expressions or the right hand side of an import declaration or export assignment.
+ruleeditor.ts(190,25): error TS2304: Cannot find name 'PickerButtonDef'.
+ruleeditor.ts(202,26): error TS7006: Parameter 'index' implicitly has an 'any' type.
+ruleeditor.ts(281,45): error TS2304: Cannot find name 'CursorDir'.
+ruleeditor.ts(288,29): error TS2339: Property 'captureBackground' does not exist on type 'Editor'.
+ruleeditor.ts(293,37): error TS2339: Property 'releaseBackground' does not exist on type 'Editor'.
+ruleeditor.ts(298,43): error TS2339: Property 'releaseBackground' does not exist on type 'Editor'.
+ruleeditor.ts(312,25): error TS2304: Cannot find name 'PickerButtonDef'.
+ruleeditor.ts(346,42): error TS2304: Cannot find name 'PickerNavigator'.
+ruleeditor.ts(347,30): error TS7006: Parameter 'idx' implicitly has an 'any' type.
+ruleeditor.ts(421,26): error TS2304: Cannot find name 'CursorDir'.
+ruleeditor.ts(432,27): error TS2304: Cannot find name 'Vec2'.
+ruleeditor.ts(433,35): error TS2304: Cannot find name 'Bounds'.
+ruleeditor.ts(443,28): error TS2339: Property 'xfrm' does not exist on type 'Button'.
+ruleeditor.ts(444,35): error TS2339: Property 'width' does not exist on type 'Button'.
+ruleeditor.ts(447,34): error TS2339: Property 'width' does not exist on type 'Button'.
+ruleeditor.ts(453,48): error TS2339: Property 'width' does not exist on type 'Button'.
+ruleeditor.ts(454,36): error TS2339: Property 'width' does not exist on type 'Button'.
+ruleeditor.ts(457,25): error TS2339: Property 'xfrm' does not exist on type 'Button'.
+ruleeditor.ts(463,33): error TS2339: Property 'bounds' does not exist on type 'Button'.
+ruleeditor.ts(476,34): error TS2339: Property 'xfrm' does not exist on type 'Button'.
+ruleeditor.ts(484,43): error TS2339: Property 'bounds' does not exist on type 'Button'.
+ruleeditor.ts(486,44): error TS2339: Property 'xfrm' does not exist on type 'Button'.
+ruleeditor.ts(489,29): error TS2304: Cannot find name 'Bounds'.
+ruleeditor.ts(489,50): error TS2339: Property 'bounds' does not exist on type 'Button'.
+ruleeditor.ts(489,62): error TS2339: Property 'xfrm' does not exist on type 'Button'.
+ruleeditor.ts(499,35): error TS2304: Cannot find name 'Bounds'.
+ruleeditor.ts(506,61): error TS2304: Cannot find name 'Screen'.
+ruleeditor.ts(517,29): error TS2304: Cannot find name 'Screen'.
+ruleeditor.ts(517,66): error TS2304: Cannot find name 'Screen'.
+ruleeditor.ts(526,28): error TS2339: Property 'draw' does not exist on type 'Button'.
+ruleeditor.ts(527,56): error TS2339: Property 'draw' does not exist on type 'Button'.
+ruleeditor.ts(529,52): error TS2339: Property 'draw' does not exist on type 'Button'.
+ruleeditor.ts(534,30): error TS2339: Property 'isOffScreenX' does not exist on type 'Button'.
+ruleeditor.ts(534,50): error TS2339: Property 'draw' does not exist on type 'Button'.
+ruleeditor.ts(541,13): error TS2304: Cannot find name 'Screen'.
+ruleeditor.ts(542,13): error TS2304: Cannot find name 'Screen'.
+ruleeditor.ts(543,13): error TS2304: Cannot find name 'Screen'.
+tiles.ts(811,46): error TS2304: Cannot find name 'ButtonStyle'.
+tiles.ts(813,15): error TS2552: Cannot find name 'ButtonStyles'. Did you mean 'buttonStyle'?
+tiles.ts(814,15): error TS2552: Cannot find name 'ButtonStyles'. Did you mean 'buttonStyle'?

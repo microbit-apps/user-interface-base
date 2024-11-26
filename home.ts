@@ -1,10 +1,18 @@
 namespace microcode {
+    import Screen = user_interface_base.Screen
+    import CursorScene = user_interface_base.CursorScene
+    import Button = user_interface_base.Button
+    import ButtonStyles = user_interface_base.ButtonStyles
+    import AppInterface = user_interface_base.AppInterface
+    import CursorSceneEnum = user_interface_base.CursorSceneEnum
+    import font = user_interface_base.font
+
     export class Home extends CursorScene {
         samplesBtn: Button
         editBtn: Button
         diskBtn: Button
 
-        constructor(app: App) {
+        constructor(app: AppInterface) {
             super(app)
         }
 
@@ -86,7 +94,7 @@ namespace microcode {
         }
 
         private drawVersion() {
-            const font = bitmap.font5
+            const font = bitmaps.font5
             Screen.print(
                 microcode.VERSION,
                 Screen.RIGHT_EDGE - font.charWidth * microcode.VERSION.length,

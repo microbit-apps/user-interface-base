@@ -8,8 +8,8 @@
         "microphone": "*",
         "datalogger": "*",
         "settings": "*",
-        "user-interface-base": "github:microbit-apps/user-interface-base#v0.0.1"
-      },
+        "user-interface-base": "github:microbit-apps/user-interface-base#v0.0.7"
+    },
     "files": [
         "analytics.ts",
         "config.ts",
@@ -39,8 +39,6 @@
         "target": "7.1.2",
         "targetId": "microbit"
     },
-    "supportedTargets": [
-        "microbit"
-    ],
+    "supportedTargets": ["microbit"],
     "preferredEditor": "tsprj"
 }

@@ -1,4 +1,9 @@
 namespace microcode {
+    import Screen = user_interface_base.Screen
+    import Button = user_interface_base.Button
+    import ButtonStyles = user_interface_base.ButtonStyles
+    import AppInterface = user_interface_base.AppInterface
+
     const TOOLBAR_HEIGHT = 17
     const TOOLBAR_MARGIN = 2
 
@@ -38,7 +43,7 @@ namespace microcode {
         public rendering = false
         private dirty = false
 
-        constructor(app: App) {
+        constructor(app: AppInterface) {
             super(app, "editor")
             this.color = 6
         }

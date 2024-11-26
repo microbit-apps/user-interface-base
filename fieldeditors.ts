@@ -85,7 +85,7 @@ namespace microcode {
         }
         fromBuffer(br: BufferReader) {
             const buf = br.readBuffer(4)
-            const img = bitmap.create(5, 5)
+            const img = bitmaps.create(5, 5)
             for (let index = 0; index < 25; index++) {
                 let byte = index >> 3
                 let bit = index & 7

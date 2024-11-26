@@ -82,7 +82,7 @@ const disk = bmp`
 `
 
 function makeLargeDisk() {
-    const ret = bitmap.create(32, 33)
+    const ret = bitmaps.create(32, 33)
     ret.fill(6)
     ret.drawTransparentImage(disk, 8, 8)
     ret.setPixel(0, 0, 0)

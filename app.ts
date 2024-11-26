@@ -1,4 +1,8 @@
 namespace microcode {
+    import AppInterface = user_interface_base.AppInterface
+    import Scene = user_interface_base.Scene
+    import SceneManager = user_interface_base.SceneManager
+
     // Auto-save slot
     export const SAVESLOT_AUTO = "sa"
 
@@ -7,7 +11,7 @@ namespace microcode {
         version?: string
     }
 
-    export class App {
+    export class App implements AppInterface {
         sceneManager: SceneManager
 
         constructor() {

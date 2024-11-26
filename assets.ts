@@ -311,7 +311,7 @@ namespace icondb {
     f c c .
 `
     export function melodyToImage(melody: microcode.Melody) {
-        const ret = bitmap.create(16, 16)
+        const ret = bitmaps.create(16, 16)
         ret.fill(1)
         for (let col = 0; col < microcode.MELODY_LENGTH; col++) {
             if (melody.notes[col] === ".") continue
@@ -326,7 +326,7 @@ namespace icondb {
 
     // - upscale 5x5 image to 16 x 16, add halo
     export function renderMicrobitLEDs(led55: Bitmap) {
-        const ret = bitmap.create(16, 16)
+        const ret = bitmaps.create(16, 16)
         ret.fill(15)
         for (let row = 0; row < 5; row++) {
             for (let col = 0; col < 5; col++) {

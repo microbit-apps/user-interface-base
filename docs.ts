@@ -1,4 +1,6 @@
 namespace docs {
+    import Screen = user_interface_base.Screen
+
     function imageToBuffer(img: Bitmap) {
         const w = img.width
         const h = img.height
@@ -85,7 +87,7 @@ namespace docs {
 
             app.popScene()
         }
-        microcode.Screen.resetScreenImage()
+        Screen.resetScreenImage()
         return samples
     }
 
@@ -101,7 +103,7 @@ namespace docs {
                 res[iname]
             )
         )
-        microcode.Screen.resetScreenImage()
+        Screen.resetScreenImage()
         control.simmessages.send(
             "docs",
             Buffer.fromUTF8(
@@ -142,15 +144,15 @@ namespace docs {
         loader.nonEmptyPages().forEach(p => {
             loader.switchToPage(p)
             loader.pageEditor.layout()
-            microcode.Screen.setImageSize(pw, loader.pageHeight())
+            Screen.setImageSize(pw, loader.pageHeight())
             const editor = new microcode.Editor(app)
             editor.rendering = true
             app.pushScene(editor)
             editor.cursor.visible = false
             pause(500)
-            microcode.Screen.image.fill(editor.color)
+            Screen.image.fill(editor.color)
             editor.renderPage(p)
-            const img = microcode.Screen.image.clone()
+            const img = Screen.image.clone()
             imgs.push(img)
             w = Math.max(w, img.width)
             h += img.height + margin
@@ -162,7 +164,7 @@ namespace docs {
             const rulesEditor = pageEditor.ruleEditors
             rulesEditor.forEach((ruleEditor, ri) => {
                 const bound = ruleEditor.bounds
-                const imgr = bitmap.create(bound.width, bound.height)
+                const imgr = bitmaps.create(bound.width, bound.height)
                 imgr.fill(loader.color)
                 imgr.blit(
                     0,
@@ -182,7 +184,7 @@ namespace docs {
             app.popScene()
         })
 
-        const res = bitmap.create(w, h)
+        const res = bitmaps.create(w, h)
         r["app"] = res
         res.fill(loader.color)
         let y = 0
