@@ -1,6 +1,10 @@
 // screen for selecting from samples
 
 namespace microcode {
+    import Screen = user_interface_base.Screen
+    import Button = user_interface_base.Button
+    import ButtonStyles = user_interface_base.ButtonStyles
+
     export class SamplesGallery extends CursorScene {
         sampleButtons: Button[]
 

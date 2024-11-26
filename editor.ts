@@ -3,6 +3,16 @@ namespace microcode {
     import Button = user_interface_base.Button
     import ButtonStyles = user_interface_base.ButtonStyles
     import AppInterface = user_interface_base.AppInterface
+    import Scene = user_interface_base.Scene
+    import Cursor = user_interface_base.Cursor
+    import Placeable = user_interface_base.Placeable
+    import Picker = user_interface_base.Picker
+    import PickerButtonDef = user_interface_base.PickerButtonDef
+    import Vec2 = user_interface_base.Vec2
+    import CursorDir = user_interface_base.CursorDir
+    import IComponent = user_interface_base.IComponent
+    import Affine = user_interface_base.Affine
+    import IPlaceable = user_interface_base.IPlaceable
 
     const TOOLBAR_HEIGHT = 17
     const TOOLBAR_MARGIN = 2
