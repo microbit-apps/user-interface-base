@@ -64,7 +64,7 @@ namespace microcode {
         }
         /* override */ activate() {
             super.activate()
-            this.color = 15
+            this.backgroundColor = 15
         }
 
         /* override */ draw() {

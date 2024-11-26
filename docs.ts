@@ -151,7 +151,7 @@ namespace docs {
             app.pushScene(editor)
             editor.cursor.visible = false
             pause(500)
-            Screen.image.fill(editor.color)
+            Screen.image.fill(editor.backgroundColor)
             editor.renderPage(p)
             const img = Screen.image.clone()
             imgs.push(img)
@@ -166,7 +166,7 @@ namespace docs {
             rulesEditor.forEach((ruleEditor, ri) => {
                 const bound = ruleEditor.bounds
                 const imgr = bitmaps.create(bound.width, bound.height)
-                imgr.fill(loader.color)
+                imgr.fill(loader.backgroundColor)
                 imgr.blit(
                     0,
                     0,
@@ -187,7 +187,7 @@ namespace docs {
 
         const res = bitmaps.create(w, h)
         r["app"] = res
-        res.fill(loader.color)
+        res.fill(loader.backgroundColor)
         let y = 0
         for (let i = 0; i < imgs.length; ++i) {
             const img = imgs[i]

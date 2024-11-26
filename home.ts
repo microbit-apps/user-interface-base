@@ -89,7 +89,7 @@ namespace microcode {
 
         /* override */ activate() {
             super.activate()
-            this.color = 15
+            this.backgroundColor = 15
             docs.setup(this.app)
         }
 

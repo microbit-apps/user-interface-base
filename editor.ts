@@ -13,9 +13,9 @@ namespace microcode {
     import IComponent = user_interface_base.IComponent
     import Affine = user_interface_base.Affine
     import IPlaceable = user_interface_base.IPlaceable
-
-    const TOOLBAR_HEIGHT = 17
-    const TOOLBAR_MARGIN = 2
+    import Bounds = user_interface_base.Bounds
+    import BACK_BUTTON_ERROR_KIND = user_interface_base.BACK_BUTTON_ERROR_KIND
+    import FORWARD_BUTTON_ERROR_KIND = user_interface_base.FORWARD_BUTTON_ERROR_KIND
 
     //% shim=TD_NOOP
     function connectJacdac() {
@@ -37,6 +37,9 @@ namespace microcode {
         return ["disk1", "disk2", "disk3"]
     }
 
+    const TOOLBAR_HEIGHT = 17
+    const TOOLBAR_MARGIN = 2
+
     export class Editor extends Scene {
         navigator: RuleRowNavigator
         private progdef: ProgramDefn
@@ -55,7 +58,7 @@ namespace microcode {
 
         constructor(app: AppInterface) {
             super(app, "editor")
-            this.color = 6
+            this.backgroundColor = 6
         }
 
         public changed() {
@@ -468,7 +471,7 @@ namespace microcode {
 
         draw() {
             if (this.dirty) {
-                Screen.image.fill(this.color)
+                Screen.image.fill(this.backgroundColor)
                 if (!this.backgroundCaptured) {
                     this.drawBackground()
                     this.drawEditor()
