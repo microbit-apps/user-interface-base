@@ -1,4 +1,17 @@
 namespace microcode {
+    import Screen = user_interface_base.Screen
+    import Sprite = user_interface_base.Sprite
+    import Bounds = user_interface_base.Bounds
+    import Button = user_interface_base.Button
+    import ButtonStyles = user_interface_base.ButtonStyles
+    import PickerButtonDef = user_interface_base.PickerButtonDef
+    import Vec2 = user_interface_base.Vec2
+    import CursorDir = user_interface_base.CursorDir
+    import IComponent = user_interface_base.IComponent
+    import Affine = user_interface_base.Affine
+    import IPlaceable = user_interface_base.IPlaceable
+    import PickerNavigator = user_interface_base.PickerNavigator
+
     type ButtonRuleRep = { [name: string]: Button[] }
 
     function repNames() {
