@@ -16,7 +16,7 @@ namespace docs {
         return buf
     }
 
-    let app: microcode.App
+    let app: AppInterface
     export function setup(theApp: AppInterface) {
         app = theApp
         _setup()
@@ -74,7 +74,7 @@ namespace docs {
             console.log(`render sample ${sample.label}`)
             const icon = microcode.icons.get(sample.icon, true)
             if (icon) appendImage(images, "icon_sample", sample.label, icon)
-            app.saveBuffer(microcode.SAVESLOT_AUTO, sample.source)
+            app.save(microcode.SAVESLOT_AUTO, sample.source)
 
             const res = _renderProgram()
             Object.keys(res).forEach(iname => {

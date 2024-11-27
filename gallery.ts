@@ -35,7 +35,7 @@ namespace microcode {
                             reportEvent("samples.open", {
                                 name: sample.label,
                             })
-                            this.app.saveBuffer(SAVESLOT_AUTO, sample.source)
+                            this.app.save(SAVESLOT_AUTO, sample.source)
                             this.app.popScene()
                             this.app.pushScene(new Editor(this.app))
                         },

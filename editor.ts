@@ -104,7 +104,7 @@ namespace microcode {
         }
 
         public saveAndCompileProgram() {
-            this.app.save(SAVESLOT_AUTO, this.progdef)
+            this.app.save(SAVESLOT_AUTO, this.progdef.toBuffer())
             // new jacs.TopWriter().emitProgram(this.progdef)
         }
 
@@ -118,7 +118,7 @@ namespace microcode {
             this.picker.show({
                 title: accessibility.ariaToTooltip("disk"),
                 onClick: index => {
-                    this.app.save(btns[index].icon, this.progdef)
+                    this.app.save(btns[index].icon, this.progdef.toBuffer())
                 },
             })
         }
@@ -285,14 +285,15 @@ namespace microcode {
                 y: 8,
                 onClick: () => this.pickPage(),
             })
-            this.progdef = this.app.load(SAVESLOT_AUTO)
+            const buf = this.app.load(SAVESLOT_AUTO)
+            this.progdef = ProgramDefn.fromBuffer(new BufferReader(buf))
             if (!this.progdef) {
                 // onboarding experience
                 // load first sample if this is the first program being loaded
                 this.progdef = ProgramDefn.fromBuffer(
                     new BufferReader(samples(true)[1].source)
                 )
-                this.app.save(SAVESLOT_AUTO, this.progdef)
+                this.app.save(SAVESLOT_AUTO, this.progdef.toBuffer())
             }
             this.configureP1Keys()
             this.configureP2Keys()
