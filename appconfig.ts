@@ -5,5 +5,7 @@ namespace user_interface_base {
     export interface AppInterface {
         pushScene(scene: Scene): void
         popScene(): void
+        save(slot: string, buffer: Buffer): boolean
+        load(slot: string): Buffer
     }
 }
