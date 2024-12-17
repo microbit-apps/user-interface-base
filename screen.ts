@@ -135,7 +135,6 @@ namespace user_interface_base {
             height: number,
             c: number
         ) {
-            radio.sendString("hi");
             Screen.image.drawRect(Screen.x(x), Screen.y(y), width, height, c)
         }
 
@@ -158,6 +157,7 @@ namespace user_interface_base {
             height: number,
             c: number
         ) {
+            radio.sendString("hi");
             Screen.image.fillRect(Screen.x(x), Screen.y(y), width, height, c)
         }
 

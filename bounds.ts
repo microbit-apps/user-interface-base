@@ -9,7 +9,7 @@ namespace user_interface_base {
             return this.left + this.width - 1
         }
         public set right(val: number) {
-            this.width = val - this.left + 1 
+            this.width = val - this.left + 1
         }
         //% blockCombine block="bottom" callInDebugger
         public get bottom() {
@@ -214,7 +214,7 @@ namespace user_interface_base {
             public top: number,
             public right: number,
             public bottom: number
-        ) {}
+        ) { }
 
         public static FromSprite(s: Sprite, bounds: Bounds): Occlusions {
             const w = s.xfrm.worldPos
