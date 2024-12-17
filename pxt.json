@@ -26,6 +26,7 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
+        "pxt-arcadeshield": "github:microbit-apps/pxt-radio-arcade-shield",
     },
     "testDependencies": {}
 }
