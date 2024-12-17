@@ -1,11 +1,11 @@
- namespace user_interface_base {
+namespace user_interface_base {
     export class Screen {
         private static image_: Bitmap
 
         public static WIDTH = screen().width
         public static HEIGHT = screen().height
         public static HALF_WIDTH = screen().width >> 1
-        public static HALF_HEIGHT = screen().height >> 1 
+        public static HALF_HEIGHT = screen().height >> 1
         public static LEFT_EDGE = -Screen.HALF_WIDTH
         public static RIGHT_EDGE = Screen.HALF_WIDTH
         public static TOP_EDGE = -Screen.HALF_HEIGHT
@@ -135,6 +135,7 @@
             height: number,
             c: number
         ) {
+            radio.sendString("hi");
             Screen.image.drawRect(Screen.x(x), Screen.y(y), width, height, c)
         }
 
