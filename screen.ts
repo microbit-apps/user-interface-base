@@ -150,6 +150,15 @@ namespace user_interface_base {
             Screen.drawRect(x + w.x, y + w.y, width, height, c)
         }
 
+
+        public static fill(
+            c: number
+        ) {
+            radio.sendNumber(1);
+            basic.showNumber(1);
+            Screen.image.fill(c);
+        }
+
         public static fillRect(
             x: number,
             y: number,
@@ -157,8 +166,8 @@ namespace user_interface_base {
             height: number,
             c: number
         ) {
-            radio.sendString("hi");
-            basic.showNumber(7)
+            radio.sendNumber(2);
+            basic.showNumber(2);
             Screen.image.fillRect(Screen.x(x), Screen.y(y), width, height, c)
         }
 
