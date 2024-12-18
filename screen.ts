@@ -155,7 +155,7 @@ namespace user_interface_base {
             c: number
         ) {
             basic.showNumber(0);
-            radio.sendBuffer(Buffer.fromArray([6]));
+            radio.sendBuffer(Buffer.fromArray([0, 6]));
         }
 
         public static fillRect(
@@ -166,7 +166,7 @@ namespace user_interface_base {
             c: number
         ) {
             basic.showNumber(1);
-            radio.sendBuffer(Buffer.fromArray([x, y, width, height, c]));
+            radio.sendBuffer(Buffer.fromArray([1, x, y, width, height, c]));
         }
 
         public static fillRectXfrm(
