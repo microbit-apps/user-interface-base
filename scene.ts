@@ -155,8 +155,10 @@ namespace user_interface_base {
 
         private currScene(): Scene {
             if (this.scenes.length) {
+                basic.showString("ye");
                 return this.scenes[this.scenes.length - 1]
             }
+            basic.showString("undef")
             return undefined
         }
     }
