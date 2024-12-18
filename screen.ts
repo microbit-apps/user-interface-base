@@ -73,13 +73,14 @@ namespace user_interface_base {
         public static resetScreenImage() {
             //     Screen.image_ = screen()
             //     Screen.updateBounds()
-            basic.showNumber(SCREEN_FN_ID_RESET_SCREEN_IMAGE);
+            // basic.showNumber(SCREEN_FN_ID_RESET_SCREEN_IMAGE);
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_RESET_SCREEN_IMAGE]));
         }
 
         public static setImageSize(width: number, height: number) {
             // Screen.image_ = bitmaps.create(width, height)
             // Screen.updateBounds()
-            basic.showNumber(SCREEN_FN_ID_SET_IMAGE_SIZE);
+            // basic.showNumber(SCREEN_FN_ID_SET_IMAGE_SIZE);
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_SET_IMAGE_SIZE, width, height]));
         }
 
@@ -121,7 +122,7 @@ namespace user_interface_base {
             //     c
             // )
 
-            basic.showNumber(SCREEN_FN_ID_DRAW_LINE);
+            // basic.showNumber(SCREEN_FN_ID_DRAW_LINE);
             // radio.sendNumber(SCREEN_FN_ID_DRAW_LINE);
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_LINE, x0, y0, x1, y1, c]));
         }
@@ -168,7 +169,7 @@ namespace user_interface_base {
             c: number
         ) {
             // Screen.image.drawRect(Screen.x(x), Screen.y(y), width, height, c)
-            basic.showNumber(SCREEN_FN_ID_DRAW_RECT);
+            // basic.showNumber(SCREEN_FN_ID_DRAW_RECT);
             // radio.sendNumber(SCREEN_FN_ID_DRAW_RECT);
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_RECT, x, y, width, height, c]));
         }
@@ -189,7 +190,7 @@ namespace user_interface_base {
         public static fill(
             c: number
         ) {
-            basic.showNumber(SCREEN_FN_ID_FILL);
+            // basic.showNumber(SCREEN_FN_ID_FILL);
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL, c]));
         }
 
@@ -200,7 +201,7 @@ namespace user_interface_base {
             height: number,
             c: number
         ) {
-            basic.showNumber(SCREEN_FN_ID_FILL_RECT);
+            // basic.showNumber(SCREEN_FN_ID_FILL_RECT);
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x, y, width, height, c]));
         }
 
@@ -367,7 +368,7 @@ namespace user_interface_base {
         public static setPixel(x: number, y: number, c: number) {
             if (c) {
                 // Screen.image.setPixel(Screen.x(x), Screen.y(y), c)
-                basic.showNumber(SCREEN_FN_ID_SET_PIXEL);
+                // basic.showNumber(SCREEN_FN_ID_SET_PIXEL);
                 radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_SET_PIXEL, x, y, c]));
             }
         }
@@ -390,7 +391,10 @@ namespace user_interface_base {
             font?: bitmaps.Font,
             offsets?: texteffects.TextEffectState[]
         ) {
-            basic.showNumber(SCREEN_FN_ID_PRINT);
+            // basic.showNumber(SCREEN_FN_ID_PRINT);
+
+            radio.sendString(text);
+            basic.pause(25);
 
             const c: number = (color == null) ? 0 : color;
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_PRINT, x, y, c]));
