@@ -157,8 +157,8 @@ namespace user_interface_base {
             height: number,
             c: number
         ) {
-            // radio.sendString("hi");
-            basic.showNumber(5)
+            radio.sendString("hi");
+            basic.showNumber(7)
             Screen.image.fillRect(Screen.x(x), Screen.y(y), width, height, c)
         }
 
