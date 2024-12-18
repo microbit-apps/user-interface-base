@@ -154,6 +154,11 @@ namespace user_interface_base {
         }
 
         private currScene(): Scene {
+            if (this.scenes != null) {
+                basic.showString("N");
+            } else {
+                basic.showString("H")
+            }
             if (this.scenes.length) {
                 basic.showString("ye");
                 return this.scenes[this.scenes.length - 1]
