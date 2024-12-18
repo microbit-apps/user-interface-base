@@ -394,7 +394,6 @@ namespace user_interface_base {
             // basic.showNumber(SCREEN_FN_ID_PRINT);
 
             radio.sendString(text);
-            basic.pause(25);
 
             const c: number = (color == null) ? 0 : color;
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_PRINT, x, y, c]));
