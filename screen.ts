@@ -1,4 +1,24 @@
 namespace user_interface_base {
+    const SCREEN_FN_ID_RESET_SCREEN_IMAGE: number = 5;
+    const SCREEN_FN_ID_SET_IMAGE_SIZE: number = 6;
+    const SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE: number = 7;
+    const SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE_XFRM: number = 8;
+    const SCREEN_FN_ID_DRAW_LINE: number = 9;
+    const SCREEN_FN_ID_DRAW_LINE_XFRM: number = 10;
+    const SCREEN_FN_ID_DRAW_LINE_SHADED: number = 11;
+    const SCREEN_FN_ID_DRAW_RECT: number = 12;
+    const SCREEN_FN_ID_DRAW_RECT_XFRM: number = 13;
+    const SCREEN_FN_ID_FILL: number = 14;
+    const SCREEN_FN_ID_FILL_RECT: number = 15;
+    const SCREEN_FN_ID_FILL_RECT_XFRM: number = 16;
+    const SCREEN_FN_ID_FILL_BOUNDS_XFRM: number = 17;
+    const SCREEN_FN_ID_DRAW_BOUNDS_XFRM: number = 18;
+    const SCREEN_FN_ID_OUTLINE_BOUNDS_XFRM: number = 19;
+    const SCREEN_FN_ID_OUTLINE_BOUNDS_XFRM4: number = 20;
+    const SCREEN_FN_ID_SET_PIXEL: number = 21;
+    const SCREEN_FN_ID_SET_PIXEL_XFRM: number = 22;
+    const SCREEN_FN_ID_PRINT: number = 23;
+
     export class Screen {
         private static image_: Bitmap
 
@@ -51,18 +71,26 @@ namespace user_interface_base {
             return Screen.image_
         }
         public static resetScreenImage() {
-            Screen.image_ = screen()
-            Screen.updateBounds()
+            //     Screen.image_ = screen()
+            //     Screen.updateBounds()
+            basic.showNumber(SCREEN_FN_ID_RESET_SCREEN_IMAGE);
         }
 
         public static setImageSize(width: number, height: number) {
-            Screen.image_ = bitmaps.create(width, height)
-            Screen.updateBounds()
+            // Screen.image_ = bitmaps.create(width, height)
+            // Screen.updateBounds()
+            basic.showNumber(SCREEN_FN_ID_SET_IMAGE_SIZE);
+            radio.sendNumber(SCREEN_FN_ID_SET_IMAGE_SIZE);
         }
 
         public static drawTransparentImage(from: Bitmap, x: number, y: number) {
-            Screen.image.drawTransparentBitmap(from, Screen.x(x), Screen.y(y))
+            // Screen.image.drawTransparentBitmap(from, Screen.x(x), Screen.y(y));
+
+            // basic.showNumber(SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE);
+            // radio.sendString(from);
+            // radio.sendNumber(SCREEN_FN_ID_SET_IMAGE_SIZE);
         }
+
 
         public static drawTransparentImageXfrm(
             xfrm: Affine,
@@ -85,13 +113,16 @@ namespace user_interface_base {
             y1: number,
             c: number
         ) {
-            Screen.image.drawLine(
-                Screen.x(x0),
-                Screen.y(y0),
-                Screen.x(x1),
-                Screen.y(y1),
-                c
-            )
+            // Screen.image.drawLine(
+            //     Screen.x(x0),
+            //     Screen.y(y0),
+            //     Screen.x(x1),
+            //     Screen.y(y1),
+            //     c
+            // )
+
+            basic.showNumber(SCREEN_FN_ID_DRAW_LINE);
+            radio.sendNumber(SCREEN_FN_ID_DRAW_LINE);
         }
 
         public static drawLineXfrm(
@@ -135,7 +166,9 @@ namespace user_interface_base {
             height: number,
             c: number
         ) {
-            Screen.image.drawRect(Screen.x(x), Screen.y(y), width, height, c)
+            // Screen.image.drawRect(Screen.x(x), Screen.y(y), width, height, c)
+            basic.showNumber(SCREEN_FN_ID_DRAW_RECT);
+            radio.sendNumber(SCREEN_FN_ID_DRAW_RECT);
         }
 
         public static drawRectXfrm(
@@ -155,7 +188,7 @@ namespace user_interface_base {
             c: number
         ) {
             basic.showNumber(0);
-            radio.sendBuffer(Buffer.fromArray([0, 6]));
+            radio.sendBuffer(Buffer.fromArray([0, c]));
         }
 
         public static fillRect(
@@ -165,8 +198,8 @@ namespace user_interface_base {
             height: number,
             c: number
         ) {
-            basic.showNumber(1);
-            radio.sendBuffer(Buffer.fromArray([1, x, y, width, height, c]));
+            basic.showNumber(SCREEN_FN_ID_FILL_RECT);
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x, y, width, height, c]));
         }
 
         public static fillRectXfrm(
@@ -331,7 +364,9 @@ namespace user_interface_base {
 
         public static setPixel(x: number, y: number, c: number) {
             if (c) {
-                Screen.image.setPixel(Screen.x(x), Screen.y(y), c)
+                // Screen.image.setPixel(Screen.x(x), Screen.y(y), c)
+                basic.showNumber(SCREEN_FN_ID_SET_PIXEL);
+                radio.sendNumber(SCREEN_FN_ID_SET_PIXEL);
             }
         }
 
