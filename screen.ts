@@ -155,7 +155,7 @@ namespace user_interface_base {
                 for (let y = sy0, ty = y0; y <= sy1; y++, ty++) {
                     const c = shader(tx, ty)
                     if (c) {
-                        Screen.image.setPixel(x, y, c)
+                        Screen.setPixel(x, y, c)
                     }
                 }
             }
