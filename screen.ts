@@ -80,7 +80,7 @@ namespace user_interface_base {
             // Screen.image_ = bitmaps.create(width, height)
             // Screen.updateBounds()
             basic.showNumber(SCREEN_FN_ID_SET_IMAGE_SIZE);
-            radio.sendNumber(SCREEN_FN_ID_SET_IMAGE_SIZE);
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_SET_IMAGE_SIZE, width, height]));
         }
 
         public static drawTransparentImage(from: Bitmap, x: number, y: number) {
@@ -122,7 +122,8 @@ namespace user_interface_base {
             // )
 
             basic.showNumber(SCREEN_FN_ID_DRAW_LINE);
-            radio.sendNumber(SCREEN_FN_ID_DRAW_LINE);
+            // radio.sendNumber(SCREEN_FN_ID_DRAW_LINE);
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_LINE, x0, y0, x1, y1, c]));
         }
 
         public static drawLineXfrm(
@@ -168,7 +169,8 @@ namespace user_interface_base {
         ) {
             // Screen.image.drawRect(Screen.x(x), Screen.y(y), width, height, c)
             basic.showNumber(SCREEN_FN_ID_DRAW_RECT);
-            radio.sendNumber(SCREEN_FN_ID_DRAW_RECT);
+            // radio.sendNumber(SCREEN_FN_ID_DRAW_RECT);
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_RECT, x, y, width, height, c]));
         }
 
         public static drawRectXfrm(
@@ -187,8 +189,8 @@ namespace user_interface_base {
         public static fill(
             c: number
         ) {
-            basic.showNumber(0);
-            radio.sendBuffer(Buffer.fromArray([0, c]));
+            basic.showNumber(SCREEN_FN_ID_FILL);
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL, c]));
         }
 
         public static fillRect(
@@ -366,7 +368,7 @@ namespace user_interface_base {
             if (c) {
                 // Screen.image.setPixel(Screen.x(x), Screen.y(y), c)
                 basic.showNumber(SCREEN_FN_ID_SET_PIXEL);
-                radio.sendNumber(SCREEN_FN_ID_SET_PIXEL);
+                radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_SET_PIXEL, x, y, c]));
             }
         }
 
@@ -388,14 +390,19 @@ namespace user_interface_base {
             font?: bitmaps.Font,
             offsets?: texteffects.TextEffectState[]
         ) {
-            Screen.image.print(
-                text,
-                Screen.x(x),
-                Screen.y(y),
-                color,
-                font,
-                offsets
-            )
+            basic.showNumber(SCREEN_FN_ID_PRINT);
+
+            const c: number = (color == null) ? 0 : color;
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_PRINT, x, y, c]));
+
+            // Screen.image.print(
+            //     text,
+            //     Screen.x(x),
+            //     Screen.y(y),
+            //     color,
+            //     font,
+            //     offsets
+            // )
         }
     }
 }
