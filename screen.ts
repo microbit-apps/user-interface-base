@@ -86,15 +86,16 @@ namespace user_interface_base {
                 })
 
                 // timeout:
-                // control.inBackground(() => {
-                //     basic.pause(200);
-                //     timeOut = true
-                // })
+                control.inBackground(() => {
+                    basic.pause(500);
+                    timeOut = true
+                    basic.showString("T")
+                })
 
                 while (!ackReceived && !timeOut) { basic.pause(25) }
                 radio.onReceivedValue(_ => { }) // reset radio
 
-                return !timeOut;
+                return timeOut;
             };
 
             // bitmap information:
