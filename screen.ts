@@ -203,8 +203,9 @@ namespace user_interface_base {
         ) {
             // basic.showNumber(SCREEN_FN_ID_FILL_RECT);
 
-            const b = Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x, y, width, height, c])
+            const b = Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c])
 
+            // -80, -64, 176, 192
             basic.showString("S")
             basic.showNumber(x)
             basic.showString("p")
