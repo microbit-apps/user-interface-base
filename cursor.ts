@@ -23,7 +23,7 @@ namespace user_interface_base {
     }
 
     export interface CursorState {
-        navigator: INavigator 
+        navigator: INavigator
         pos: Vec2
         ariaId: string
         size: Bounds
@@ -48,7 +48,7 @@ namespace user_interface_base {
             this.cancelHandlerStack = []
             this.moveDest = new Vec2()
             this.setSize()
-            
+
             this.cursorOutlineColour = DEFAULT_CURSOR_OUTLINE_COLOUR
         }
 
@@ -70,7 +70,7 @@ namespace user_interface_base {
         public snapTo(x: number, y: number, ariaId: string, sizeHint: Bounds) {
             this.setSize(
                 sizeHint ||
-                    new Bounds({ left: 0, top: 0, width: 16, height: 16 })
+                new Bounds({ left: 0, top: 0, width: 16, height: 16 })
             )
             this.moveDest.x = this.xfrm.localPos.x = x
             this.moveDest.y = this.xfrm.localPos.y = y
@@ -158,7 +158,7 @@ namespace user_interface_base {
                     pos.y + (this.size.width >> 1) + (font.charHeight >> 1) + 1,
                     Screen.BOTTOM_EDGE - 1 - font.charHeight
                 )
-                Screen.fillRect(x - 1, y - 1, w + 1, h + 2, 15)
+                // Screen.fillRect(x - 1, y - 1, w + 1, h + 2, 15)
                 Screen.print(text, x, y, 1, font)
             }
         }
