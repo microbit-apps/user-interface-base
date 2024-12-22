@@ -176,7 +176,8 @@ namespace user_interface_base {
             c: number
         ) {
             // Screen.image.drawRect(Screen.x(x), Screen.y(y), width, height, c)
-            basic.showNumber(SCREEN_FN_ID_DRAW_RECT);
+            basic.showString("S");
+            // basic.showNumber(SCREEN_FN_ID_DRAW_RECT);
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]));
             basic.clearScreen()
         }
@@ -197,7 +198,8 @@ namespace user_interface_base {
         public static fill(
             c: number
         ) {
-            basic.showNumber(SCREEN_FN_ID_FILL);
+            basic.showString("S");
+            // basic.showNumber(SCREEN_FN_ID_FILL);
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL, c]));
             basic.clearScreen()
         }
@@ -209,7 +211,8 @@ namespace user_interface_base {
             height: number,
             c: number
         ) {
-            basic.showNumber(SCREEN_FN_ID_FILL_RECT);
+            // basic.showNumber(SCREEN_FN_ID_FILL_RECT);
+            basic.showString("S");
 
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]))
             basic.clearScreen()
@@ -401,7 +404,7 @@ namespace user_interface_base {
             font?: bitmaps.Font,
             offsets?: texteffects.TextEffectState[]
         ) {
-            basic.showNumber(SCREEN_FN_ID_PRINT);
+            basic.showString("S");
 
             radio.sendString(text);
 
