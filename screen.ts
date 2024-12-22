@@ -74,11 +74,11 @@ namespace user_interface_base {
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_SET_IMAGE_SIZE, width, height]));
         }
 
-        public static sendBitmap(bitmap: Bitmap) {
-            radio.sendString("" + bitmap.height)
+        public static sendBitmap(name: string, bitmap: Bitmap) {
+            radio.sendString(name + "," + bitmap.height)
 
             basic.showString("S")
-            let b = Buffer.create(bitmap.width / 8);
+            let b = Buffer.create(bitmap.width * 8);
 
             for (let row = 0; row < bitmap.height; row++) {
                 bitmap.getRows(row, b);
