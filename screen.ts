@@ -2,21 +2,11 @@ namespace user_interface_base {
     const SCREEN_FN_ID_RESET_SCREEN_IMAGE: number = 5;
     const SCREEN_FN_ID_SET_IMAGE_SIZE: number = 6;
     const SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE: number = 7;
-    const SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE_XFRM: number = 8;
     const SCREEN_FN_ID_DRAW_LINE: number = 9;
-    const SCREEN_FN_ID_DRAW_LINE_XFRM: number = 10;
-    const SCREEN_FN_ID_DRAW_LINE_SHADED: number = 11;
     const SCREEN_FN_ID_DRAW_RECT: number = 12;
-    const SCREEN_FN_ID_DRAW_RECT_XFRM: number = 13;
     const SCREEN_FN_ID_FILL: number = 14;
     const SCREEN_FN_ID_FILL_RECT: number = 15;
-    const SCREEN_FN_ID_FILL_RECT_XFRM: number = 16;
-    const SCREEN_FN_ID_FILL_BOUNDS_XFRM: number = 17;
-    const SCREEN_FN_ID_DRAW_BOUNDS_XFRM: number = 18;
-    const SCREEN_FN_ID_OUTLINE_BOUNDS_XFRM: number = 19;
-    const SCREEN_FN_ID_OUTLINE_BOUNDS_XFRM4: number = 20;
     const SCREEN_FN_ID_SET_PIXEL: number = 21;
-    const SCREEN_FN_ID_SET_PIXEL_XFRM: number = 22;
     const SCREEN_FN_ID_PRINT: number = 23;
 
     export class Screen {
@@ -86,7 +76,14 @@ namespace user_interface_base {
 
         public static drawTransparentImage(from: Bitmap, x: number, y: number) {
             // Screen.image.drawTransparentBitmap(from, Screen.x(x), Screen.y(y));
+            // SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE
+            basic.showString("S")
 
+            const b = from.__buffer.toString()
+            basic.showNumber(b.length)
+            radio.sendString(b)
+
+            basic.clearScreen()
             // basic.showNumber(SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE);
             // radio.sendString(from);
             // radio.sendNumber(SCREEN_FN_ID_SET_IMAGE_SIZE);
@@ -124,16 +121,14 @@ namespace user_interface_base {
 
             // basic.showNumber(SCREEN_FN_ID_DRAW_LINE);
             // radio.sendNumber(SCREEN_FN_ID_DRAW_LINE);
-            control.inBackground(() => {
-                radio.sendBuffer(
-                    Buffer.fromArray([
-                        SCREEN_FN_ID_DRAW_LINE,
-                        x0 + Screen.HALF_WIDTH, y0 + Screen.HALF_HEIGHT,
-                        x1 + Screen.HALF_WIDTH, y1 + Screen.HALF_HEIGHT,
-                        c
-                    ])
-                );
-            })
+            radio.sendBuffer(
+                Buffer.fromArray([
+                    SCREEN_FN_ID_DRAW_LINE,
+                    x0 + Screen.HALF_WIDTH, y0 + Screen.HALF_HEIGHT,
+                    x1 + Screen.HALF_WIDTH, y1 + Screen.HALF_HEIGHT,
+                    c
+                ])
+            );
         }
 
         public static drawLineXfrm(
@@ -180,9 +175,7 @@ namespace user_interface_base {
             // Screen.image.drawRect(Screen.x(x), Screen.y(y), width, height, c)
             basic.showString("S");
             // basic.showNumber(SCREEN_FN_ID_DRAW_RECT);
-            control.inBackground(() => {
-                radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]));
-            })
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]));
             basic.clearScreen()
         }
 
@@ -204,9 +197,7 @@ namespace user_interface_base {
         ) {
             basic.showString("S");
             // basic.showNumber(SCREEN_FN_ID_FILL);
-            control.inBackground(() => {
-                radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL, c]));
-            })
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL, c]));
             basic.clearScreen()
         }
 
@@ -219,10 +210,8 @@ namespace user_interface_base {
         ) {
             // basic.showNumber(SCREEN_FN_ID_FILL_RECT);
             basic.showString("S");
-            control.inBackground(() => {
 
-                radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]))
-            })
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]))
             basic.clearScreen()
         }
 
@@ -417,9 +406,8 @@ namespace user_interface_base {
             radio.sendString(text);
 
             const c: number = (color == null) ? 0 : color;
-            control.inBackground(() => {
-                radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_PRINT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
-            })
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_PRINT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
+
             // Screen.image.print(
             //     text,
             //     Screen.x(x),
