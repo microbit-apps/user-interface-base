@@ -74,32 +74,32 @@ namespace user_interface_base {
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_SET_IMAGE_SIZE, width, height]));
         }
 
-        public static drawTransparentImage(from: Bitmap, x: number, y: number) {
-            // Screen.image.drawTransparentBitmap(from, Screen.x(x), Screen.y(y));
-            // SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE
+        public static sendBitmap(bitmap: Bitmap) {
+            radio.sendString("" + bitmap.height)
+
             basic.showString("S")
-            let b = Buffer.create(Screen.WIDTH / 8);
-            from.getRows(0, b);
+            let b = Buffer.create(bitmap.width / 8);
 
-            basic.showString("D")
-
-            // if (b == null) {
-            //     basic.showString("N")
-            // } else {
-            //     basic.showString("W")
-            // }
-
-            // basic.showNumber(b.length)
-            // const s = from.__buffer.toString()
-            basic.showString("Y")
-
-            radio.sendBuffer(b)
-            // radio.sendString(s)
+            for (let row = 0; row < bitmap.height; row++) {
+                bitmap.getRows(row, b);
+                radio.sendBuffer(b)
+            }
 
             basic.clearScreen()
-            // basic.showNumber(SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE);
-            // radio.sendString(from);
-            // radio.sendNumber(SCREEN_FN_ID_SET_IMAGE_SIZE);
+        }
+
+
+        public static drawTransparentImage(from: Bitmap, x: number, y: number) {
+            // Screen.image.drawTransparentBitmap(from, Screen.x(x), Screen.y(y));
+            basic.showString("S")
+            let b = Buffer.create(from.width / 8);
+
+            for (let row = 0; row < from.height; row++) {
+                from.getRows(row, b);
+                radio.sendBuffer(b)
+            }
+
+            basic.clearScreen()
         }
 
 
