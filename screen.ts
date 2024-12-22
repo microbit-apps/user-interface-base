@@ -202,6 +202,19 @@ namespace user_interface_base {
             c: number
         ) {
             // basic.showNumber(SCREEN_FN_ID_FILL_RECT);
+
+            const b = Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x, y, width, height, c])
+
+            basic.showString("S")
+            basic.showNumber(x)
+            basic.showString("p")
+            basic.showNumber(y)
+            for (let i = 0; i < b.length; i++) {
+                basic.showString("" + i + ":" + b[i])
+
+            }
+            basic.showString("D")
+
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x, y, width, height, c]));
         }
 
