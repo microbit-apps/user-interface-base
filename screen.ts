@@ -74,30 +74,46 @@ namespace user_interface_base {
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_SET_IMAGE_SIZE, width, height]));
         }
 
+
         public static sendBitmap(name: string, bitmap: Bitmap) {
+            const waitForAck = () => {
+                basic.showString("W")
+
+                let ackReceived = false;
+                let timeOut = false;
+                radio.onReceivedString(_ => {
+                    ackReceived = true;
+                })
+
+                // timeout:
+                control.inBackground(() => {
+                    basic.pause(200);
+                    timeOut = true
+                })
+
+                while (!ackReceived && !timeOut) { basic.pause(25) }
+                radio.onReceivedValue(_ => { }) // reset radio
+
+                basic.showString("D")
+                return timeOut;
+            };
+
+            // bitmap information:
             radio.sendString(name + "," + bitmap.height)
+            waitForAck();
 
+            // Send each row of the bitmap:
             basic.showString("S")
-            let b = Buffer.create(bitmap.width * 8);
-
+            let rowBuffer = Buffer.create(bitmap.width * 8);
             for (let row = 0; row < bitmap.height; row++) {
-                bitmap.getRows(row, b);
-                radio.sendBuffer(b)
+                bitmap.getRows(row, rowBuffer);
+
+                radio.sendBuffer(rowBuffer)
+                while (waitForAck()) {
+                    radio.sendBuffer(rowBuffer)
+                }
             }
-
-            // Wait for ACK:
-            basic.showString("W")
-            let ackReceived = false;
-            radio.onReceivedString(_ => {
-                ackReceived = true;
-            })
-
-            while (!ackReceived) {
-                basic.pause(25)
-            }
-
-            // reset radio:
-            radio.onReceivedValue(_ => { })
+            waitForAck();
 
             basic.clearScreen()
         }
