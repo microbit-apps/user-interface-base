@@ -78,20 +78,23 @@ namespace user_interface_base {
             // Screen.image.drawTransparentBitmap(from, Screen.x(x), Screen.y(y));
             // SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE
             basic.showString("S")
-            const b = from.__buffer
+            let b = Buffer.create(Screen.WIDTH / 8);
+            from.getRows(0, b);
+
             basic.showString("D")
 
-            if (b == null) {
-                basic.showString("N")
-            } else {
-                basic.showString("W")
-            }
+            // if (b == null) {
+            //     basic.showString("N")
+            // } else {
+            //     basic.showString("W")
+            // }
 
             // basic.showNumber(b.length)
-            const s = from.__buffer.toString()
+            // const s = from.__buffer.toString()
             basic.showString("Y")
 
-            radio.sendString(s)
+            radio.sendBuffer(b)
+            // radio.sendString(s)
 
             basic.clearScreen()
             // basic.showNumber(SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE);
