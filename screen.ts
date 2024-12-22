@@ -124,14 +124,16 @@ namespace user_interface_base {
 
             // basic.showNumber(SCREEN_FN_ID_DRAW_LINE);
             // radio.sendNumber(SCREEN_FN_ID_DRAW_LINE);
-            radio.sendBuffer(
-                Buffer.fromArray([
-                    SCREEN_FN_ID_DRAW_LINE,
-                    x0 + Screen.HALF_WIDTH, y0 + Screen.HALF_HEIGHT,
-                    x1 + Screen.HALF_WIDTH, y1 + Screen.HALF_HEIGHT,
-                    c
-                ])
-            );
+            control.inBackground(() => {
+                radio.sendBuffer(
+                    Buffer.fromArray([
+                        SCREEN_FN_ID_DRAW_LINE,
+                        x0 + Screen.HALF_WIDTH, y0 + Screen.HALF_HEIGHT,
+                        x1 + Screen.HALF_WIDTH, y1 + Screen.HALF_HEIGHT,
+                        c
+                    ])
+                );
+            })
         }
 
         public static drawLineXfrm(
@@ -178,7 +180,9 @@ namespace user_interface_base {
             // Screen.image.drawRect(Screen.x(x), Screen.y(y), width, height, c)
             basic.showString("S");
             // basic.showNumber(SCREEN_FN_ID_DRAW_RECT);
-            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]));
+            control.inBackground(() => {
+                radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]));
+            })
             basic.clearScreen()
         }
 
@@ -200,7 +204,9 @@ namespace user_interface_base {
         ) {
             basic.showString("S");
             // basic.showNumber(SCREEN_FN_ID_FILL);
-            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL, c]));
+            control.inBackground(() => {
+                radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL, c]));
+            })
             basic.clearScreen()
         }
 
@@ -213,8 +219,10 @@ namespace user_interface_base {
         ) {
             // basic.showNumber(SCREEN_FN_ID_FILL_RECT);
             basic.showString("S");
+            control.inBackground(() => {
 
-            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]))
+                radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]))
+            })
             basic.clearScreen()
         }
 
@@ -409,8 +417,9 @@ namespace user_interface_base {
             radio.sendString(text);
 
             const c: number = (color == null) ? 0 : color;
-            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_PRINT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
-
+            control.inBackground(() => {
+                radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_PRINT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
+            })
             // Screen.image.print(
             //     text,
             //     Screen.x(x),
