@@ -94,7 +94,6 @@ namespace user_interface_base {
                 while (!ackReceived && !timeOut) { basic.pause(25) }
                 radio.onReceivedValue(_ => { }) // reset radio
 
-                basic.showString("D")
                 return timeOut;
             };
 
@@ -113,8 +112,8 @@ namespace user_interface_base {
                     radio.sendBuffer(rowBuffer)
                 }
             }
-            waitForAck();
 
+            // basic.showString("D")
             basic.clearScreen()
         }
 
