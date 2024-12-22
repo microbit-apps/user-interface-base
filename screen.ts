@@ -85,6 +85,20 @@ namespace user_interface_base {
                 radio.sendBuffer(b)
             }
 
+            // Wait for ACK:
+            basic.showString("W")
+            let ackReceived = false;
+            radio.onReceivedString(_ => {
+                ackReceived = true;
+            })
+
+            while (ackReceived) {
+                basic.pause(25)
+            }
+
+            // reset radio:
+            radio.onReceivedValue(_ => { })
+
             basic.clearScreen()
         }
 
