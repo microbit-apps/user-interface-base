@@ -80,6 +80,13 @@ namespace user_interface_base {
             basic.showString("S")
             const b = from.__buffer
             basic.showString("D")
+
+            if (b == null) {
+                basic.showString("N")
+            } else {
+                basic.showString("W")
+            }
+
             // basic.showNumber(b.length)
             const s = from.__buffer.toString()
             basic.showString("Y")
