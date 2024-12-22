@@ -81,7 +81,10 @@ namespace user_interface_base {
             const b = from.__buffer
             basic.showString("D")
             // basic.showNumber(b.length)
-            radio.sendString(b.toString())
+            const s = from.__buffer.toString()
+            basic.showString("Y")
+
+            radio.sendString(s)
 
             basic.clearScreen()
             // basic.showNumber(SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE);
