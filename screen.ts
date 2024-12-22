@@ -78,10 +78,9 @@ namespace user_interface_base {
             // Screen.image.drawTransparentBitmap(from, Screen.x(x), Screen.y(y));
             // SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE
             basic.showString("S")
-
-            const b = from.__buffer.toString()
+            const b = from.__buffer
             basic.showNumber(b.length)
-            radio.sendString(b)
+            radio.sendString(b.toString())
 
             basic.clearScreen()
             // basic.showNumber(SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE);
