@@ -92,7 +92,7 @@ namespace user_interface_base {
                 ackReceived = true;
             })
 
-            while (ackReceived) {
+            while (!ackReceived) {
                 basic.pause(25)
             }
 
