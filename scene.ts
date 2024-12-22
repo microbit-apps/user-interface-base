@@ -113,17 +113,17 @@ namespace user_interface_base {
 
         public pushScene(scene: Scene) {
             const currScene = this.currScene()
-            basic.showNumber(9)
+            // basic.showNumber(9)
 
             if (currScene) {
                 currScene.deactivate()
             }
-            basic.showNumber(0)
+            // basic.showNumber(0)
             context.pushEventContext()
             this.scenes.push(scene)
-            basic.showNumber(1)
+            // basic.showNumber(1)
             scene.startup()
-            basic.showNumber(2)
+            // basic.showNumber(2)
             scene.activate()
             scene.__init()
         }
@@ -154,16 +154,16 @@ namespace user_interface_base {
         }
 
         private currScene(): Scene {
-            if (this.scenes != null) {
-                basic.showString("N");
-            } else {
-                basic.showString("H")
-            }
+            // if (this.scenes != null) {
+            //     basic.showString("N");
+            // } else {
+            //     basic.showString("H")
+            // }
             if (this.scenes.length) {
-                basic.showString("ye");
+                // basic.showString("ye");
                 return this.scenes[this.scenes.length - 1]
             }
-            basic.showString("undef")
+            // basic.showString("undef")
             return undefined
         }
     }
