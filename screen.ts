@@ -105,19 +105,25 @@ namespace user_interface_base {
 
             // bitmap information:
             radio.sendString(name + "," + bitmap.height)
-            waitForAck();
+
+            const res = waitForAck();
+            if (res) {
+                basic.showString("T0")
+            } else {
+                basic.showString("T1")
+            }
 
             // Send each row of the bitmap:
             basic.showString("S")
-            let rowBuffer = Buffer.create(bitmap.width * 8);
-            for (let row = 0; row < bitmap.height; row++) {
-                bitmap.getRows(row, rowBuffer);
+            // let rowBuffer = Buffer.create(bitmap.width * 8);
+            // for (let row = 0; row < bitmap.height; row++) {
+            //     bitmap.getRows(row, rowBuffer);
 
-                radio.sendBuffer(rowBuffer)
-                while (waitForAck()) {
-                    radio.sendBuffer(rowBuffer)
-                }
-            }
+            //     radio.sendBuffer(rowBuffer)
+            //     while (waitForAck()) {
+            //         radio.sendBuffer(rowBuffer)
+            //     }
+            // }
 
             // basic.showString("D")
             basic.clearScreen()
