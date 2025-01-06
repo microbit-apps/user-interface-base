@@ -87,7 +87,7 @@ namespace user_interface_base {
 
                 // timeout:
                 control.inBackground(() => {
-                    basic.pause(500);
+                    // basic.pause(500);
                     for (let timeChunk = 0; timeChunk < 500; timeChunk += 25) {
                         if (ackReceived)
                             return
