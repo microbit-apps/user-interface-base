@@ -1,4 +1,4 @@
-namespace user_interface_base namespace user_interface_base {
+namespace user_interface_base {
     const SCREEN_FN_ID_RESET_SCREEN_IMAGE: number = 5;
     const SCREEN_FN_ID_SET_IMAGE_SIZE: number = 6;
     const SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE: number = 7;
@@ -76,7 +76,8 @@ namespace user_interface_base namespace user_interface_base {
 
 
         public static sendBitmap(name: string, bitmap: Bitmap) {
-            // returns True on receiving ack; False on timeout.
+            // Returns true on succesful acknowledgement reception.
+            // Returns false on timeout (250ms)
             const waitForAck = () => {
                 basic.showString("W")
 
@@ -85,15 +86,12 @@ namespace user_interface_base namespace user_interface_base {
                     ackReceived = true;
                 })
 
-                // timeout: basic.pause(500):
-                for (let timeChunk = 0; timeChunk < 500; timeChunk += 25) {
+                // timeout:
+                for (let timeChunk = 0; timeChunk < 250; timeChunk += 25) {
                     if (ackReceived)
-                        break
+                        return
                     basic.pause(25)
                 }
-
-                if (!ackReceived)
-                    basic.showString("T")
 
                 radio.onReceivedValue(_ => { }) // reset radio
                 return ackReceived;
@@ -102,24 +100,28 @@ namespace user_interface_base namespace user_interface_base {
             // bitmap information:
             radio.sendString(name + "," + bitmap.height)
 
-            basic.showNumber(0)
-            waitForAck();
-            basic.showNumber(1)
+            const ackReceived = waitForAck();
+            if (ackReceived)
+                basic.showString("R")
+            else
+                basic.showString("N")
 
             // Send each row of the bitmap:
             basic.showString("S")
             let rowBuffer = Buffer.create(bitmap.width * 8);
             for (let row = 0; row < bitmap.height; row++) {
+                // Fill buffer & send it over radio:
                 bitmap.getRows(row, rowBuffer);
+                radio.sendBuffer(rowBuffer);
 
-                radio.sendBuffer(rowBuffer)
-                while (waitForAck()) {
-                    radio.sendBuffer(rowBuffer)
+                const ackReceived = waitForAck();
+                while (ackReceived) {
+                    radio.sendBuffer(rowBuffer);
                 }
             }
 
-            // basic.showString("D")
-            basic.clearScreen()
+            basic.showString("D")
+            // basic.clearScreen()
         }
 
 
