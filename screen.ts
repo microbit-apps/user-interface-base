@@ -115,11 +115,9 @@ namespace user_interface_base {
 
                 basic.showString("B")
                 radio.sendBuffer(rowBuffer);
+                basic.pause(50)
 
-                const ackReceived = waitForAck();
-
-                // basic.showString("W")
-                while (ackReceived) {
+                while (waitForAck()) {
                     basic.showString("B")
                     radio.sendBuffer(rowBuffer);
 
@@ -131,7 +129,6 @@ namespace user_interface_base {
             }
 
             basic.showString("D")
-            // basic.clearScreen()
         }
 
 
