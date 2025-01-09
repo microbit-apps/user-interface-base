@@ -99,6 +99,7 @@ namespace user_interface_base {
 
             // bitmap information:
             radio.sendString(name + "," + bitmap.height)
+            basic.pause(25)
 
             const ackReceived = waitForAck();
             if (ackReceived)
