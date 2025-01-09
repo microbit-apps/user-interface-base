@@ -93,7 +93,7 @@ namespace user_interface_base {
                     basic.pause(25)
                 }
 
-                radio.onReceivedValue(_ => { }) // reset radio
+                // radio.onReceivedValue(_ => { }) // reset radio
                 return ackReceived;
             };
 
@@ -101,11 +101,12 @@ namespace user_interface_base {
             radio.sendString(name + "," + bitmap.height)
             basic.pause(25)
 
-            const ackReceived = waitForAck();
-            if (ackReceived)
-                basic.showString("R")
-            else
-                basic.showString("N")
+            basic.showString("W")
+            while (waitForAck()) {
+                radio.sendString(name + "," + bitmap.height);
+                basic.pause(25)
+            }
+            basic.showString("R")
 
             // Send each row of the bitmap:
             // basic.showString("S")
