@@ -89,7 +89,7 @@ namespace user_interface_base {
                 // timeout:
                 for (let timeChunk = 0; timeChunk < 250; timeChunk += 25) {
                     if (ackReceived)
-                        return
+                        break
                     basic.pause(25)
                 }
 
