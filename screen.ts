@@ -101,12 +101,12 @@ namespace user_interface_base {
             radio.sendString(name + "," + bitmap.height)
             basic.pause(25)
 
-            // basic.showString("W")
+            basic.showString("W")
             while (waitForAck()) {
                 radio.sendString(name + "," + bitmap.height);
                 basic.pause(25)
             }
-            // basic.showString("R")
+            basic.showString("R")
 
             // Send each row of the bitmap:
             // basic.showString("S")
