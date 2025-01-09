@@ -101,12 +101,12 @@ namespace user_interface_base {
             radio.sendString(name + "," + bitmap.height)
             basic.pause(25)
 
-            basic.showString("W")
+            // basic.showString("W")
             while (waitForAck()) {
                 radio.sendString(name + "," + bitmap.height);
                 basic.pause(25)
             }
-            basic.showString("R")
+            // basic.showString("R")
 
             // Send each row of the bitmap:
             // basic.showString("S")
@@ -115,22 +115,22 @@ namespace user_interface_base {
                 // Fill buffer & send it over radio:
                 bitmap.getRows(row, rowBuffer);
 
-                basic.showString("B")
+                // basic.showString("B")
                 radio.sendBuffer(rowBuffer);
                 basic.pause(50)
 
                 while (waitForAck()) {
-                    basic.showString("B")
+                    // basic.showString("B")
                     radio.sendBuffer(rowBuffer);
 
-                    basic.showString("W")
+                    // basic.showString("W")
                     basic.pause(50)
                 }
 
-                basic.showString("A")
+                // basic.showString("A")
             }
 
-            basic.showString("D")
+            // basic.showString("D")
         }
 
 
