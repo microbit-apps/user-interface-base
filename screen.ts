@@ -107,18 +107,27 @@ namespace user_interface_base {
                 basic.showString("N")
 
             // Send each row of the bitmap:
-            basic.showString("S")
+            // basic.showString("S")
             let rowBuffer = Buffer.create(bitmap.width * 8);
             for (let row = 0; row < bitmap.height; row++) {
                 // Fill buffer & send it over radio:
                 bitmap.getRows(row, rowBuffer);
+
+                basic.showString("B")
                 radio.sendBuffer(rowBuffer);
 
                 const ackReceived = waitForAck();
+
+                // basic.showString("W")
                 while (ackReceived) {
+                    basic.showString("B")
                     radio.sendBuffer(rowBuffer);
+
+                    basic.showString("W")
                     basic.pause(50)
                 }
+
+                basic.showString("A")
             }
 
             basic.showString("D")
