@@ -79,7 +79,7 @@ namespace user_interface_base {
             // Returns true on succesful acknowledgement reception.
             // Returns false on timeout (250ms)
             const waitForAck = () => {
-                basic.showString("W")
+                // basic.showString("W")
 
                 let ackReceived = false;
                 radio.onReceivedString(_ => {
@@ -87,7 +87,7 @@ namespace user_interface_base {
                 })
 
                 // timeout:
-                for (let timeChunk = 0; timeChunk < 250; timeChunk += 25) {
+                for (let timeChunk = 0; timeChunk < 500; timeChunk += 25) {
                     if (ackReceived)
                         break
                     basic.pause(25)
@@ -117,6 +117,7 @@ namespace user_interface_base {
                 const ackReceived = waitForAck();
                 while (ackReceived) {
                     radio.sendBuffer(rowBuffer);
+                    basic.pause(50)
                 }
             }
 
