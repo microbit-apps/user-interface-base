@@ -1,6 +1,6 @@
 {
     "name": "user-interface-base",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "files": [
         "affine.ts",
         "bounds.ts",
@@ -26,7 +26,7 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "pxt-arcadeshield": "github:microbit-apps/pxt-arcadeshield#603e3127d0099fcfc14b92961dc4e813fa108633"
+        "arcadeshield": "github:microbit-apps/arcadeshield#01f886a9578face7e65fe610b05a6ca306840975"
     },
     "testDependencies": {}
 }
