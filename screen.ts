@@ -87,10 +87,10 @@ namespace user_interface_base {
                 })
 
                 // timeout:
-                for (let timeChunk = 0; timeChunk < 500; timeChunk += 25) {
+                for (let timeChunk = 0; timeChunk < 500; timeChunk += 10) {
                     if (ackReceived)
                         break
-                    basic.pause(25)
+                    basic.pause(10)
                 }
 
                 // radio.onReceivedValue(_ => { }) // reset radio
@@ -99,12 +99,12 @@ namespace user_interface_base {
 
             // bitmap information:
             radio.sendString(name + "," + bitmap.height)
-            basic.pause(25)
+            basic.pause(10)
 
             basic.showString("W")
             while (waitForAck()) {
                 radio.sendString(name + "," + bitmap.height);
-                basic.pause(25)
+                basic.pause(10)
             }
             basic.showString("R")
 
@@ -117,14 +117,14 @@ namespace user_interface_base {
 
                 // basic.showString("B")
                 radio.sendBuffer(rowBuffer);
-                basic.pause(25)
+                basic.pause(10)
 
                 while (waitForAck()) {
                     // basic.showString("B")
                     radio.sendBuffer(rowBuffer);
 
                     // basic.showString("W")
-                    basic.pause(25)
+                    basic.pause(10)
                 }
 
                 // basic.showString("A")
@@ -136,7 +136,7 @@ namespace user_interface_base {
 
         public static drawTransparentImage(from: Bitmap, x: number, y: number) {
             // Screen.image.drawTransparentBitmap(from, Screen.x(x), Screen.y(y));
-            basic.showString("S")
+            // basic.showString("S")
             let b = Buffer.create(from.width / 8);
 
             for (let row = 0; row < from.height; row++) {
@@ -231,7 +231,7 @@ namespace user_interface_base {
             c: number
         ) {
             // Screen.image.drawRect(Screen.x(x), Screen.y(y), width, height, c)
-            basic.showString("S");
+            // basic.showString("S");
             // basic.showNumber(SCREEN_FN_ID_DRAW_RECT);
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]));
             basic.clearScreen()
@@ -253,7 +253,7 @@ namespace user_interface_base {
         public static fill(
             c: number
         ) {
-            basic.showString("S");
+            // basic.showString("S");
             // basic.showNumber(SCREEN_FN_ID_FILL);
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL, c]));
             basic.clearScreen()
@@ -267,7 +267,7 @@ namespace user_interface_base {
             c: number
         ) {
             // basic.showNumber(SCREEN_FN_ID_FILL_RECT);
-            basic.showString("S");
+            // basic.showString("S") ;
 
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]))
             basic.clearScreen()
@@ -459,7 +459,7 @@ namespace user_interface_base {
             font?: bitmaps.Font,
             offsets?: texteffects.TextEffectState[]
         ) {
-            basic.showString("P");
+            // basic.showString("P");
             radio.sendString(text);
 
             const c: number = (color == null) ? 0 : color;
@@ -473,7 +473,7 @@ namespace user_interface_base {
             //     font,
             //     offsets
             // )
-            basic.clearScreen()
+            // basic.clearScreen()
         }
     }
 }
