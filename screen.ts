@@ -115,19 +115,19 @@ namespace user_interface_base {
                 // Fill buffer & send it over radio:
                 bitmap.getRows(row, rowBuffer);
 
-                basic.showString("B")
+                // basic.showString("B")
                 radio.sendBuffer(rowBuffer);
-                basic.pause(50)
+                basic.pause(25)
 
                 while (waitForAck()) {
                     // basic.showString("B")
                     radio.sendBuffer(rowBuffer);
 
                     // basic.showString("W")
-                    basic.pause(50)
+                    basic.pause(25)
                 }
 
-                basic.showString("A")
+                // basic.showString("A")
             }
 
             // basic.showString("D")
