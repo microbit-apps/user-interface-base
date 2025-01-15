@@ -459,11 +459,11 @@ namespace user_interface_base {
             font?: bitmaps.Font,
             offsets?: texteffects.TextEffectState[]
         ) {
-            basic.showString("S");
+            basic.showString("P");
             radio.sendString(text);
 
             const c: number = (color == null) ? 0 : color;
-            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_PRINT, x, y, c]));
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_PRINT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
 
             // Screen.image.print(
             //     text,
