@@ -460,11 +460,10 @@ namespace user_interface_base {
             offsets?: texteffects.TextEffectState[]
         ) {
             basic.showString("S");
-
             radio.sendString(text);
 
             const c: number = (color == null) ? 0 : color;
-            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_PRINT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_PRINT, x, y, c]));
 
             // Screen.image.print(
             //     text,
