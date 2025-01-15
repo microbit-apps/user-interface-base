@@ -26,7 +26,7 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "arcadeshield": "github:microbit-apps/arcadeshield#853dcf696bd7e9be11edaf3b8b02c09e76326317"
+        "arcadeshield": "github:microbit-apps/arcadeshield#v0.1.21"
     },
     "testDependencies": {}
 }
