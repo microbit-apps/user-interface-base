@@ -1,6 +1,6 @@
 {
     "name": "user-interface-base",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "files": [
         "affine.ts",
         "bounds.ts",
@@ -26,7 +26,7 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "arcadeshield": "github:microbit-apps/arcadeshield#v0.1.21"
+        "display-shield": "github:microbit-apps/display-shield#v1.0.2"
     },
     "testDependencies": {}
 }
