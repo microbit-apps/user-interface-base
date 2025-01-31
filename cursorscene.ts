@@ -93,7 +93,8 @@ namespace user_interface_base {
 
             this.cursor = new Cursor()
             this.picker = new Picker(this.cursor)
-            this.navigator = new RowNavigator()
+            if (this.navigator == null)
+                this.navigator = new RowNavigator()
             this.cursor.navigator = this.navigator
         }
 
