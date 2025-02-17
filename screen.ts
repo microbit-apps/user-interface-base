@@ -184,10 +184,7 @@ namespace user_interface_base {
         public static fill(
             c: number
         ) {
-            let startTime = input.runningTime();
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL, c]));
-            let endTime = input.runningTime();
-            basic.showNumber(endTime - startTime)
         }
 
         public static fillRect(
@@ -197,7 +194,10 @@ namespace user_interface_base {
             height: number,
             c: number
         ) {
+            let startTime = input.runningTime();
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]))
+            let endTime = input.runningTime();
+            basic.showNumber(endTime - startTime)
         }
 
         public static fillRectXfrm(
