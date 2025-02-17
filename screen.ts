@@ -61,82 +61,28 @@ namespace user_interface_base {
             return Screen.image_
         }
         public static resetScreenImage() {
-            //     Screen.image_ = screen()
-            //     Screen.updateBounds()
-            // basic.showNumber(SCREEN_FN_ID_RESET_SCREEN_IMAGE);
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_RESET_SCREEN_IMAGE]));
         }
 
         public static setImageSize(width: number, height: number) {
-            // Screen.image_ = bitmaps.create(width, height)
-            // Screen.updateBounds()
-            // basic.showNumber(SCREEN_FN_ID_SET_IMAGE_SIZE);
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_SET_IMAGE_SIZE, width, height]));
         }
 
-
         public static sendBitmap(name: string, bitmap: Bitmap) {
-            // Returns true on succesful acknowledgement reception.
-            // Returns false on timeout (250ms)
-            const waitForAck = () => {
-                // basic.showString("W")
-
-                let ackReceived = false;
-                radio.onReceivedString(_ => {
-                    ackReceived = true;
+            function waitForAck() {
+                let received = false;
+                radio.onReceivedString((_: String) => {
+                    received = true;
                 })
 
-                // timeout:
-                for (let timeChunk = 0; timeChunk < 500; timeChunk += 10) {
-                    if (ackReceived)
-                        break
-                    basic.pause(10)
+                while (!received) {
+                    basic.pause(3)
                 }
-
-                // radio.onReceivedValue(_ => { }) // reset radio
-                return ackReceived;
-            };
-
-            // bitmap information:
-            radio.sendString(name + "," + bitmap.height)
-            basic.pause(10)
-
-            basic.showString("W")
-            while (waitForAck()) {
-                radio.sendString(name + "," + bitmap.height);
-                basic.pause(10)
             }
-            basic.showString("R")
-
-            // Send each row of the bitmap:
-            // basic.showString("S")
-            let rowBuffer = Buffer.create(bitmap.width * 8);
-            for (let row = 0; row < bitmap.height; row++) {
-                // Fill buffer & send it over radio:
-                bitmap.getRows(row, rowBuffer);
-
-                // basic.showString("B")
-                radio.sendBuffer(rowBuffer);
-                basic.pause(10)
-
-                while (waitForAck()) {
-                    // basic.showString("B")
-                    radio.sendBuffer(rowBuffer);
-
-                    // basic.showString("W")
-                    basic.pause(10)
-                }
-
-                // basic.showString("A")
-            }
-
-            // basic.showString("D")
         }
 
 
         public static drawTransparentImage(from: Bitmap, x: number, y: number) {
-            // Screen.image.drawTransparentBitmap(from, Screen.x(x), Screen.y(y));
-            // basic.showString("S")
             let b = Buffer.create(from.width / 8);
 
             for (let row = 0; row < from.height; row++) {
@@ -169,16 +115,6 @@ namespace user_interface_base {
             y1: number,
             c: number
         ) {
-            // Screen.image.drawLine(
-            //     Screen.x(x0),
-            //     Screen.y(y0),
-            //     Screen.x(x1),
-            //     Screen.y(y1),
-            //     c
-            // )
-
-            // basic.showNumber(SCREEN_FN_ID_DRAW_LINE);
-            // radio.sendNumber(SCREEN_FN_ID_DRAW_LINE);
             radio.sendBuffer(
                 Buffer.fromArray([
                     SCREEN_FN_ID_DRAW_LINE,
@@ -230,9 +166,6 @@ namespace user_interface_base {
             height: number,
             c: number
         ) {
-            // Screen.image.drawRect(Screen.x(x), Screen.y(y), width, height, c)
-            // basic.showString("S");
-            // basic.showNumber(SCREEN_FN_ID_DRAW_RECT);
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]));
             basic.clearScreen()
         }
@@ -253,8 +186,6 @@ namespace user_interface_base {
         public static fill(
             c: number
         ) {
-            // basic.showString("S");
-            // basic.showNumber(SCREEN_FN_ID_FILL);
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL, c]));
             basic.clearScreen()
         }
@@ -266,9 +197,6 @@ namespace user_interface_base {
             height: number,
             c: number
         ) {
-            // basic.showNumber(SCREEN_FN_ID_FILL_RECT);
-            // basic.showString("S") ;
-
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]))
             basic.clearScreen()
         }
@@ -435,8 +363,6 @@ namespace user_interface_base {
 
         public static setPixel(x: number, y: number, c: number) {
             if (c) {
-                // Screen.image.setPixel(Screen.x(x), Screen.y(y), c)
-                // basic.showNumber(SCREEN_FN_ID_SET_PIXEL);
                 radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_SET_PIXEL, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
             }
         }
@@ -459,21 +385,10 @@ namespace user_interface_base {
             font?: bitmaps.Font,
             offsets?: texteffects.TextEffectState[]
         ) {
-            // basic.showString("P");
             radio.sendString(text);
 
             const c: number = (color == null) ? 0 : color;
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_PRINT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
-
-            // Screen.image.print(
-            //     text,
-            //     Screen.x(x),
-            //     Screen.y(y),
-            //     color,
-            //     font,
-            //     offsets
-            // )
-            // basic.clearScreen()
         }
     }
 }
