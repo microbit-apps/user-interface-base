@@ -69,16 +69,68 @@ namespace user_interface_base {
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_SET_IMAGE_SIZE, width, height]));
         }
 
-        public static sendBitmap(name: string, bitmap: Bitmap) {
-            function waitForAck() {
-                let received = false;
-                radio.onReceivedString((_: String) => {
-                    received = true;
-                })
+        public static waitForAck() {
+            let received = false;
+            radio.onReceivedString((_: String) => {
+                received = true;
+            })
 
-                while (!received) {
-                    basic.pause(3)
-                }
+            while (!received) {
+                basic.pause(3)
+            }
+        }
+
+
+        public static getBuffer(bitmap: Bitmap, chunkIndex: number, chunkSize: number): Buffer {
+            const width = bitmap.width
+            const startIndex = chunkIndex * chunkSize;
+            const startingRow = (startIndex / width | 0);
+
+            const endIndex = startIndex + chunkSize;
+            const endingRow = (endIndex / width | 0);
+
+            // Buffer crosses multiple rows:
+            if (startingRow != endingRow) {
+                const rowBuf1 = Buffer.create(bitmap.width);
+                const rowBuf2 = Buffer.create(bitmap.width);
+
+                bitmap.getRows(startingRow, rowBuf1);
+                bitmap.getRows(startingRow + 1, rowBuf2);
+
+                const overhead = width - (startIndex % width);
+                const chunkBuf1 = rowBuf1.slice(startIndex % width, overhead);
+                const chunkBuf2 = rowBuf2.slice(0, chunkSize - overhead);
+
+                const res = chunkBuf1.concat(chunkBuf2);
+                // basic.showNumber(res.length)
+                return res
+            }
+
+            // Simply get the row, slice off the required bytes:
+            else {
+                const rowBuf = Buffer.create(bitmap.width);
+                bitmap.getRows(startingRow, rowBuf);
+                const res = rowBuf.slice(startIndex % width, chunkSize);
+                // basic.showNumber(res.length)
+                return res
+            }
+        }
+
+        public static sendBitmap(bitmap: Bitmap) {
+            const maxPacketBufferSize = 16;
+            const numberOfChunks: number =
+                (bitmap.height * bitmap.width) / maxPacketBufferSize;
+
+            // Send bitmap meta-data:
+            radio.sendString("" + maxPacketBufferSize + "," + bitmap.width + "," + bitmap.height);
+            this.waitForAck();
+
+            // Send a chunk of the bitmap and wait for ACK, RX will rebuild the bitmap:
+            for (let j = 0; j < numberOfChunks; j++) {
+                const rowBuffer = this.getBuffer(bitmap, j, maxPacketBufferSize);
+                radio.sendBuffer(rowBuffer);
+
+                this.waitForAck();
             }
         }
 
@@ -92,6 +144,7 @@ namespace user_interface_base {
             // }
             // Just separate the sendBitmap function into this file, make it have a static array that it can update, hash 'from' into that to get an index that you send.
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE, x, y]));
+            this.waitForAck();
         }
 
 
@@ -124,6 +177,7 @@ namespace user_interface_base {
                     c
                 ])
             );
+            this.waitForAck();
         }
 
         public static drawLineXfrm(
@@ -168,6 +222,7 @@ namespace user_interface_base {
             c: number
         ) {
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]));
+            this.waitForAck();
         }
 
         public static drawRectXfrm(
@@ -179,7 +234,8 @@ namespace user_interface_base {
             c: number
         ) {
             const w = xfrm.worldPos
-            Screen.drawRect(x + w.x, y + w.y, width, height, c)
+            Screen.drawRect(x + w.x, y + w.y, width, height, c);
+            this.waitForAck();
         }
 
 
@@ -188,6 +244,7 @@ namespace user_interface_base {
         ) {
             // basic.showNumber(c)
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL, c]));
+            this.waitForAck();
         }
 
         public static fillRect(
@@ -199,6 +256,7 @@ namespace user_interface_base {
         ) {
             let startTime = input.runningTime();
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]))
+            this.waitForAck();
             let endTime = input.runningTime();
             basic.showNumber(endTime - startTime)
         }
@@ -366,6 +424,7 @@ namespace user_interface_base {
         public static setPixel(x: number, y: number, c: number) {
             if (c) {
                 radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_SET_PIXEL, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
+                this.waitForAck();
             }
         }
 
@@ -388,9 +447,11 @@ namespace user_interface_base {
             offsets?: texteffects.TextEffectState[]
         ) {
             radio.sendString(text);
+            this.waitForAck();
 
             const c: number = (color == null) ? 0 : color;
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_PRINT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
+            this.waitForAck();
         }
     }
 }
