@@ -84,12 +84,14 @@ namespace user_interface_base {
 
 
         public static drawTransparentImage(from: Bitmap, x: number, y: number) {
-            let b = Buffer.create(from.width / 8);
+            // let b = Buffer.create(from.width / 8);
 
-            for (let row = 0; row < from.height; row++) {
-                from.getRows(row, b);
-                radio.sendBuffer(b)
-            }
+            // for (let row = 0; row < from.height; row++) {
+            //     from.getRows(row, b);
+            //     radio.sendBuffer(b)
+            // }
+            // Just separate the sendBitmap function into this file, make it have a static array that it can update, hash 'from' into that to get an index that you send.
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE, c]));
         }
 
 
