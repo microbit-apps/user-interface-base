@@ -91,7 +91,7 @@ namespace user_interface_base {
             //     radio.sendBuffer(b)
             // }
             // Just separate the sendBitmap function into this file, make it have a static array that it can update, hash 'from' into that to get an index that you send.
-            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE, c]));
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE, x, y]));
         }
 
 
