@@ -186,7 +186,7 @@ namespace user_interface_base {
         public static fill(
             c: number
         ) {
-            basic.showNumber(c)
+            // basic.showNumber(c)
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL, c]));
         }
 
