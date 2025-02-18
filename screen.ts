@@ -123,6 +123,8 @@ namespace user_interface_base {
 
             // Send bitmap meta-data:
             radio.sendString("" + maxPacketBufferSize + "," + bitmap.width + "," + bitmap.height);
+
+            basic.showString("W")
             this.waitForAck();
 
             // Send a chunk of the bitmap and wait for ACK, RX will rebuild the bitmap:
@@ -132,17 +134,16 @@ namespace user_interface_base {
 
                 this.waitForAck();
             }
+
+            basic.showString("D")
         }
 
 
         public static drawTransparentImage(from: Bitmap, x: number, y: number) {
-            // let b = Buffer.create(from.width / 8);
+            const hash = 0;
 
-            // for (let row = 0; row < from.height; row++) {
-            //     from.getRows(row, b);
-            //     radio.sendBuffer(b)
-            // }
-            // Just separate the sendBitmap function into this file, make it have a static array that it can update, hash 'from' into that to get an index that you send.
+            // TODO
+
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE, x, y]));
             this.waitForAck();
         }
