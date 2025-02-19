@@ -136,7 +136,6 @@ namespace user_interface_base {
                 basic.pause(3)
             }
 
-            basic.showString("D")
 
             // Send a chunk of the bitmap and wait for ACK, RX will rebuild the bitmap:
             for (let j = 0; j < numberOfChunks; j++) {
@@ -145,6 +144,7 @@ namespace user_interface_base {
 
                 // this.waitForAck();
 
+                basic.showString("A")
                 let received = false;
                 radio.onReceivedString((_: String) => {
                     received = true;
@@ -153,6 +153,7 @@ namespace user_interface_base {
                 while (!received) {
                     basic.pause(3)
                 }
+                basic.showString("D")
 
             }
 
