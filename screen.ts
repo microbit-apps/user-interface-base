@@ -124,7 +124,7 @@ namespace user_interface_base {
             // Send bitmap meta-data:
             radio.sendString("" + maxPacketBufferSize + "," + bitmap.width + "," + bitmap.height);
 
-            basic.showString("W")
+            // basic.showString("W")
             this.waitForAck();
 
             // Send a chunk of the bitmap and wait for ACK, RX will rebuild the bitmap:
@@ -135,7 +135,7 @@ namespace user_interface_base {
                 this.waitForAck();
             }
 
-            basic.showString("D")
+            // basic.showString("D")
         }
 
 
