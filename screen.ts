@@ -11,6 +11,7 @@ namespace user_interface_base {
 
     export class Screen {
         private static image_: Bitmap
+        private static bitmapCache: Bitmap[] = [];
 
         public static WIDTH = screen().width
         public static HEIGHT = screen().height
@@ -132,14 +133,20 @@ namespace user_interface_base {
 
                 this.waitForAck();
             }
+            this.bitmapCache.push(bitmap);
         }
 
 
         public static drawTransparentImage(from: Bitmap, x: number, y: number) {
-            const hash = 0;
+            let index = 0;
 
-            // TODO
-
+            for (let i = 0; i < this.bitmapCache.length; i++) {
+                if (this.bitmapCache[i] == from) {
+                    index = i;
+                    break;
+                }
+            }
+            basic.showNumber(index);
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE, 7, x, y]));
             this.waitForAck();
         }
