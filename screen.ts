@@ -140,7 +140,7 @@ namespace user_interface_base {
 
             // TODO
 
-            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE, x, y]));
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE, 7, x, y]));
             this.waitForAck();
         }
 
