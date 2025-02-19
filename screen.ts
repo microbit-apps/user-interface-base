@@ -137,18 +137,17 @@ namespace user_interface_base {
         }
 
 
+        /**
+        * This doesn't use the address of the bitmaps in memory, it is a naive solution.
+        */
         public static drawTransparentImage(from: Bitmap, x: number, y: number) {
-            let index = 0;
-
             for (let i = 0; i < this.bitmapCache.length; i++) {
                 if (this.bitmapCache[i] == from) {
-                    index = i;
-                    break;
+                    radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE, i, x, y]));
+                    this.waitForAck();
+                    return;
                 }
             }
-            basic.showNumber(index);
-            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE, index, x, y]));
-            this.waitForAck();
         }
 
 
