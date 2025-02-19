@@ -121,41 +121,17 @@ namespace user_interface_base {
             const numberOfChunks: number =
                 (bitmap.height * bitmap.width) / maxPacketBufferSize;
 
-            // Send bitmap meta-data:
+            // Send bitmap size information:
             radio.sendString("" + maxPacketBufferSize + "," + bitmap.width + "," + bitmap.height);
-
-            // this.waitForAck();
-
-
-            let received = false;
-            radio.onReceivedString((_: String) => {
-                received = true;
-            })
-
-            while (!received) {
-                basic.pause(3)
-            }
+            this.waitForAck();
 
             // Send a chunk of the bitmap and wait for ACK, RX will rebuild the bitmap:
             for (let j = 0; j < numberOfChunks; j++) {
                 const rowBuffer = this.getBuffer(bitmap, j, maxPacketBufferSize);
                 radio.sendBuffer(rowBuffer);
 
-                // this.waitForAck();
-
-                // basic.showString("A")
-                received = false;
-                // radio.onReceivedString((_: String) => {
-                //     received = true;
-                // })
-
-                while (!received) {
-                    basic.pause(3)
-                }
-                basic.showString("D")
+                this.waitForAck();
             }
-
-            // basic.showString("D")
         }
 
 
