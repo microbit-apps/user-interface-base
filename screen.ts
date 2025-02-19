@@ -147,7 +147,7 @@ namespace user_interface_base {
                 }
             }
             basic.showNumber(index);
-            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE, 7, x, y]));
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE, index, x, y]));
             this.waitForAck();
         }
 
