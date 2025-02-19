@@ -152,7 +152,7 @@ namespace user_interface_base {
                 while (!received) {
                     basic.pause(3)
                 }
-                // basic.showString("D")
+                basic.showString("D")
             }
 
             // basic.showString("D")
