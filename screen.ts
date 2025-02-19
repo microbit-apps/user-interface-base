@@ -136,7 +136,6 @@ namespace user_interface_base {
                 basic.pause(3)
             }
 
-
             // Send a chunk of the bitmap and wait for ACK, RX will rebuild the bitmap:
             for (let j = 0; j < numberOfChunks; j++) {
                 const rowBuffer = this.getBuffer(bitmap, j, maxPacketBufferSize);
@@ -144,17 +143,16 @@ namespace user_interface_base {
 
                 // this.waitForAck();
 
-                basic.showString("A")
-                let received = false;
-                radio.onReceivedString((_: String) => {
-                    received = true;
-                })
+                // basic.showString("A")
+                received = false;
+                // radio.onReceivedString((_: String) => {
+                //     received = true;
+                // })
 
                 while (!received) {
                     basic.pause(3)
                 }
-                basic.showString("D")
-
+                // basic.showString("D")
             }
 
             // basic.showString("D")
