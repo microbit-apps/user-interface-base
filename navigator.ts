@@ -146,41 +146,64 @@ namespace user_interface_base {
     }
 
 
+
     export class GridNavigator extends RowNavigator {
         private height: number;
-        private width: number;
-        
-        constructor(height: number, width: number) {
+        private widths: number[];
+
+        constructor(height: number, width?: number, widths?: number[]) {
             super()
             this.height = height
-            this.width = width
+
+            if (widths != null) {
+                this.widths = widths
+            }
+            else {
+                width = (width != null) ? width : 1
+                this.widths = []
+                for (let _ = 0; _ < width; _++)
+                    this.widths.push(width)
+            }
+        }
+
+        public addButtons(btns: Button[]) {
+            this.buttonGroups.push(btns)
         }
 
         public move(dir: CursorDir) {
             switch (dir) {
                 case CursorDir.Up: {
                     this.row = (((this.row - 1) % this.height) + this.height) % this.height; // Non-negative modulo
+
+                    // Row above could have less cols, adjust if neccessary:
+                    if (this.widths[this.row] <= this.col)
+                        this.col = this.widths[this.row] - 1
+
                     break
                 }
 
                 case CursorDir.Down: {
                     this.row = (this.row + 1) % this.height;
+
+                    // Row below could have less cols, adjust if neccessary:
+                    if (this.widths[this.row] <= this.col)
+                        this.col = this.widths[this.row] - 1
                     break
                 }
 
                 case CursorDir.Left: {
                     if (this.col == 0)
-                        this.col = this.width - 1
+                        this.col = this.widths[this.row] - 1
                     else
                         this.col -= 1
                     break
                 }
 
                 case CursorDir.Right: {
-                    if (this.col == this.width)
+                    if (this.col == this.widths[this.row])
                         this.col = 0
-                    else 
-                        this.col = (this.col + 1) % this.width
+                    else
+                        this.col = (this.col + 1) % this.widths[this.row]
                     break
                 }
 
@@ -192,15 +215,18 @@ namespace user_interface_base {
                 }
             }
 
-            const btn = this.buttonGroups[0][(this.row * this.width) + this.col]
+            const index = this.widths.slice(0, this.row).reduce((p, c) => p + c, 0)
+            const btn = this.buttonGroups[0][index + this.col]
             this.reportAria(btn)
             return btn
         }
 
         public getCurrent(): Button {
-            return this.buttonGroups[0][(this.row * this.width) + this.col]
+            const index = this.widths.slice(0, this.row).reduce((p, c) => p + c, 0)
+            return this.buttonGroups[0][index + this.col]
         }
     }
+
 
     // mostly a matrix, except for last row, which may be ragged
     // also supports delete button
@@ -210,7 +236,7 @@ namespace user_interface_base {
         protected row: number
         protected col: number
 
-        constructor(private picker: Picker) {}
+        constructor(private picker: Picker) { }
 
         private get width() {
             return this.picker.width
@@ -257,7 +283,7 @@ namespace user_interface_base {
             this.deleteButton = undefined
         }
 
-        addButtons(btns: ButtonBase[]) {}
+        addButtons(btns: ButtonBase[]) { }
 
         addDelete(btn: Button) {
             this.deleteButton = btn
@@ -346,11 +372,11 @@ namespace user_interface_base {
             if (this.row == -1) {
                 accessibility.setLiveContent(<
                     accessibility.TextAccessibilityMessage
-                >{
-                    type: "text",
-                    value: "delete_tile",
-                    force: true,
-                })
+                    >{
+                        type: "text",
+                        value: "delete_tile",
+                        force: true,
+                    })
             }
         }
     }
@@ -368,13 +394,13 @@ namespace user_interface_base {
             const on = true // TODO: btn.getIcon() == "solid_red"
             accessibility.setLiveContent(<
                 accessibility.LEDAccessibilityMessage
-            >{
-                type: "led",
-                on,
-                x: this.col,
-                y: this.row,
-                force: true,
-            })
+                >{
+                    type: "led",
+                    on,
+                    x: this.col,
+                    y: this.row,
+                    force: true,
+                })
         }
     }
 
@@ -392,12 +418,12 @@ namespace user_interface_base {
             const index = this.hasDelete ? this.row - 1 : this.row
             accessibility.setLiveContent(<
                 accessibility.NoteAccessibilityMessage
-            >{
-                type: "note",
-                on,
-                index,
-                force: true,
-            })
+                >{
+                    type: "note",
+                    on,
+                    index,
+                    force: true,
+                })
         }
     }
 }

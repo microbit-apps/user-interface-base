@@ -1,11 +1,10 @@
 namespace user_interface_base {
- 
     const INPUT_PRIORITY = 10
     const UPDATE_PRIORITY = 20
     const RENDER_PRIORITY = 30
     const SCREEN_PRIORITY = 100
 
-    export abstract class Scene implements IComponent { 
+    export abstract class Scene implements IComponent {
         private xfrm_: Affine
         private color_: number
         private backgroundCaptured_ = false
@@ -22,7 +21,7 @@ namespace user_interface_base {
             this.color_ = v
         }
 
-        constructor(protected app: AppInterface, public name: string) {
+        constructor(public app?: AppInterface, public name?: string) {
             this.xfrm_ = new Affine()
             this.color_ = 12
         }
@@ -39,7 +38,7 @@ namespace user_interface_base {
             }
         }
 
-        /* abstract */ shutdown() {}
+        /* abstract */ shutdown() { }
 
         /* override */ activate() {
             profile()
@@ -49,15 +48,15 @@ namespace user_interface_base {
             profile()
         }
 
-        /* abstract */ update() {}
+        /* abstract */ update() { }
 
-        /* abstract */ draw() {}
+        /* abstract */ draw() { }
 
-        protected handleClick(x: number, y: number) {}
+        protected handleClick(x: number, y: number) { }
 
-        protected handleMove(x: number, y: number) {}
+        protected handleMove(x: number, y: number) { }
 
-        protected handleWheel(dx: number, dy: number) {}
+        protected handleWheel(dx: number, dy: number) { }
 
         get backgroundCaptured() {
             return !!this.backgroundCaptured_
