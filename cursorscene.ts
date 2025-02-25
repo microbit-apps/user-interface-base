@@ -14,7 +14,7 @@ namespace user_interface_base {
         RecordData,
         DistributedLogging
     }
-    
+
     export class CursorScene extends Scene {
         navigator: INavigator
         public cursor: Cursor
@@ -23,7 +23,11 @@ namespace user_interface_base {
         constructor(app: AppInterface, navigator?: INavigator) {
             super(app, "scene")
             this.backgroundColor = 11
-            this.navigator = navigator
+
+            if (navigator)
+                this.navigator = navigator
+            else
+                this.navigator = null
         }
 
         protected moveCursor(dir: CursorDir) {
@@ -37,7 +41,7 @@ namespace user_interface_base {
                     e.kind === FORWARD_BUTTON_ERROR_KIND
                 )
                     return
-                else throw e 
+                else throw e
             }
         }
 
@@ -151,14 +155,14 @@ namespace user_interface_base {
         }
     }
 
-    
+
     export class CursorSceneWithPriorPage extends CursorScene {
         private goBack1PageFn: () => void;
 
         constructor(app: AppInterface, goBack1PageFn: () => void, navigator?: INavigator) {
             super(app)
             this.backgroundColor = 11
-            
+
             if (navigator)
                 this.navigator = navigator
             else
@@ -205,7 +209,7 @@ namespace user_interface_base {
                 controller.B.id,
                 () => this.back()
             )
-        
+
             control.onEvent(
                 ControllerButtonEvent.Pressed,
                 controller.B.id,
