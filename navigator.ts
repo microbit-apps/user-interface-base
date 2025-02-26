@@ -167,7 +167,7 @@ namespace user_interface_base {
         }
 
         public addButtons(btns: Button[]) {
-            this.buttonGroups.push(btns)
+            this.buttonGroups[0].concat(btns)
         }
 
         public move(dir: CursorDir) {
@@ -183,19 +183,12 @@ namespace user_interface_base {
                 }
 
                 case CursorDir.Down: {
-                    basic.showNumber(this.row)
-                    basic.showString("C")
-                    basic.showNumber(this.col)
-
                     this.row = (this.row + 1) % this.height;
 
                     // Row below could have less cols, adjust if neccessary:
                     if (this.widths[this.row] <= this.col)
                         this.col = this.widths[this.row] - 1
 
-                    basic.showNumber(this.row)
-                    basic.showString("C")
-                    basic.showNumber(this.col)
                     break
                 }
 
@@ -226,11 +219,7 @@ namespace user_interface_base {
 
             const index = this.widths.slice(0, this.row).reduce((p, c) => p + c, 0)
 
-            // basic.showString("S")
-            // basic.showNumber(this.buttonGroups[0].length)
-            // basic.showString("I")
-            // basic.showNumber(index + this.col)
-            const btn = this.buttonGroups[0][index + this.col - 1]
+            const btn = this.buttonGroups[0][index + this.col]
             this.reportAria(btn)
             return btn
         }
