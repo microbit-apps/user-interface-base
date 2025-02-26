@@ -167,7 +167,8 @@ namespace user_interface_base {
         }
 
         public addButtons(btns: Button[]) {
-            this.buttonGroups.push(btns)
+            this.buttonGroups[0].concat(btns)
+            basic.showNumber(this.buttonGroups[0].length)
         }
 
         public move(dir: CursorDir) {
