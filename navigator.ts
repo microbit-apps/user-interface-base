@@ -184,6 +184,7 @@ namespace user_interface_base {
 
                 case CursorDir.Down: {
                     basic.showNumber(this.row)
+                    basic.showString("C")
                     basic.showNumber(this.col)
 
                     this.row = (this.row + 1) % this.height;
@@ -194,6 +195,7 @@ namespace user_interface_base {
 
 
                     basic.showNumber(this.row)
+                    basic.showString("C")
                     basic.showNumber(this.col)
                     break
                 }
@@ -222,7 +224,10 @@ namespace user_interface_base {
                 }
             }
 
+
+            basic.showString("I")
             const index = this.widths.slice(0, this.row).reduce((p, c) => p + c, 0)
+            basic.showNumber(index)
             const btn = this.buttonGroups[0][index + this.col]
             this.reportAria(btn)
             return btn
