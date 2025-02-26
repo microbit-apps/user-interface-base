@@ -227,7 +227,11 @@ namespace user_interface_base {
 
             basic.showString("I")
             const index = this.widths.slice(0, this.row).reduce((p, c) => p + c, 0)
-            basic.showNumber(index)
+
+            basic.showString("S")
+            basic.showNumber(this.buttonGroups[0].length)
+            basic.showString("I")
+            basic.showNumber(index + this.col)
             const btn = this.buttonGroups[0][index + this.col]
             this.reportAria(btn)
             return btn
