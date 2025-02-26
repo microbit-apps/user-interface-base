@@ -216,7 +216,6 @@ namespace user_interface_base {
                 }
             }
 
-
             const index = this.widths.slice(0, this.row).reduce((p, c) => p + c, 0)
 
             const btn = this.buttonGroups[0][index + this.col]
