@@ -183,11 +183,18 @@ namespace user_interface_base {
                 }
 
                 case CursorDir.Down: {
+                    basic.showNumber(this.row)
+                    basic.showNumber(this.col)
+
                     this.row = (this.row + 1) % this.height;
 
                     // Row below could have less cols, adjust if neccessary:
                     if (this.widths[this.row] <= this.col)
                         this.col = this.widths[this.row] - 1
+
+
+                    basic.showNumber(this.row)
+                    basic.showNumber(this.col)
                     break
                 }
 
