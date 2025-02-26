@@ -193,7 +193,6 @@ namespace user_interface_base {
                     if (this.widths[this.row] <= this.col)
                         this.col = this.widths[this.row] - 1
 
-
                     basic.showNumber(this.row)
                     basic.showString("C")
                     basic.showNumber(this.col)
@@ -231,7 +230,7 @@ namespace user_interface_base {
             // basic.showNumber(this.buttonGroups[0].length)
             // basic.showString("I")
             // basic.showNumber(index + this.col)
-            const btn = this.buttonGroups[0][index + this.col - 1]
+            const btn = this.buttonGroups[0][index + this.col]
             this.reportAria(btn)
             return btn
         }

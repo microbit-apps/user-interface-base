@@ -213,7 +213,7 @@ namespace user_interface_base {
         }
 
         reportAria(force = false) {
-            basic.showString("Ba")
+            basic.showString("R")
             const msg: accessibility.TileAccessibilityMessage = {
                 type: "tile",
                 value: this.ariaId,
