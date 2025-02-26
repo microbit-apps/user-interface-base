@@ -53,6 +53,8 @@ namespace user_interface_base {
         }
 
         public moveTo(pos: Vec2, ariaId: string, sizeHint: Bounds) {
+            basic.showString("Cursor.moveTo")
+
             if (this.resetOutlineColourOnMove)
                 this.setOutlineColour(DEFAULT_CURSOR_OUTLINE_COLOUR)
 
