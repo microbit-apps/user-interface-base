@@ -182,7 +182,7 @@ namespace user_interface_base {
 
                     break
                 }
-                    {
+
                 case CursorDir.Down: {
                     this.row = (this.row + 1) % this.height;
 
