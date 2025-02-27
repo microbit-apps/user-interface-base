@@ -1,5 +1,4 @@
 namespace user_interface_base {
-
     export interface INavigator {
         clear: () => void
         addButtons: (btns: Button[]) => void
@@ -8,6 +7,7 @@ namespace user_interface_base {
         screenToButton: (x: number, y: number) => Button
         initialCursor: (row: number, col: number) => Button
         updateAria: () => void
+        drawComponents(): void;
     }
 
     export const BACK_BUTTON_ERROR_KIND = "back_button"
@@ -39,6 +39,16 @@ namespace user_interface_base {
 
         public addButtons(btns: Button[]) {
             this.buttonGroups.push(btns)
+        }
+
+
+        /**
+        * Invoke .draw() on each button
+        */
+        public drawComponents() {
+            this.buttonGroups.forEach(row => {
+                row.forEach(btn => { btn.draw() })
+            })
         }
 
         public screenToButton(x: number, y: number): Button {
@@ -110,6 +120,7 @@ namespace user_interface_base {
                     break
                 }
             }
+
             const btn = this.buttonGroups[this.row][this.col]
             this.reportAria(btn)
             return btn
@@ -145,29 +156,50 @@ namespace user_interface_base {
         }
     }
 
-
-
     export class GridNavigator extends RowNavigator {
         private height: number;
         private widths: number[];
 
-        constructor(height: number, width?: number, widths?: number[]) {
+        constructor(btns?: Button[][]) {
             super()
-            this.height = height
 
-            if (widths != null) {
-                this.widths = widths
-            }
-            else {
-                width = (width != null) ? width : 1
+            if (btns) {
+                this.buttonGroups = btns
+                this.widths = btns.map(row => row.length)
+                this.height = btns.length
+            } else {
+                this.height = 0;
                 this.widths = []
-                for (let _ = 0; _ < width; _++)
-                    this.widths.push(width)
             }
         }
 
-        public addButtons(btns: Button[]) {
+        public setGrid(btns: Button[][]) {
+            this.buttonGroups = btns
+            this.widths = btns.map(row => row.length)
+            this.height = btns.length
+        }
+
+
+        /**
+        * Append a row during runtime.
+        * @param btns
+        */
+        public addRow(btns: Button[]) {
             this.buttonGroups.push(btns)
+            this.widths.push(btns.length)
+            this.height++
+        }
+
+        /**
+        * Append a col during runtime.
+        * Does not need to be the same size as the grid height
+        * @param btns
+        */
+        public addCol(btns: Button[]) {
+            for (let i = 0; i < btns.length; i++) {
+                this.buttonGroups[i].push(btns[i]);
+                this.widths[i]++;
+            }
         }
 
         public move(dir: CursorDir) {
@@ -188,11 +220,14 @@ namespace user_interface_base {
                     // Row below could have less cols, adjust if neccessary:
                     if (this.widths[this.row] <= this.col)
                         this.col = this.widths[this.row] - 1
+
                     break
                 }
 
                 case CursorDir.Left: {
-                    if (this.col == 0)
+                    if (this.widths[this.row] == 1)
+                        break
+                    else if (this.col == 0)
                         this.col = this.widths[this.row] - 1
                     else
                         this.col -= 1
@@ -200,6 +235,8 @@ namespace user_interface_base {
                 }
 
                 case CursorDir.Right: {
+                    if (this.widths[this.row] == 1)
+                        break
                     if (this.col == this.widths[this.row])
                         this.col = 0
                     else
@@ -215,15 +252,13 @@ namespace user_interface_base {
                 }
             }
 
-            const index = this.widths.slice(0, this.row).reduce((p, c) => p + c, 0)
-            const btn = this.buttonGroups[0][index + this.col]
+            const btn = this.buttonGroups[this.row][this.col]
             this.reportAria(btn)
             return btn
         }
 
         public getCurrent(): Button {
-            const index = this.widths.slice(0, this.row).reduce((p, c) => p + c, 0)
-            return this.buttonGroups[0][index + this.col]
+            return this.buttonGroups[this.row][this.col];
         }
     }
 
@@ -288,6 +323,8 @@ namespace user_interface_base {
         addDelete(btn: Button) {
             this.deleteButton = btn
         }
+
+        public drawComponents() { }
 
         getCurrent() {
             // console.log(`row: ${this.row}, col: ${this.col}`)
