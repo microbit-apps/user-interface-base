@@ -193,7 +193,9 @@ namespace user_interface_base {
                 }
 
                 case CursorDir.Left: {
-                    if (this.col == 0)
+                    if (this.widths[this.row] == 1)
+                        break
+                    else if (this.col == 0)
                         this.col = this.widths[this.row] - 1
                     else
                         this.col -= 1
@@ -201,6 +203,8 @@ namespace user_interface_base {
                 }
 
                 case CursorDir.Right: {
+                    if (this.widths[this.row] == 1)
+                        break
                     if (this.col == this.widths[this.row])
                         this.col = 0
                     else
