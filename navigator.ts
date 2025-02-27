@@ -8,6 +8,7 @@ namespace user_interface_base {
         screenToButton: (x: number, y: number) => Button
         initialCursor: (row: number, col: number) => Button
         updateAria: () => void
+        drawComponents(): void;
     }
 
     export const BACK_BUTTON_ERROR_KIND = "back_button"
@@ -39,6 +40,12 @@ namespace user_interface_base {
 
         public addButtons(btns: Button[]) {
             this.buttonGroups.push(btns)
+        }
+
+        public drawComponents() {
+            this.buttonGroups.forEach(row => {
+                row.forEach(btn => { btn.draw() })
+            })
         }
 
         public screenToButton(x: number, y: number): Button {
@@ -226,14 +233,6 @@ namespace user_interface_base {
             return btn
         }
 
-        public draw() {
-            this.buttonGroups.forEach(row => {
-                row.forEach(btn => {
-                    btn.draw()
-                })
-            })
-        }
-
         public getCurrent(): Button {
             return this.buttonGroups[this.row][this.col];
         }
@@ -300,6 +299,8 @@ namespace user_interface_base {
         addDelete(btn: Button) {
             this.deleteButton = btn
         }
+
+        public drawComponents() { }
 
         getCurrent() {
             // console.log(`row: ${this.row}, col: ${this.col}`)
