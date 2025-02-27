@@ -1,7 +1,9 @@
 namespace user_interface_base {
     export interface INavigator {
         clear: () => void
-        addButtons: (btns: Button[]) => void
+        setBtns: (btns: Button[][]) => void
+        addRow: (btns: Button[]) => void
+        addCol: (btns: Button[]) => void
         move: (dir: CursorDir) => Button
         getCurrent: () => Button
         screenToButton: (x: number, y: number) => Button
@@ -37,10 +39,24 @@ namespace user_interface_base {
             return this.row
         }
 
-        public addButtons(btns: Button[]) {
+        public setBtns(btns: Button[][]) {
+            this.buttonGroups = btns
+        }
+
+        public addRow(btns: Button[]) {
             this.buttonGroups.push(btns)
         }
 
+        /**
+        * Append a col during runtime.
+        * Does not need to be the same size as the grid height
+        * @param btns
+        */
+        public addCol(btns: Button[]) {
+            for (let i = 0; i < btns.length; i++) {
+                this.buttonGroups[i].push(btns[i]);
+            }
+        }
 
         /**
         * Invoke .draw() on each button
@@ -173,7 +189,7 @@ namespace user_interface_base {
             }
         }
 
-        public setGrid(btns: Button[][]) {
+        public setBtns(btns: Button[][]) {
             this.buttonGroups = btns
             this.widths = btns.map(row => row.length)
             this.height = btns.length
@@ -283,6 +299,11 @@ namespace user_interface_base {
         get hasDelete() {
             return !!this.deleteButton
         }
+
+        public setBtns(btns: Button[][]) { }
+        public addRow(btns: Button[]) { }
+        public addCol(btns: Button[]) { }
+
 
         moveToIndex(index: number) {
             control.assert(index < this.length, "index out of bounds")
