@@ -152,10 +152,17 @@ namespace user_interface_base {
         private height: number;
         private widths: number[];
 
-        constructor() {
+        constructor(btns?: Button[][]) {
             super()
-            this.height = 0;
-            this.widths = []
+
+            if (btns) {
+                this.buttonGroups = btns
+                this.widths = btns.map(row => row.length)
+                this.height = btns.length
+            } else {
+                this.height = 0;
+                this.widths = []
+            }
         }
 
         public addButtons(btns: Button[]) {
@@ -175,7 +182,7 @@ namespace user_interface_base {
 
                     break
                 }
-
+                    {
                 case CursorDir.Down: {
                     this.row = (this.row + 1) % this.height;
 
@@ -217,6 +224,14 @@ namespace user_interface_base {
             const btn = this.buttonGroups[this.row][this.col]
             this.reportAria(btn)
             return btn
+        }
+
+        public draw() {
+            this.buttonGroups.forEach(row => {
+                row.forEach(btn => {
+                    btn.draw()
+                })
+            })
         }
 
         public getCurrent(): Button {
