@@ -22,6 +22,9 @@
     "supportedTargets": [
         "microbit"
     ],
+    "testFiles": [
+        "test.ts"
+    ],
     "dependencies": {
         "core": "*",
         "radio": "*",
