@@ -161,7 +161,7 @@ namespace user_interface_base {
             else {
                 width = (width != null) ? width : 1
                 this.widths = []
-                for (let _ = 0; _ < width; _++)
+                for (let _ = 0; _ < height; _++)
                     this.widths.push(width)
             }
         }
