@@ -110,6 +110,7 @@ namespace user_interface_base {
                     break
                 }
             }
+
             const btn = this.buttonGroups[this.row][this.col]
             this.reportAria(btn)
             return btn
@@ -228,8 +229,7 @@ namespace user_interface_base {
         }
 
         public getCurrent(): Button {
-            const index = this.widths.slice(0, this.row).reduce((p, c) => p + c, 0)
-            return this.buttonGroups[0][index + this.col]
+            return this.buttonGroups[this.row][this.col];
         }
     }
 
