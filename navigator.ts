@@ -152,23 +152,16 @@ namespace user_interface_base {
         private height: number;
         private widths: number[];
 
-        constructor(height: number, width?: number, widths?: number[]) {
+        constructor() {
             super()
-            this.height = height
-
-            if (widths != null) {
-                this.widths = widths
-            }
-            else {
-                width = (width != null) ? width : 1
-                this.widths = []
-                for (let _ = 0; _ < height; _++)
-                    this.widths.push(width)
-            }
+            this.height = 0;
+            this.widths = []
         }
 
         public addButtons(btns: Button[]) {
             this.buttonGroups.push(btns)
+            this.widths.push(btns.length)
+            this.height++
         }
 
         public move(dir: CursorDir) {
@@ -220,8 +213,6 @@ namespace user_interface_base {
                     break
                 }
             }
-
-            // const index = this.widths.slice(0, this.row).reduce((p, c) => p + c, 0)
 
             const btn = this.buttonGroups[this.row][this.col]
             this.reportAria(btn)
