@@ -240,11 +240,15 @@ namespace user_interface_base {
                 opts.style || ButtonStyles.Transparent,
                 opts.parent && opts.parent.xfrm
             )
+
+            basic.showNumber(0)
+
             this.iconId = opts.icon
             this._ariaId = (opts.ariaId != null) ? opts.ariaId : ""
             this.onClick = opts.onClick
             this.buildSprite(this.image_())
 
+            basic.showNumber(1)
             if (opts.flipIcon) {
                 this.icon.image = this.icon.image.clone()
                 this.icon.image.flipY()
@@ -267,6 +271,8 @@ namespace user_interface_base {
             }
 
             this.state = opts.state
+
+            basic.showNumber(2)
         }
 
         public getIcon() {
