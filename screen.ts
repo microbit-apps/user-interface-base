@@ -194,6 +194,7 @@ namespace user_interface_base {
                     c
                 ])
             )
+            basic.pause(15)
         }
 
         public static drawLineXfrm(
@@ -225,6 +226,7 @@ namespace user_interface_base {
                     const c = shader(tx, ty)
                     if (c) {
                         Screen.setPixel(x, y, c)
+                        basic.pause(15)
                     }
                 }
             }
@@ -238,6 +240,7 @@ namespace user_interface_base {
             c: number
         ) {
             this.tryToSend(Buffer.fromArray([SCREEN_FN_ID_DRAW_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]));
+            basic.pause(15)
         }
 
         public static drawRectXfrm(
@@ -257,6 +260,7 @@ namespace user_interface_base {
             c: number
         ) {
             this.tryToSend(Buffer.fromArray([SCREEN_FN_ID_FILL, c]))
+            basic.pause(15)
         }
 
         public static fillRect(
@@ -267,6 +271,7 @@ namespace user_interface_base {
             c: number
         ) {
             this.tryToSend(Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]))
+            basic.pause(15)
         }
 
         public static fillRectXfrm(
@@ -458,6 +463,7 @@ namespace user_interface_base {
 
             const c: number = (color == null) ? 0 : color;
             this.tryToSend(Buffer.fromArray([SCREEN_FN_ID_PRINT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
+            basic.pause(15)
         }
     }
 }
