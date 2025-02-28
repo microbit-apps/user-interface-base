@@ -186,15 +186,14 @@ namespace user_interface_base {
             y1: number,
             c: number
         ) {
-            radio.sendBuffer(
+            this.tryToSend(
                 Buffer.fromArray([
                     SCREEN_FN_ID_DRAW_LINE,
                     x0 + Screen.HALF_WIDTH, y0 + Screen.HALF_HEIGHT,
                     x1 + Screen.HALF_WIDTH, y1 + Screen.HALF_HEIGHT,
                     c
                 ])
-            );
-            this.waitForAck();
+            )
         }
 
         public static drawLineXfrm(
@@ -238,8 +237,7 @@ namespace user_interface_base {
             height: number,
             c: number
         ) {
-            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]));
-            this.waitForAck();
+            this.tryToSend(Buffer.fromArray([SCREEN_FN_ID_DRAW_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]));
         }
 
         public static drawRectXfrm(
@@ -252,16 +250,12 @@ namespace user_interface_base {
         ) {
             const w = xfrm.worldPos
             Screen.drawRect(x + w.x, y + w.y, width, height, c);
-            this.waitForAck();
         }
 
 
         public static fill(
             c: number
         ) {
-            // basic.showNumber(c)
-            // radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL, c]));
-            // this.waitForAck();
             this.tryToSend(Buffer.fromArray([SCREEN_FN_ID_FILL, c]))
         }
 
@@ -272,11 +266,7 @@ namespace user_interface_base {
             height: number,
             c: number
         ) {
-            let startTime = input.runningTime();
-            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]))
-            this.waitForAck();
-            let endTime = input.runningTime();
-            basic.showNumber(endTime - startTime)
+            this.tryToSend(Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]))
         }
 
         public static fillRectXfrm(
@@ -441,8 +431,7 @@ namespace user_interface_base {
 
         public static setPixel(x: number, y: number, c: number) {
             if (c) {
-                radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_SET_PIXEL, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
-                this.waitForAck();
+                this.tryToSend(Buffer.fromArray([SCREEN_FN_ID_SET_PIXEL, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
             }
         }
 
@@ -468,8 +457,7 @@ namespace user_interface_base {
             this.waitForAck();
 
             const c: number = (color == null) ? 0 : color;
-            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_PRINT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
-            this.waitForAck();
+            this.tryToSend(Buffer.fromArray([SCREEN_FN_ID_PRINT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
         }
     }
 }
