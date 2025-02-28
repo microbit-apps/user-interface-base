@@ -89,7 +89,7 @@ namespace user_interface_base {
 
             let timePassed = 0;
             while (!received) {
-                if (timePassed % 99 == 0)
+                if (timePassed % 33 == 0)
                     radio.sendBuffer(buf);
                 timePassed += 3;
                 basic.pause(3)
@@ -127,7 +127,6 @@ namespace user_interface_base {
                 const rowBuf = Buffer.create(bitmap.width);
                 bitmap.getRows(startingRow, rowBuf);
                 const res = rowBuf.slice(startIndex % width, chunkSize);
-                // basic.showNumber(res.length)
                 return res
             }
         }
@@ -144,7 +143,6 @@ namespace user_interface_base {
             // Send a chunk of the bitmap and wait for ACK, RX will rebuild the bitmap:
             for (let j = 0; j < numberOfChunks; j++) {
                 const rowBuffer = this.getBuffer(bitmap, j, maxPacketBufferSize);
-                // radio.sendBuffer(rowBuffer);
                 this.tryToSend(rowBuffer);
             }
             this.bitmapCache.push(bitmap);
