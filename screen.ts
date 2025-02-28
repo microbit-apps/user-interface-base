@@ -89,7 +89,7 @@ namespace user_interface_base {
 
             let timePassed = 0;
             while (!received) {
-                if (timePassed % 60 == 0)
+                if (timePassed % 15 == 0)
                     radio.sendBuffer(buf);
                 timePassed += 3;
                 basic.pause(3)
