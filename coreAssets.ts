@@ -33,6 +33,8 @@ namespace user_interface_base {
 
             if (name == "radio_set_group") return icondb.radio_set_group
             if (name == "largeSettingsGear") return icondb.largeSettingsGear
+
+            if (name == "microbitLogo") return icondb.microbitLogo
             if (name == "microbitLogoWhiteBackground") return icondb.microbitLogoWhiteBackground
 
             extraImage = null
@@ -43,6 +45,9 @@ namespace user_interface_base {
         }
     }
 
+}
+
+namespace icondb {
     export const microbitLogo = bmp`
         ............................
         ......5555555555555555......
@@ -61,9 +66,6 @@ namespace user_interface_base {
         .....45555555555555555444...
         .......4444444444444444.....
     `
-}
-
-namespace icondb {
 
     //-------------
     // SMALL ICONS:
