@@ -89,7 +89,7 @@ namespace user_interface_base {
 
             let timePassed = 0;
             while (!received) {
-                if (timePassed % 33 == 0)
+                if (timePassed % 60 == 0)
                     radio.sendBuffer(buf);
                 timePassed += 3;
                 basic.pause(3)
@@ -155,8 +155,10 @@ namespace user_interface_base {
         public static drawTransparentImage(from: Bitmap, x: number, y: number) {
             for (let i = 0; i < this.bitmapCache.length; i++) {
                 if (this.bitmapCache[i] == from) {
-                    radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE, i, x, y]));
-                    this.waitForAck();
+                    // radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE, i, x, y]));
+                    // this.waitForAck();
+
+                    this.tryToSend(Buffer.fromArray([SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE, i, x, y]));
                     return;
                 }
             }
@@ -258,8 +260,9 @@ namespace user_interface_base {
             c: number
         ) {
             // basic.showNumber(c)
-            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL, c]));
-            this.waitForAck();
+            // radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL, c]));
+            // this.waitForAck();
+            this.tryToSend(Buffer.fromArray([SCREEN_FN_ID_FILL, c]))
         }
 
         public static fillRect(
