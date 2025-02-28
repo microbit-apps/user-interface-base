@@ -17,7 +17,8 @@
         "picker.ts",
         "navigator.ts",
         "cursorscene.ts",
-        "options.ts"
+        "options.ts",
+        "coreAssets.ts"
     ],
     "supportedTargets": [
         "microbit"
