@@ -172,7 +172,8 @@ namespace user_interface_base {
             y: number
         ) {
             const w = xfrm.worldPos
-            Screen.image.drawTransparentBitmap(
+            // Screen.image.drawTransparentBitmap(
+            Screen.drawTransparentImage(
                 from,
                 Screen.x(x + w.x),
                 Screen.y(y + w.y)
