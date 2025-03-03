@@ -79,7 +79,7 @@ namespace user_interface_base {
 
             let timePassed = 0;
             while (!received) {
-                if (timePassed % 99 == 0) {
+                if (timePassed % 30 == 0) {
                     if (typeof data == "string") {
                         radio.sendString(data);
                     } else {
@@ -89,6 +89,8 @@ namespace user_interface_base {
                     basic.pause(3)
                 }
             }
+
+            radio.onReceivedString((_: String) => { }); // Reset
         }
 
         public static getBuffer(bitmap: Bitmap, chunkIndex: number, chunkSize: number): Buffer {
