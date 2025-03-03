@@ -70,32 +70,26 @@ namespace user_interface_base {
             radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_SET_IMAGE_SIZE, width, height]));
         }
 
-        public static waitForAck() {
+        public static tryToSend(data: Buffer | String) {
             let received = false;
-            radio.onReceivedString((_: String) => {
-                received = true;
-            })
-
-            while (!received) {
-                basic.pause(3)
-            }
-        }
-
-        public static tryToSend(buf: Buffer) {
-            let received = false;
-            radio.onReceivedString((_: String) => {
-                received = true;
+            radio.onReceivedString((s: String) => {
+                if (s == "ACK")
+                    received = true;
             })
 
             let timePassed = 0;
             while (!received) {
-                if (timePassed % 99 == 0)
-                    radio.sendBuffer(buf);
-                timePassed += 3;
-                basic.pause(3)
+                if (timePassed % 99 == 0) {
+                    if (typeof data == "string") {
+                        radio.sendString(data);
+                    } else {
+                        radio.sendBuffer(data as Buffer);
+                    }
+                    timePassed += 3;
+                    basic.pause(3)
+                }
             }
         }
-
 
         public static getBuffer(bitmap: Bitmap, chunkIndex: number, chunkSize: number): Buffer {
             const width = bitmap.width
@@ -137,8 +131,7 @@ namespace user_interface_base {
                 (bitmap.height * bitmap.width) / maxPacketBufferSize;
 
             // Send bitmap size information:
-            radio.sendString("" + maxPacketBufferSize + "," + bitmap.width + "," + bitmap.height);
-            this.waitForAck();
+            this.tryToSend("" + maxPacketBufferSize + "," + bitmap.width + "," + bitmap.height);
 
             // Send a chunk of the bitmap and wait for ACK, RX will rebuild the bitmap:
             for (let j = 0; j < numberOfChunks; j++) {
@@ -155,9 +148,6 @@ namespace user_interface_base {
         public static drawTransparentImage(from: Bitmap, x: number, y: number) {
             for (let i = 0; i < this.bitmapCache.length; i++) {
                 if (this.bitmapCache[i] == from) {
-                    // radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE, i, x, y]));
-                    // this.waitForAck();
-
                     this.tryToSend(Buffer.fromArray([SCREEN_FN_ID_DRAW_TRANSPARENT_IMAGE, i, x, y]));
                     return;
                 }
@@ -172,7 +162,6 @@ namespace user_interface_base {
             y: number
         ) {
             const w = xfrm.worldPos
-            // Screen.image.drawTransparentBitmap(
             Screen.drawTransparentImage(
                 from,
                 Screen.x(x + w.x),
@@ -195,7 +184,6 @@ namespace user_interface_base {
                     c
                 ])
             )
-            // basic.pause(15)
         }
 
         public static drawLineXfrm(
@@ -227,7 +215,6 @@ namespace user_interface_base {
                     const c = shader(tx, ty)
                     if (c) {
                         Screen.setPixel(x, y, c)
-                        // basic.pause(15)
                     }
                 }
             }
@@ -241,7 +228,6 @@ namespace user_interface_base {
             c: number
         ) {
             this.tryToSend(Buffer.fromArray([SCREEN_FN_ID_DRAW_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]));
-            // basic.pause(15)
         }
 
         public static drawRectXfrm(
@@ -261,7 +247,6 @@ namespace user_interface_base {
             c: number
         ) {
             this.tryToSend(Buffer.fromArray([SCREEN_FN_ID_FILL, c]))
-            // basic.pause(15)
         }
 
         public static fillRect(
@@ -272,7 +257,6 @@ namespace user_interface_base {
             c: number
         ) {
             this.tryToSend(Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, width, height, c]))
-            // basic.pause(15)
         }
 
         public static fillRectXfrm(
@@ -459,12 +443,10 @@ namespace user_interface_base {
             font?: bitmaps.Font,
             offsets?: texteffects.TextEffectState[]
         ) {
-            radio.sendString(text);
-            this.waitForAck();
+            this.tryToSend(text);
 
             const c: number = (color == null) ? 0 : color;
             this.tryToSend(Buffer.fromArray([SCREEN_FN_ID_PRINT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
-            // basic.pause(15)
         }
     }
 }

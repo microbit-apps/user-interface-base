@@ -6,7 +6,7 @@ namespace user_interface_base {
             public bottom: number,
             public left: number,
             public right: number
-        ) {}
+        ) { }
     }
 
     export class ButtonStyle {
@@ -14,7 +14,7 @@ namespace user_interface_base {
             public fill: number,
             public borders: Borders,
             public shadow: boolean
-        ) {}
+        ) { }
     }
 
     export namespace ButtonStyles {
@@ -148,8 +148,8 @@ namespace user_interface_base {
             return !this.icon.invisible
         }
 
-        public hover(hov: boolean) {}
-        public update() {}
+        public hover(hov: boolean) { }
+        public update() { }
 
         isOffScreenX(): boolean {
             return this.icon.isOffScreenX()
@@ -221,7 +221,7 @@ namespace user_interface_base {
                 value: this.ariaId,
                 force,
             }
-            accessibility.setLiveContent(msg) 
+            accessibility.setLiveContent(msg)
         }
 
         constructor(opts: {
@@ -283,10 +283,10 @@ namespace user_interface_base {
 
         private image_() {
             return typeof this.iconId == "string"
-                ? getIcon(this.iconId,false)
+                ? getIcon(this.iconId, false)
                 : this.iconId
         }
-        
+
         public setIcon(iconId: string, img?: Bitmap) {
             this.iconId = iconId
             if (img) this.icon.setImage(img)
@@ -310,7 +310,7 @@ namespace user_interface_base {
             super.draw()
 
             if (this.dynamicBoundaryColorsOn) {
-                const boundaryColour = (this.selected && this.pressable) ? 7: this.boundaryColor 
+                const boundaryColour = (this.selected && this.pressable) ? 7 : this.boundaryColor
 
                 for (let dist = 1; dist <= 3; dist++) {
                     Screen.outlineBoundsXfrm(
