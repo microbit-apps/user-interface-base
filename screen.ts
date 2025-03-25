@@ -128,7 +128,7 @@ namespace user_interface_base {
         }
 
         public static sendBitmap(bitmap: Bitmap) {
-            const maxPacketBufferSize = 32;
+            const maxPacketBufferSize = 16; // 32
             const numberOfChunks: number =
                 (bitmap.height * bitmap.width) / maxPacketBufferSize;
 
