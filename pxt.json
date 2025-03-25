@@ -26,7 +26,7 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "display-shield": "github:microbit-apps/display-shield#82bed70241e2879bd4cfdd12e8a36e6b726256bd"
+        "display-shield": "github:microbit-apps/display-shield#a215efcb5592e08c735c81418d9bca0cdea23d22"
     },
     "testDependencies": {}
 }
