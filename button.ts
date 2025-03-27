@@ -306,6 +306,10 @@ namespace user_interface_base {
             }
         }
 
+        get localX() { return this.xfrm.localPos.x }
+        get localY() { return this.xfrm.localPos.y }
+
+
         public draw() {
             super.draw()
 
