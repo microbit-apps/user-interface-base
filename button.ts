@@ -212,6 +212,14 @@ namespace user_interface_base {
             this._ariaId = value
         }
 
+
+        get getLocalX() { return this.xfrm.localPos.x }
+        get getLocalY() { return this.xfrm.localPos.y }
+
+        set setLocalX(x: number) { this.xfrm.localPos.x = x }
+        set setLocalY(y: number) { this.xfrm.localPos.y = y }
+
+
         reportAria(force = false) {
             const msg: accessibility.TileAccessibilityMessage = {
                 type: "tile",
@@ -305,10 +313,6 @@ namespace user_interface_base {
                 this.onClick(this)
             }
         }
-
-        get localX() { return this.xfrm.localPos.x }
-        get localY() { return this.xfrm.localPos.y }
-
 
         public draw() {
             super.draw()
