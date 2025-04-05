@@ -195,14 +195,14 @@ namespace user_interface_base {
     }
 
     export class Button extends ButtonBase {
-        private iconId: string | Bitmap
-        private _ariaId: string
-        public onClick?: (button: Button) => void
-        public selected: boolean
-        private dynamicBoundaryColorsOn: boolean
-        private boundaryColor: number
+        public boundaryColor: number
         public state: number[]
         public pressable: boolean
+        public onClick?: (button: Button) => void
+        public selected: boolean
+        private iconId: string | Bitmap
+        private _ariaId: string
+        private dynamicBoundaryColorsOn: boolean
 
         public get ariaId(): string {
             return this._ariaId
@@ -212,13 +212,11 @@ namespace user_interface_base {
             this._ariaId = value
         }
 
-
         get getLocalX() { return this.xfrm.localPos.x }
         get getLocalY() { return this.xfrm.localPos.y }
 
         set setLocalX(x: number) { this.xfrm.localPos.x = x }
         set setLocalY(y: number) { this.xfrm.localPos.y = y }
-
 
         reportAria(force = false) {
             const msg: accessibility.TileAccessibilityMessage = {
@@ -272,6 +270,10 @@ namespace user_interface_base {
             if (opts.boundaryColor != null) {
                 this.dynamicBoundaryColorsOn = true
                 this.boundaryColor = opts.boundaryColor
+            }
+
+            else {
+                this.boundaryColor = 0
             }
 
             this.state = opts.state

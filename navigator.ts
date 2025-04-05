@@ -9,7 +9,8 @@ namespace user_interface_base {
         screenToButton: (x: number, y: number) => Button
         initialCursor: (row: number, col: number) => Button
         updateAria: () => void
-        drawComponents(): void;
+        drawComponents(): void
+        makeCursorButtonBoundaryColor(): boolean
     }
 
     export const BACK_BUTTON_ERROR_KIND = "back_button"
@@ -45,6 +46,10 @@ namespace user_interface_base {
 
         public addRow(btns: Button[]) {
             this.buttonGroups.push(btns)
+        }
+
+        public makeCursorButtonBoundaryColor() {
+            return false;
         }
 
         /**
@@ -175,8 +180,9 @@ namespace user_interface_base {
     export class GridNavigator extends RowNavigator {
         private height: number;
         private widths: number[];
+        private cursorColorIsButtonColor: boolean;
 
-        constructor(btns?: Button[][]) {
+        constructor(btns?: Button[][], cursorColorIsButtonColor: boolean = false) {
             super()
 
             if (btns) {
@@ -187,6 +193,13 @@ namespace user_interface_base {
                 this.height = 0;
                 this.widths = []
             }
+
+            this.cursorColorIsButtonColor = cursorColorIsButtonColor;
+        }
+
+
+        public isCursorColorIsButtonColor() {
+            return this.cursorColorIsButtonColor;
         }
 
         public setBtns(btns: Button[][]) {
@@ -304,6 +317,9 @@ namespace user_interface_base {
         public addRow(btns: Button[]) { }
         public addCol(btns: Button[]) { }
 
+        public makeCursorButtonBoundaryColor() {
+            return false;
+        }
 
         moveToIndex(index: number) {
             control.assert(index < this.length, "index out of bounds")

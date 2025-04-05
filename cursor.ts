@@ -38,7 +38,6 @@ namespace user_interface_base {
         ariaPos: Vec2
         ariaId: string
         size: Bounds
-        borderThickness: number
         visible = true
 
         resetOutlineColourOnMove = false
@@ -48,15 +47,16 @@ namespace user_interface_base {
             this.xfrm = new Affine()
             this.cancelHandlerStack = []
             this.moveDest = new Vec2()
-            this.borderThickness = 3
             this.setSize()
 
             this.cursorOutlineColour = DEFAULT_CURSOR_OUTLINE_COLOUR
         }
 
-        public moveTo(pos: Vec2, ariaId: string, sizeHint: Bounds) {
+        public moveTo(pos: Vec2, ariaId: string, sizeHint: Bounds, newBoundaryColour?: number) {
             if (this.resetOutlineColourOnMove)
                 this.setOutlineColour(DEFAULT_CURSOR_OUTLINE_COLOUR)
+            if (newBoundaryColour)
+                this.setOutlineColour(newBoundaryColour)
 
             this.setSize(sizeHint)
             this.moveDest.copyFrom(pos)
@@ -72,7 +72,7 @@ namespace user_interface_base {
         public snapTo(x: number, y: number, ariaId: string, sizeHint: Bounds) {
             this.setSize(
                 sizeHint ||
-                    new Bounds({ left: 0, top: 0, width: 16, height: 16 }),
+                new Bounds({ left: 0, top: 0, width: 16, height: 16 })
             )
             this.moveDest.x = this.xfrm.localPos.x = x
             this.moveDest.y = this.xfrm.localPos.y = y
@@ -86,8 +86,7 @@ namespace user_interface_base {
             else this.size = size.clone()
         }
 
-        public setOutlineColour(colour: number = 9) {
-            // 9 is the DEFAULT_CURSOR_OUTLINE_COLOUR
+        public setOutlineColour(colour: number = 9) { // 9 is the DEFAULT_CURSOR_OUTLINE_COLOUR
             this.cursorOutlineColour = colour
         }
 
@@ -131,10 +130,6 @@ namespace user_interface_base {
             return false
         }
 
-        public setBorderThickness(thickness: number) {
-            this.borderThickness = thickness
-        }
-
         update() {
             this.xfrm.localPos.copyFrom(this.moveDest)
         }
@@ -142,12 +137,12 @@ namespace user_interface_base {
         draw() {
             if (!this.visible) return
 
-            for (let dist = 1; dist <= this.borderThickness; dist++) {
+            for (let dist = 1; dist <= 3; dist++) {
                 Screen.outlineBoundsXfrm(
                     this.xfrm,
                     this.size,
                     dist,
-                    this.cursorOutlineColour,
+                    this.cursorOutlineColour
                 )
             }
 
@@ -159,11 +154,11 @@ namespace user_interface_base {
                 const h = font.charHeight
                 const x = Math.max(
                     Screen.LEFT_EDGE + 1,
-                    Math.min(Screen.RIGHT_EDGE - 1 - w, pos.x - (w >> 1)),
+                    Math.min(Screen.RIGHT_EDGE - 1 - w, pos.x - (w >> 1))
                 )
                 const y = Math.min(
                     pos.y + (this.size.width >> 1) + (font.charHeight >> 1) + 1,
-                    Screen.BOTTOM_EDGE - 1 - font.charHeight,
+                    Screen.BOTTOM_EDGE - 1 - font.charHeight
                 )
                 Screen.fillRect(x - 1, y - 1, w + 1, h + 2, 15)
                 Screen.print(text, x, y, 1, font)

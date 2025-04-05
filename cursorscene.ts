@@ -50,7 +50,8 @@ namespace user_interface_base {
             this.cursor.moveTo(
                 target.xfrm.worldPos,
                 target.ariaId,
-                target.bounds
+                target.bounds,
+                this.navigator.makeCursorButtonBoundaryColor() ? target.boundaryColor : undefined
             )
         }
 
