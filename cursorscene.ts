@@ -47,6 +47,8 @@ namespace user_interface_base {
 
         protected moveTo(target: Button) {
             if (!target) return
+
+            basic.showString("U")
             this.cursor.moveTo(
                 target.xfrm.worldPos,
                 target.ariaId,
