@@ -73,16 +73,20 @@ namespace user_interface_base {
         public static tryToSend(data: Buffer | String) {
             let received = false;
             radio.onReceivedString((s: String) => {
+                basic.showString("R")
                 if (s == "ACK")
                     received = true;
             })
 
+            let i = 0;
             let timePassed = 0;
             while (!received) {
                 if (timePassed % 30 == 0) {
                     if (typeof data == "string") {
                         radio.sendString(data);
                     } else {
+                        basic.showNumber(i)
+                        i++;
                         radio.sendBuffer(data as Buffer);
                     }
                 }
