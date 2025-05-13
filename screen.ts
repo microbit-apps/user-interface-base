@@ -81,7 +81,7 @@ namespace user_interface_base {
             // let i = 0;
             let timePassed = 0;
             while (!received) {
-                if (timePassed % 99 == 0) {
+                if (timePassed % 100 == 0) {
                     if (typeof data == "string") {
                         radio.sendString(data);
                     } else {
@@ -90,8 +90,8 @@ namespace user_interface_base {
                         radio.sendBuffer(data as Buffer);
                     }
                 }
-                timePassed += 3;
-                basic.pause(3)
+                timePassed += 10;
+                basic.pause(10)
             }
 
             radio.onReceivedString((_: String) => { }); // Reset
