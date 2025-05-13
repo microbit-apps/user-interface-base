@@ -21,7 +21,10 @@ namespace user_interface_base {
             this.color_ = v
         }
 
-        constructor(public app?: AppInterface, public name?: string) {
+        constructor(
+            public app?: AppInterface,
+            public name?: string,
+        ) {
             this.xfrm_ = new Affine()
             this.color_ = 12
         }
@@ -33,12 +36,12 @@ namespace user_interface_base {
                     controller.menu.id,
                     () => {
                         control.heapSnapshot()
-                    }
+                    },
                 )
             }
         }
 
-        /* abstract */ shutdown() { }
+        /* abstract */ shutdown() {}
 
         /* override */ activate() {
             profile()
@@ -48,15 +51,15 @@ namespace user_interface_base {
             profile()
         }
 
-        /* abstract */ update() { }
+        /* abstract */ update() {}
 
-        /* abstract */ draw() { }
+        /* abstract */ draw() {}
 
-        protected handleClick(x: number, y: number) { }
+        protected handleClick(x: number, y: number) {}
 
-        protected handleMove(x: number, y: number) { }
+        protected handleMove(x: number, y: number) {}
 
-        protected handleWheel(dx: number, dy: number) { }
+        protected handleWheel(dx: number, dy: number) {}
 
         get backgroundCaptured() {
             return !!this.backgroundCaptured_
@@ -111,8 +114,10 @@ namespace user_interface_base {
         }
 
         public pushScene(scene: Scene) {
+            control.dmesg("Starting Push")
             const currScene = this.currScene()
             if (currScene) {
+                control.dmesg("DEACTIVATED")
                 currScene.deactivate()
             }
             context.pushEventContext()
@@ -120,9 +125,11 @@ namespace user_interface_base {
             scene.startup()
             scene.activate()
             scene.__init()
+            control.dmesg("Finished Push")
         }
 
         public popScene() {
+            control.dmesg("Starting Pop")
             const prevScene = this.scenes.pop()
             if (prevScene) {
                 prevScene.deactivate()
@@ -133,6 +140,7 @@ namespace user_interface_base {
             if (currScene) {
                 currScene.activate()
             }
+            control.dmesg("Finished Pop")
         }
 
         private currScene(): Scene {
