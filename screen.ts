@@ -85,9 +85,9 @@ namespace user_interface_base {
                     } else {
                         radio.sendBuffer(data as Buffer);
                     }
-                    timePassed += 3;
-                    basic.pause(3)
                 }
+                timePassed += 3;
+                basic.pause(3)
             }
 
             radio.onReceivedString((_: String) => { }); // Reset
