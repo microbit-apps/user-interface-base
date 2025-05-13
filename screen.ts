@@ -94,6 +94,34 @@ namespace user_interface_base {
             // radio.onReceivedString((_: String) => { }); // Reset
         }
 
+
+        public static sendAndWaitForAck(data: Buffer | String) {
+            let received = false;
+            radio.onReceivedString((s: String) => {
+                // basic.showString("R")
+                if (s == "ACK")
+                    received = true;
+            })
+
+
+            if (typeof data == "string") 
+              radio.sendString(data);
+            else 
+              radio.sendBuffer(data as Buffer);
+
+
+            let timePassed = 0;
+            while (!received) {
+                // if (timePassed % 100 == 0) {
+                    
+                // }
+                // timePassed += 10;
+                basic.pause(3)
+            }
+
+            radio.onReceivedString((_: String) => { }); // Reset
+        }
+
         public static getBuffer(bitmap: Bitmap, chunkIndex: number, chunkSize: number): Buffer {
             const width = bitmap.width
             const startIndex = chunkIndex * chunkSize;
@@ -134,12 +162,12 @@ namespace user_interface_base {
                 (bitmap.height * bitmap.width) / maxPacketBufferSize;
 
             // Send bitmap size information:
-            this.tryToSend("" + maxPacketBufferSize + "," + bitmap.width + "," + bitmap.height);
+            this.sendAndWaitForAck("" + maxPacketBufferSize + "," + bitmap.width + "," + bitmap.height);
 
             // Send a chunk of the bitmap and wait for ACK, RX will rebuild the bitmap:
             for (let j = 0; j < numberOfChunks; j++) {
                 const rowBuffer = this.getBuffer(bitmap, j, maxPacketBufferSize);
-                this.tryToSend(rowBuffer);
+                this.sendAndWaitForAck(rowBuffer);
             }
             this.bitmapCache.push(bitmap);
         }
