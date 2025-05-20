@@ -143,7 +143,7 @@ namespace user_interface_base {
                 const chunkBuf2 = rowBuf2.slice(0, chunkSize - overhead);
 
                 const res = chunkBuf1.concat(chunkBuf2);
-                if (res > 16)
+                if (res.length > 16)
                     basic.showString("B")
                 return res
             }
@@ -153,7 +153,7 @@ namespace user_interface_base {
                 const rowBuf = Buffer.create(bitmap.width);
                 bitmap.getRows(startingRow, rowBuf);
                 const res = rowBuf.slice(startIndex % width, chunkSize);
-                if (res > 16)
+                if (res.length > 16)
                     basic.showString("B")
                 return res
             }
