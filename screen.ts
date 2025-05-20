@@ -158,8 +158,8 @@ namespace user_interface_base {
                 // const res = rowBuf.slice(startIndex % width, chunkSize);
                 const start = startIndex % width;
                 const end = start + chunkSize;
-                for (let i = start; i < end; i++) {
-                    res[i - start] = rowBuf[i];    
+                for (let i = 0; i < chunkSize; i++) {
+                    res[i] = rowBuf[i + startIndex];    
                 }
                 return res
             }
