@@ -153,10 +153,10 @@ namespace user_interface_base {
                 // basic.showNumber(chunkIndex)
                 const rowBuf = Buffer.create(bitmap.width);
 
-                bitmap.getRows(startingRow, rowBuf);
-        for (let i = 0; i < rowBuf.length; i++) {
-          rowBuf[i] = 3;    
-        }
+                // bitmap.getRows(startingRow, rowBuf);
+                for (let i = 0; i < rowBuf.length; i++) {
+                  rowBuf[i] = 3;    
+                }
                 const res = rowBuf.slice(startIndex % width, chunkSize);
                 if (res.length > 16)
                     basic.showString("B")
