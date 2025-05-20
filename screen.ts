@@ -125,9 +125,9 @@ namespace user_interface_base {
         public static getBuffer(bitmap: Bitmap, chunkIndex: number, chunkSize: number): Buffer {
             const width = bitmap.width
             const startIndex = chunkIndex * chunkSize;
-            const startingRow = (startIndex / width | 0);
-
             const endIndex = startIndex + chunkSize;
+
+            const startingRow = (startIndex / width | 0);
             const endingRow = (endIndex / width | 0);
 
             // Buffer crosses multiple rows:
@@ -150,6 +150,7 @@ namespace user_interface_base {
 
             // Simply get the row, slice off the required bytes:
             else {
+                basic.showNumber(chunkIndex)
                 const rowBuf = Buffer.create(bitmap.width);
                 bitmap.getRows(startingRow, rowBuf);
                 const res = rowBuf.slice(startIndex % width, chunkSize);
