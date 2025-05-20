@@ -154,11 +154,11 @@ namespace user_interface_base {
 
                 // bitmap.getRows(startingRow, rowBuf);
                 // basic.showNumber(rowBuf.length)
-                for (let i = 0; i < rowBuf.length; i++) {
-                    rowBuf[i] = 3;    
-                }
 
                 const res = rowBuf.slice(startIndex % width, chunkSize);
+                for (let i = 0; i < res.length; i++) {
+                  res[i] = 3;    
+                }
                 return res
             }
         }
