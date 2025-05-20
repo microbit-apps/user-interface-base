@@ -143,7 +143,7 @@ namespace user_interface_base {
                 const chunkBuf2 = rowBuf2.slice(0, chunkSize - overhead);
 
                 const res = chunkBuf1.concat(chunkBuf2);
-                // basic.showNumber(res.length)
+                basic.showNumber(res.length)
                 return res
             }
 
