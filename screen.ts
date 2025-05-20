@@ -151,6 +151,7 @@ namespace user_interface_base {
             // Simply get the row, slice off the required bytes:
             else {
                 const rowBuf = Buffer.create(bitmap.width);
+                let res = Buffer.create(chunkSize);
 
                 // bitmap.getRows(startingRow, rowBuf);
                 // basic.showNumber(rowBuf.length)
@@ -158,9 +159,9 @@ namespace user_interface_base {
                 const start = startIndex % width;
                 const end = start + chunkSize;
                 for (let i = start; i < end; i++) {
-                    rowBuf[i] = 3;    
+                    res[i - start] = rowBuf[i];    
                 }
-                return rowBuf
+                return res
             }
         }
 
