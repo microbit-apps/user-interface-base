@@ -27,10 +27,10 @@
         "test.ts"
     ],
     "dependencies": {
-        "core": "*",
-        "radio": "*",
-        "microphone": "*",
-        "display-shield": "github:microbit-apps/display-shield#v1.0.4"
+        "core": "file:../core",
+        "radio": "file:../radio",
+        "microphone": "file:../microphone",
+        "display-shield": "file:../display-shield"
     },
     "testDependencies": {}
 }
