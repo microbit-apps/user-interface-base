@@ -128,6 +128,7 @@ namespace user_interface_base {
             const endIndex = startIndex + chunkSize;
 
             const startingRow = (startIndex / width | 0);
+            basic.showNumber(startingRow)
             const endingRow = (endIndex / width | 0);
 
             // Buffer crosses multiple rows:
