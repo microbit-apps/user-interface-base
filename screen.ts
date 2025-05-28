@@ -148,18 +148,20 @@ namespace user_interface_base {
                 return res
             }
 
-            // Simply get the row, slice off the required bytes:
+            // Buffer lies on a single row:
+            // Simply get the row then slice off the required bytes.
             else {
                 const rowBuf = Buffer.create(bitmap.width);
+                bitmap.getRows(startingRow, rowBuf);
                 let res = Buffer.create(chunkSize);
 
                 // bitmap.getRows(startingRow, rowBuf);
                 // basic.showNumber(rowBuf.length)
                 // const res = rowBuf.slice(startIndex % width, chunkSize);
                 const start = startIndex % width;
-                const end = start + chunkSize;
+                // const end = start + chunkSize;
                 for (let i = 0; i < chunkSize; i++) {
-                    res[i] = rowBuf[i + startIndex];    
+                    res[i] = rowBuf[i + start];
                 }
                 return res
             }
