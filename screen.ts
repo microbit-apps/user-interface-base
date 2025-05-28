@@ -130,8 +130,8 @@ namespace user_interface_base {
             const startingRow = (startIndex / width | 0);
             const endingRow = (endIndex / width | 0);
 
-            basic.showString("I")
-            basic.showNumber(startingRow)
+            // basic.showString("I")
+            // basic.showNumber(startingRow)
 
             // Buffer crosses multiple rows:
             if (startingRow != endingRow) {
@@ -165,7 +165,7 @@ namespace user_interface_base {
                 // const end = start + chunkSize;
                 for (let i = 0; i < chunkSize; i++) {
                     res[i] = rowBuf[i + start];
-                    basic.showNumber(res[i])
+                    // basic.showNumber(res[i])
                 }
                 return res
             }
