@@ -4,6 +4,8 @@ namespace user_interface_base {
         setBtns: (btns: Button[][]) => void
         addRow: (btns: Button[]) => void
         addCol: (btns: Button[]) => void
+        getRow: () => number
+        getCol: () => number
         move: (dir: CursorDir) => Button
         getCurrent: () => Button
         screenToButton: (x: number, y: number) => Button
@@ -37,6 +39,10 @@ namespace user_interface_base {
 
         public getRow() {
             return this.row
+        }
+  
+        public getCol() {
+          return this.col;
         }
 
         public setBtns(btns: Button[][]) {
@@ -189,6 +195,15 @@ namespace user_interface_base {
             }
         }
 
+        public getRow() {
+            return this.row
+        }
+  
+        public getCol() {
+          return this.col;
+        }
+
+
         public setBtns(btns: Button[][]) {
             this.buttonGroups = btns
             this.widths = btns.map(row => row.length)
@@ -298,6 +313,14 @@ namespace user_interface_base {
 
         get hasDelete() {
             return !!this.deleteButton
+        }
+
+        public getRow() {
+            return this.row
+        }
+  
+        public getCol() {
+          return this.col;
         }
 
         public setBtns(btns: Button[][]) { }
