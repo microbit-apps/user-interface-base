@@ -31,6 +31,8 @@ namespace user_interface_base {
 
         constructor() {
             this.buttonGroups = []
+            this.row = 0;
+            this.col = 0;
         }
 
         public clear() {
@@ -302,7 +304,10 @@ namespace user_interface_base {
         protected row: number
         protected col: number
 
-        constructor(private picker: Picker) { }
+        constructor(private picker: Picker) {
+            this.row = 0;
+            this.col = 0;
+        }
 
         private get width() {
             return this.picker.width
