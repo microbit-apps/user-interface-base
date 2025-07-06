@@ -54,8 +54,7 @@ namespace user_interface_base {
             )
         }
 
-
-        /* override */ startup(controlSetupFn?: () => {}) {
+        /* override */ startup(controlSetupFn?: () => void) {
             super.startup()
             if (controlSetupFn != null) {
               controlSetupFn();
@@ -174,7 +173,7 @@ namespace user_interface_base {
             this.goBack1PageFn = goBack1PageFn
         }
 
-        /* override */ startup(controlSetupFn?: () => {}) {
+        /* override */ startup(controlSetupFn?: () => void) {
             if (controlSetupFn != null) {
               controlSetupFn();
             } else {
