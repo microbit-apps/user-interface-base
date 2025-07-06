@@ -30,7 +30,7 @@ namespace user_interface_base {
                 this.navigator = null
         }
 
-        protected moveCursor(dir: CursorDir) {
+        public moveCursor(dir: CursorDir) {
             try {
                 this.moveTo(this.cursor.move(dir))
             } catch (e) {
@@ -54,47 +54,51 @@ namespace user_interface_base {
             )
         }
 
-        /* override */ startup() {
+
+        /* override */ startup(controlSetupFn?: () => {}) {
             super.startup()
-            control.onEvent(
-                ControllerButtonEvent.Pressed,
-                controller.right.id,
-                () => this.moveCursor(CursorDir.Right)
-            )
-            control.onEvent(
-                ControllerButtonEvent.Pressed,
-                controller.up.id,
-                () => this.moveCursor(CursorDir.Up)
-            )
-            control.onEvent(
-                ControllerButtonEvent.Pressed,
-                controller.down.id,
-                () => this.moveCursor(CursorDir.Down)
-            )
-            control.onEvent(
-                ControllerButtonEvent.Pressed,
-                controller.left.id,
-                () => this.moveCursor(CursorDir.Left)
-            )
+            if (controlSetupFn != null) {
+              controlSetupFn();
+            } else {
+              control.onEvent(
+                  ControllerButtonEvent.Pressed,
+                  controller.right.id,
+                  () => this.moveCursor(CursorDir.Right)
+              )
+              control.onEvent(
+                  ControllerButtonEvent.Pressed,
+                  controller.up.id,
+                  () => this.moveCursor(CursorDir.Up)
+              )
+              control.onEvent(
+                  ControllerButtonEvent.Pressed,
+                  controller.down.id,
+                  () => this.moveCursor(CursorDir.Down)
+              )
+              control.onEvent(
+                  ControllerButtonEvent.Pressed,
+                  controller.left.id,
+                  () => this.moveCursor(CursorDir.Left)
+              )
 
-            // click
-            const click = () => this.cursor.click()
-            control.onEvent(
-                ControllerButtonEvent.Pressed,
-                controller.A.id,
-                click
-            )
-            control.onEvent(
-                ControllerButtonEvent.Pressed,
-                controller.A.id + keymap.PLAYER_OFFSET,
-                click
-            )
-            control.onEvent(
-                ControllerButtonEvent.Pressed,
-                controller.B.id,
-                () => this.back()
-            )
-
+              // click
+              const click = () => this.cursor.click()
+              control.onEvent(
+                  ControllerButtonEvent.Pressed,
+                  controller.A.id,
+                  click
+              )
+              control.onEvent(
+                  ControllerButtonEvent.Pressed,
+                  controller.A.id + keymap.PLAYER_OFFSET,
+                  click
+              )
+              control.onEvent(
+                  ControllerButtonEvent.Pressed,
+                  controller.B.id,
+                  () => this.back()
+              )
+            }
             this.cursor = new Cursor()
             this.picker = new Picker(this.cursor)
             if (this.navigator == null)
@@ -170,52 +174,55 @@ namespace user_interface_base {
             this.goBack1PageFn = goBack1PageFn
         }
 
-        /* override */ startup() {
-            control.onEvent(
-                ControllerButtonEvent.Pressed,
-                controller.right.id,
-                () => this.moveCursor(CursorDir.Right)
-            )
-            control.onEvent(
-                ControllerButtonEvent.Pressed,
-                controller.up.id,
-                () => this.moveCursor(CursorDir.Up)
-            )
-            control.onEvent(
-                ControllerButtonEvent.Pressed,
-                controller.down.id,
-                () => this.moveCursor(CursorDir.Down)
-            )
-            control.onEvent(
-                ControllerButtonEvent.Pressed,
-                controller.left.id,
-                () => this.moveCursor(CursorDir.Left)
-            )
+        /* override */ startup(controlSetupFn?: () => {}) {
+            if (controlSetupFn != null) {
+              controlSetupFn();
+            } else {
+                control.onEvent(
+                    ControllerButtonEvent.Pressed,
+                    controller.right.id,
+                    () => this.moveCursor(CursorDir.Right)
+                )
+                control.onEvent(
+                    ControllerButtonEvent.Pressed,
+                    controller.up.id,
+                    () => this.moveCursor(CursorDir.Up)
+                )
+                control.onEvent(
+                    ControllerButtonEvent.Pressed,
+                    controller.down.id,
+                    () => this.moveCursor(CursorDir.Down)
+                )
+                control.onEvent(
+                    ControllerButtonEvent.Pressed,
+                    controller.left.id,
+                    () => this.moveCursor(CursorDir.Left)
+                )
 
-            // click
-            const click = () => this.cursor.click()
-            control.onEvent(
-                ControllerButtonEvent.Pressed,
-                controller.A.id,
-                click
-            )
-            control.onEvent(
-                ControllerButtonEvent.Pressed,
-                controller.A.id + keymap.PLAYER_OFFSET,
-                click
-            )
-            control.onEvent(
-                ControllerButtonEvent.Pressed,
-                controller.B.id,
-                () => this.back()
-            )
+                // click
+                const click = () => this.cursor.click()
+                control.onEvent(
+                    ControllerButtonEvent.Pressed,
+                    controller.A.id,
+                    click
+                )
+                control.onEvent(
+                    ControllerButtonEvent.Pressed,
+                    controller.A.id + keymap.PLAYER_OFFSET,
+                    click
+                )
+                control.onEvent(
+                    ControllerButtonEvent.Pressed,
+                    controller.B.id,
+                    () => this.back()
+                )
 
-            control.onEvent(
-                ControllerButtonEvent.Pressed,
-                controller.B.id,
-                () => this.goBack1PageFn()
-            )
-
+                control.onEvent(
+                    ControllerButtonEvent.Pressed,
+                    controller.B.id,
+                    () => this.goBack1PageFn()
+                )
+            }
             this.cursor = new Cursor()
             this.picker = new Picker(this.cursor)
 

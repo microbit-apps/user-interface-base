@@ -26,7 +26,7 @@ namespace user_interface_base {
             this.color_ = 12
         }
 
-        /* abstract */ startup() {
+        /* abstract */ startup(controlSetupFn?: () => {}) {
             if (Options.menuProfiling) {
                 context.onEvent(
                     ControllerButtonEvent.Pressed,
