@@ -31,7 +31,7 @@ namespace user_interface_base {
             Screen.connectedDisplayType = ConnectedDisplayType.DISPLAY_SHIELD;
         } else if (false) { // shieldhelpers.wdsPresent()
             Screen.connectedDisplayType = ConnectedDisplayType.WDS;
-        } else if (false) { // shieldhelpers.jacdacDisplayPresent()    OR    jacdac.modules...
+        } else if (false) { // shieldhelpers.jacdacDisplayPresent()    OR    jacdac.modules....
             Screen.connectedDisplayType = ConnectedDisplayType.JACDAC_DISPLAY;
         }
     }
@@ -71,15 +71,8 @@ namespace user_interface_base {
     }
 
     public static resetScreenImage() {
-      switch (Screen.connectedDisplayType) {
-        case ConnectedDisplayType.NONE: {
-            Screen.updateConnectedDisplayType();
-        }
-        case ConnectedDisplayType.DISPLAY_SHIELD: {
-          Screen.image_ = screen()
-          Screen.updateBounds()
-        }
-      }
+      Screen.image_ = screen()
+      Screen.updateBounds()
     }
 
     public static setImageSize(width: number, height: number) {
@@ -88,8 +81,18 @@ namespace user_interface_base {
     }
 
     public static drawTransparentImage(from: Bitmap, x: number, y: number) {
-        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
-            Screen.image.drawTransparentBitmap(from, Screen.x(x), Screen.y(y));
+      switch (Screen.connectedDisplayType) {
+        case ConnectedDisplayType.NONE: {
+            Screen.updateConnectedDisplayType();
+        }
+        case ConnectedDisplayType.DISPLAY_SHIELD: {
+          Screen.image.drawTransparentBitmap(from, Screen.x(x), Screen.y(y));
+        }
+        case ConnectedDisplayType.WDS: {
+          // Send over radio:
+        }
+        case ConnectedDisplayType.JACDAC_DISPLAY: {
+          // Send same encoded information as radio, but over Jacdac:
         }
     }
 
