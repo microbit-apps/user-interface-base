@@ -1,75 +1,105 @@
- namespace user_interface_base {
-    export class Screen {
-        private static image_: Bitmap
+namespace user_interface_base {
+  enum ConnectedDisplayType {
+    NONE,
+    DISPLAY_SHIELD,
+    WDS,
+    JACDAC_DISPLAY
+  }
 
-        public static WIDTH = screen().width
-        public static HEIGHT = screen().height
-        public static HALF_WIDTH = screen().width >> 1
-        public static HALF_HEIGHT = screen().height >> 1 
-        public static LEFT_EDGE = -Screen.HALF_WIDTH
-        public static RIGHT_EDGE = Screen.HALF_WIDTH
-        public static TOP_EDGE = -Screen.HALF_HEIGHT
-        public static BOTTOM_EDGE = Screen.HALF_HEIGHT
-        public static BOUNDS = new Bounds({
-            left: Screen.LEFT_EDGE,
-            top: Screen.TOP_EDGE,
-            width: Screen.WIDTH,
-            height: Screen.HEIGHT,
-        })
+  export class Screen {
+    private static image_: Bitmap
+    private static connectedDisplayType: ConnectedDisplayType = ConnectedDisplayType.NONE;
 
-        private static updateBounds() {
-            Screen.WIDTH = Screen.image_.width
-            Screen.HEIGHT = Screen.image_.height
-            Screen.HALF_WIDTH = Screen.WIDTH >> 1
-            Screen.HALF_HEIGHT = Screen.HEIGHT >> 1
-            Screen.LEFT_EDGE = -Screen.HALF_WIDTH
-            Screen.RIGHT_EDGE = Screen.HALF_WIDTH
-            Screen.TOP_EDGE = -Screen.HALF_HEIGHT
-            Screen.BOTTOM_EDGE = Screen.HALF_HEIGHT
-            Screen.BOUNDS = new Bounds({
-                left: Screen.LEFT_EDGE,
-                top: Screen.TOP_EDGE,
-                width: Screen.WIDTH,
-                height: Screen.HEIGHT,
-            })
-        }
+    public static WIDTH = screen().width
+    public static HEIGHT = screen().height
+    public static HALF_WIDTH = screen().width >> 1
+    public static HALF_HEIGHT = screen().height >> 1
+    public static LEFT_EDGE = -Screen.HALF_WIDTH
+    public static RIGHT_EDGE = Screen.HALF_WIDTH
+    public static TOP_EDGE = -Screen.HALF_HEIGHT
+    public static BOTTOM_EDGE = Screen.HALF_HEIGHT
+    public static BOUNDS = new Bounds({
+      left: Screen.LEFT_EDGE,
+      top: Screen.TOP_EDGE,
+      width: Screen.WIDTH,
+      height: Screen.HEIGHT,
+    })
 
-        public static x(v: number) {
-            return v + Screen.HALF_WIDTH
-        }
-        public static y(v: number) {
-            return v + Screen.HALF_HEIGHT
-        }
-        public static pos(v: Vec2) {
-            return new Vec2(Screen.x(v.x), Screen.y(v.y))
-        }
-        public static get image(): Bitmap {
-            if (!Screen.image_) {
-                Screen.image_ = screen()
-                Screen.updateBounds()
-            }
-            return Screen.image_
-        }
-        public static resetScreenImage() {
-            Screen.image_ = screen()
-            Screen.updateBounds()
-        }
 
-        public static setImageSize(width: number, height: number) {
-            Screen.image_ = bitmaps.create(width, height)
-            Screen.updateBounds()
+    private static updateConnectedDisplayType() {
+        if (shieldhelpers.shieldPresent()) {
+            Screen.connectedDisplayType = ConnectedDisplayType.DISPLAY_SHIELD;
+        } else if (false) { // shieldhelpers.wdsPresent()
+            Screen.connectedDisplayType = ConnectedDisplayType.WDS;
+        } else if (false) { // shieldhelpers.jacdacDisplayPresent()    OR    jacdac.modules...
+            Screen.connectedDisplayType = ConnectedDisplayType.JACDAC_DISPLAY;
         }
+    }
 
-        public static drawTransparentImage(from: Bitmap, x: number, y: number) {
-            Screen.image.drawTransparentBitmap(from, Screen.x(x), Screen.y(y))
+    private static updateBounds() {
+      Screen.WIDTH = Screen.image_.width
+      Screen.HEIGHT = Screen.image_.height
+      Screen.HALF_WIDTH = Screen.WIDTH >> 1
+      Screen.HALF_HEIGHT = Screen.HEIGHT >> 1
+      Screen.LEFT_EDGE = -Screen.HALF_WIDTH
+      Screen.RIGHT_EDGE = Screen.HALF_WIDTH
+      Screen.TOP_EDGE = -Screen.HALF_HEIGHT
+      Screen.BOTTOM_EDGE = Screen.HALF_HEIGHT
+      Screen.BOUNDS = new Bounds({
+        left: Screen.LEFT_EDGE,
+        top: Screen.TOP_EDGE,
+        width: Screen.WIDTH,
+        height: Screen.HEIGHT,
+      })
+    }
+
+    public static x(v: number) {
+      return v + Screen.HALF_WIDTH
+    }
+    public static y(v: number) {
+      return v + Screen.HALF_HEIGHT
+    }
+    public static pos(v: Vec2) {
+      return new Vec2(Screen.x(v.x), Screen.y(v.y))
+    }
+    public static get image(): Bitmap {
+      if (!Screen.image_) {
+        Screen.image_ = screen()
+        Screen.updateBounds()
+      }
+      return Screen.image_
+    }
+
+    public static resetScreenImage() {
+      switch (Screen.connectedDisplayType) {
+        case ConnectedDisplayType.NONE: {
+            Screen.updateConnectedDisplayType();
         }
+        case ConnectedDisplayType.DISPLAY_SHIELD: {
+          Screen.image_ = screen()
+          Screen.updateBounds()
+        }
+      }
+    }
 
-        public static drawTransparentImageXfrm(
-            xfrm: Affine,
-            from: Bitmap,
-            x: number,
-            y: number
-        ) {
+    public static setImageSize(width: number, height: number) {
+      Screen.image_ = bitmaps.create(width, height)
+      Screen.updateBounds()
+    }
+
+    public static drawTransparentImage(from: Bitmap, x: number, y: number) {
+        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
+            Screen.image.drawTransparentBitmap(from, Screen.x(x), Screen.y(y));
+        }
+    }
+
+    public static drawTransparentImageXfrm(
+        xfrm: Affine,
+        from: Bitmap,
+        x: number,
+        y: number
+    ) {
+        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
             const w = xfrm.worldPos
             Screen.image.drawTransparentBitmap(
                 from,
@@ -77,14 +107,16 @@
                 Screen.y(y + w.y)
             )
         }
+    }
 
-        public static drawLine(
-            x0: number,
-            y0: number,
-            x1: number,
-            y1: number,
-            c: number
-        ) {
+    public static drawLine(
+        x0: number,
+        y0: number,
+        x1: number,
+        y1: number,
+        c: number
+    ) {
+        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
             Screen.image.drawLine(
                 Screen.x(x0),
                 Screen.y(y0),
@@ -93,26 +125,30 @@
                 c
             )
         }
+    }
 
-        public static drawLineXfrm(
-            xfrm: Affine,
-            x0: number,
-            y0: number,
-            x1: number,
-            y1: number,
-            c: number
-        ) {
+    public static drawLineXfrm(
+        xfrm: Affine,
+        x0: number,
+        y0: number,
+        x1: number,
+        y1: number,
+        c: number
+    ) {
+        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
             const w = xfrm.worldPos
             Screen.drawLine(x0 + w.x, y0 + w.y, x1 + w.x, y1 + w.y, c)
         }
+    }
 
-        public static drawLineShaded(
-            x0: number,
-            y0: number,
-            x1: number,
-            y1: number,
-            shader: (x: number, y: number) => number
-        ) {
+    public static drawLineShaded(
+        x0: number,
+        y0: number,
+        x1: number,
+        y1: number,
+        shader: (x: number, y: number) => number
+    ) {
+        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
             let sx0 = Screen.x(x0)
             let sy0 = Screen.y(y0)
             let sx1 = Screen.x(x1)
@@ -127,52 +163,62 @@
                 }
             }
         }
+    }
 
-        public static drawRect(
-            x: number,
-            y: number,
-            width: number,
-            height: number,
-            c: number
-        ) {
+    public static drawRect(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        c: number
+    ) {
+        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
             Screen.image.drawRect(Screen.x(x), Screen.y(y), width, height, c)
         }
+    }
 
-        public static drawRectXfrm(
-            xfrm: Affine,
-            x: number,
-            y: number,
-            width: number,
-            height: number,
-            c: number
-        ) {
+    public static drawRectXfrm(
+        xfrm: Affine,
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        c: number
+    ) {
+        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
             const w = xfrm.worldPos
             Screen.drawRect(x + w.x, y + w.y, width, height, c)
         }
+    }
 
-        public static fillRect(
-            x: number,
-            y: number,
-            width: number,
-            height: number,
-            c: number
-        ) {
+    public static fillRect(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        c: number
+    ) {
+        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
             Screen.image.fillRect(Screen.x(x), Screen.y(y), width, height, c)
         }
+    }
 
-        public static fillRectXfrm(
-            xfrm: Affine,
-            x: number,
-            y: number,
-            width: number,
-            height: number,
-            c: number
-        ) {
+    public static fillRectXfrm(
+        xfrm: Affine,
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        c: number
+    ) {
+        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
             const w = xfrm.worldPos
             Screen.fillRect(x + w.x, y + w.y, width, height, c)
         }
+    }
 
-        public static fillBoundsXfrm(xfrm: Affine, bounds: Bounds, c: number) {
+    public static fillBoundsXfrm(xfrm: Affine, bounds: Bounds, c: number) {
+        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
             Screen.fillRectXfrm(
                 xfrm,
                 bounds.left,
@@ -182,8 +228,10 @@
                 c
             )
         }
+    }
 
-        public static drawBoundsXfrm(xfrm: Affine, bounds: Bounds, c: number) {
+    public static drawBoundsXfrm(xfrm: Affine, bounds: Bounds, c: number) {
+        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
             Screen.drawRectXfrm(
                 xfrm,
                 bounds.left,
@@ -193,14 +241,16 @@
                 c
             )
         }
+    }
 
-        // Draws a rounded outline rectangle of the bounds.
-        public static outlineBoundsXfrm(
-            xfrm: Affine,
-            bounds: Bounds,
-            dist: number,
-            c: number
-        ) {
+    // Draws a rounded outline rectangle of the bounds.
+    public static outlineBoundsXfrm(
+        xfrm: Affine,
+        bounds: Bounds,
+        dist: number,
+        c: number
+    ) {
+        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
             if (!c) return
 
             const w = xfrm.worldPos
@@ -230,14 +280,16 @@
                 Screen.drawLine(right + dist, bottom, right, bottom + dist, c)
             }
         }
+    }
 
-        // Draws a rounded outline rectangle of the bounds.
-        public static outlineBoundsXfrm4(
-            xfrm: Affine,
-            bounds: Bounds,
-            dist: number,
-            colors: { top: number; left: number; right: number; bottom: number }
-        ) {
+    // Draws a rounded outline rectangle of the bounds.
+    public static outlineBoundsXfrm4(
+        xfrm: Affine,
+        bounds: Bounds,
+        dist: number,
+        colors: { top: number; left: number; right: number; bottom: number }
+    ) {
+        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
             // no borders!
             if (!colors.top && !colors.left && !colors.right && !colors.bottom)
                 return
@@ -319,31 +371,37 @@
                     )
             }
         }
+    }
 
-        public static setPixel(x: number, y: number, c: number) {
+    public static setPixel(x: number, y: number, c: number) {
+        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
             if (c) {
                 Screen.image.setPixel(Screen.x(x), Screen.y(y), c)
             }
         }
+    }
 
-        public static setPixelXfrm(
-            xfrm: Affine,
-            x: number,
-            y: number,
-            c: number
-        ) {
+    public static setPixelXfrm(
+        xfrm: Affine,
+        x: number,
+        y: number,
+        c: number
+    ) {
+        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
             const w = xfrm.worldPos
             Screen.setPixel(x + w.x, y + w.y, c)
         }
+    }
 
-        public static print(
-            text: string,
-            x: number,
-            y: number,
-            color?: number,
-            font?: bitmaps.Font,
-            offsets?: texteffects.TextEffectState[]
-        ) {
+    public static print(
+        text: string,
+        x: number,
+        y: number,
+        color?: number,
+        font?: bitmaps.Font,
+        offsets?: texteffects.TextEffectState[]
+    ) {
+        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
             Screen.image.print(
                 text,
                 Screen.x(x),
@@ -352,6 +410,7 @@
                 font,
                 offsets
             )
-        }
+      }
     }
+  }
 }
