@@ -23,10 +23,10 @@
         "microbit"
     ],
     "dependencies": {
-        "core": "*",
-        "radio": "*",
-        "microphone": "*",
-        "display-shield": "github:microbit-apps/display-shield#089e27e4b77411daec71069bfef3a5a5618d0570"
+        "core": "file:../core",
+        "radio": "file:../radio",
+        "microphone": "file:../microphone",
+        "display-shield": "file:../display-shield"
     },
     "testDependencies": {}
 }
