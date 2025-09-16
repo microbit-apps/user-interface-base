@@ -87,6 +87,7 @@ namespace user_interface_base {
       switch (Screen.connectedDisplayType) {
         case ConnectedDisplayType.NONE: {
           Screen.updateConnectedDisplayType();
+          Screen.updateConnectedDisplayType();
         }
         case ConnectedDisplayType.DISPLAY_SHIELD: {
           Screen.image.drawTransparentBitmap(from, Screen.x(x), Screen.y(y));
@@ -105,6 +106,10 @@ namespace user_interface_base {
       from: Bitmap,
       x: number,
       y: number
+      xfrm: Affine,
+      from: Bitmap,
+      x: number,
+      y: number
     ) {
       const w = xfrm.worldPos
       Screen.image.drawTransparentBitmap(
@@ -115,6 +120,11 @@ namespace user_interface_base {
     }
 
     public static drawLine(
+      x0: number,
+      y0: number,
+      x1: number,
+      y1: number,
+      c: number
       x0: number,
       y0: number,
       x1: number,
@@ -158,12 +168,23 @@ namespace user_interface_base {
       x1: number,
       y1: number,
       c: number
+      xfrm: Affine,
+      x0: number,
+      y0: number,
+      x1: number,
+      y1: number,
+      c: number
     ) {
       const w = xfrm.worldPos
       Screen.drawLine(x0 + w.x, y0 + w.y, x1 + w.x, y1 + w.y, c)
     }
 
     public static drawLineShaded(
+      x0: number,
+      y0: number,
+      x1: number,
+      y1: number,
+      shader: (x: number, y: number) => number
       x0: number,
       y0: number,
       x1: number,
@@ -211,6 +232,11 @@ namespace user_interface_base {
       width: number,
       height: number,
       c: number
+      x: number,
+      y: number,
+      width: number,
+      height: number,
+      c: number
     ) {
       const SCREEN_FN_ID_DRAW_RECT: number = 12;
 
@@ -231,6 +257,12 @@ namespace user_interface_base {
     }
 
     public static drawRectXfrm(
+      xfrm: Affine,
+      x: number,
+      y: number,
+      width: number,
+      height: number,
+      c: number
       xfrm: Affine,
       x: number,
       y: number,
@@ -273,6 +305,12 @@ namespace user_interface_base {
       width: number,
       height: number,
       c: number
+      xfrm: Affine,
+      x: number,
+      y: number,
+      width: number,
+      height: number,
+      c: number
     ) {
       const w = xfrm.worldPos
       Screen.fillRect(x + w.x, y + w.y, width, height, c)
@@ -302,6 +340,10 @@ namespace user_interface_base {
 
     // Draws a rounded outline rectangle of the bounds.
     public static outlineBoundsXfrm(
+      xfrm: Affine,
+      bounds: Bounds,
+      dist: number,
+      c: number
       xfrm: Affine,
       bounds: Bounds,
       dist: number,
@@ -339,6 +381,10 @@ namespace user_interface_base {
 
     // Draws a rounded outline rectangle of the bounds.
     public static outlineBoundsXfrm4(
+      xfrm: Affine,
+      bounds: Bounds,
+      dist: number,
+      colors: { top: number; left: number; right: number; bottom: number }
       xfrm: Affine,
       bounds: Bounds,
       dist: number,
@@ -452,12 +498,22 @@ namespace user_interface_base {
       x: number,
       y: number,
       c: number
+      xfrm: Affine,
+      x: number,
+      y: number,
+      c: number
     ) {
       const w = xfrm.worldPos
       Screen.setPixel(x + w.x, y + w.y, c)
     }
 
     public static print(
+      text: string,
+      x: number,
+      y: number,
+      color?: number,
+      font?: bitmaps.Font,
+      offsets?: texteffects.TextEffectState[]
       text: string,
       x: number,
       y: number,
