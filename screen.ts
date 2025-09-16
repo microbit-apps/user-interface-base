@@ -27,13 +27,16 @@ namespace user_interface_base {
 
 
     private static updateConnectedDisplayType() {
-        if (shieldhelpers.shieldPresent()) {
-            Screen.connectedDisplayType = ConnectedDisplayType.DISPLAY_SHIELD;
-        } else if (false) { // shieldhelpers.wdsPresent()
-            Screen.connectedDisplayType = ConnectedDisplayType.WDS;
-        } else if (false) { // shieldhelpers.jacdacDisplayPresent()    OR    jacdac.modules....
-            Screen.connectedDisplayType = ConnectedDisplayType.JACDAC_DISPLAY;
-        }
+      const wds_id = 0;
+      const wds_contact_attempts = 3;
+
+      if (shieldhelpers.shieldPresent()) {
+        Screen.connectedDisplayType = ConnectedDisplayType.DISPLAY_SHIELD;
+      } else if (shieldhelpers.wdsPresent(wds_id, wds_contact_attempts)) {
+        Screen.connectedDisplayType = ConnectedDisplayType.WDS;
+      } else if (modules.bitmap1.isConnected()) {
+        Screen.connectedDisplayType = ConnectedDisplayType.JACDAC_DISPLAY;  // shieldhelpers.jacdacDisplayPresent()
+      }
     }
 
     private static updateBounds() {
@@ -83,7 +86,7 @@ namespace user_interface_base {
     public static drawTransparentImage(from: Bitmap, x: number, y: number) {
       switch (Screen.connectedDisplayType) {
         case ConnectedDisplayType.NONE: {
-            Screen.updateConnectedDisplayType();
+          Screen.updateConnectedDisplayType();
         }
         case ConnectedDisplayType.DISPLAY_SHIELD: {
           Screen.image.drawTransparentBitmap(from, Screen.x(x), Screen.y(y));
@@ -92,327 +95,403 @@ namespace user_interface_base {
           // Send over radio:
         }
         case ConnectedDisplayType.JACDAC_DISPLAY: {
-          // Send same encoded information as radio, but over Jacdac:
+          modules.bitmap1.drawTransparentBitmap(from, x, y);
         }
+      }
     }
 
     public static drawTransparentImageXfrm(
-        xfrm: Affine,
-        from: Bitmap,
-        x: number,
-        y: number
+      xfrm: Affine,
+      from: Bitmap,
+      x: number,
+      y: number
     ) {
-        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
-            const w = xfrm.worldPos
-            Screen.image.drawTransparentBitmap(
-                from,
-                Screen.x(x + w.x),
-                Screen.y(y + w.y)
-            )
-        }
+      const w = xfrm.worldPos
+      Screen.image.drawTransparentBitmap(
+        from,
+        Screen.x(x + w.x),
+        Screen.y(y + w.y)
+      )
     }
 
     public static drawLine(
-        x0: number,
-        y0: number,
-        x1: number,
-        y1: number,
-        c: number
+      x0: number,
+      y0: number,
+      x1: number,
+      y1: number,
+      c: number
     ) {
-        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
-            Screen.image.drawLine(
-                Screen.x(x0),
-                Screen.y(y0),
-                Screen.x(x1),
-                Screen.y(y1),
-                c
-            )
+      const SCREEN_FN_ID_DRAW_LINE: number = 9;
+      switch (Screen.connectedDisplayType) {
+        case ConnectedDisplayType.NONE: {
+          Screen.updateConnectedDisplayType();
         }
+        case ConnectedDisplayType.DISPLAY_SHIELD: {
+          Screen.image.drawLine(
+            Screen.x(x0),
+            Screen.y(y0),
+            Screen.x(x1),
+            Screen.y(y1),
+            c
+          )
+        }
+        case ConnectedDisplayType.WDS: {
+          radio.sendBuffer(
+            Buffer.fromArray([
+              SCREEN_FN_ID_DRAW_LINE,
+              x0 + Screen.HALF_WIDTH, y0 + Screen.HALF_HEIGHT,
+              x1 + Screen.HALF_WIDTH, y1 + Screen.HALF_HEIGHT,
+              c
+            ])
+          )
+        }
+        case ConnectedDisplayType.JACDAC_DISPLAY: {
+          modules.bitmap1.drawLine(x0, y0, x1, y1, c);
+        }
+      }
     }
 
     public static drawLineXfrm(
-        xfrm: Affine,
-        x0: number,
-        y0: number,
-        x1: number,
-        y1: number,
-        c: number
+      xfrm: Affine,
+      x0: number,
+      y0: number,
+      x1: number,
+      y1: number,
+      c: number
     ) {
-        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
-            const w = xfrm.worldPos
-            Screen.drawLine(x0 + w.x, y0 + w.y, x1 + w.x, y1 + w.y, c)
-        }
+      const w = xfrm.worldPos
+      Screen.drawLine(x0 + w.x, y0 + w.y, x1 + w.x, y1 + w.y, c)
     }
 
     public static drawLineShaded(
-        x0: number,
-        y0: number,
-        x1: number,
-        y1: number,
-        shader: (x: number, y: number) => number
+      x0: number,
+      y0: number,
+      x1: number,
+      y1: number,
+      shader: (x: number, y: number) => number
     ) {
-        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
-            let sx0 = Screen.x(x0)
-            let sy0 = Screen.y(y0)
-            let sx1 = Screen.x(x1)
-            let sy1 = Screen.y(y1)
+      const SCREEN_FN_ID_SET_PIXEL: number = 21;
 
-            for (let x = sx0, tx = x0; x <= sx1; x++, tx++) {
-                for (let y = sy0, ty = y0; y <= sy1; y++, ty++) {
-                    const c = shader(tx, ty)
-                    if (c) {
-                        Screen.image.setPixel(x, y, c)
-                    }
-                }
-            }
+      let sx0 = Screen.x(x0)
+      let sy0 = Screen.y(y0)
+      let sx1 = Screen.x(x1)
+      let sy1 = Screen.y(y1)
+
+      if (ConnectedDisplayType.NONE)
+        Screen.updateConnectedDisplayType();
+
+      let setPixelFn = undefined;
+
+      if (ConnectedDisplayType.DISPLAY_SHIELD)
+        setPixelFn = Screen.image.setPixel
+      if (ConnectedDisplayType.WDS)
+        setPixelFn = (x: number, y: number, c: number) =>
+          radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_SET_PIXEL, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
+      else if (ConnectedDisplayType.JACDAC_DISPLAY)
+        setPixelFn = modules.bitmap1.setPixel;
+
+      if (setPixelFn === undefined) {
+        // No display attached
+        return;
+      }
+
+      for (let x = sx0, tx = x0; x <= sx1; x++, tx++) {
+        for (let y = sy0, ty = y0; y <= sy1; y++, ty++) {
+          const c = shader(tx, ty)
+          if (c) {
+            setPixelFn(x, y, c);
+          }
         }
+      }
     }
 
     public static drawRect(
-        x: number,
-        y: number,
-        width: number,
-        height: number,
-        c: number
+      x: number,
+      y: number,
+      width: number,
+      height: number,
+      c: number
     ) {
-        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
-            Screen.image.drawRect(Screen.x(x), Screen.y(y), width, height, c)
+      const SCREEN_FN_ID_DRAW_RECT: number = 12;
+
+      switch (Screen.connectedDisplayType) {
+        case ConnectedDisplayType.NONE: {
+          Screen.updateConnectedDisplayType();
         }
+        case ConnectedDisplayType.DISPLAY_SHIELD: {
+          Screen.image.drawRect(Screen.x(x), Screen.y(y), width, height, c)
+        }
+        case ConnectedDisplayType.WDS: {
+          radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_DRAW_RECT, Screen.x(x), Screen.y(y), width, height, c]));
+        }
+        case ConnectedDisplayType.JACDAC_DISPLAY: {
+          modules.bitmap1.drawRectangle(x, y, width, height, c);
+        }
+      }
     }
 
     public static drawRectXfrm(
-        xfrm: Affine,
-        x: number,
-        y: number,
-        width: number,
-        height: number,
-        c: number
+      xfrm: Affine,
+      x: number,
+      y: number,
+      width: number,
+      height: number,
+      c: number
     ) {
-        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
-            const w = xfrm.worldPos
-            Screen.drawRect(x + w.x, y + w.y, width, height, c)
-        }
+      const w = xfrm.worldPos
+      Screen.drawRect(x + w.x, y + w.y, width, height, c);
     }
 
     public static fillRect(
-        x: number,
-        y: number,
-        width: number,
-        height: number,
-        c: number
-    ) {
-        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
-            Screen.image.fillRect(Screen.x(x), Screen.y(y), width, height, c)
+      x: number,
+      y: number,
+      width: number,
+      height: number,
+      c: number) {
+      const SCREEN_FN_ID_FILL_RECT: number = 15;
+
+      switch (Screen.connectedDisplayType) {
+        case ConnectedDisplayType.NONE: {
+          Screen.updateConnectedDisplayType();
         }
+        case ConnectedDisplayType.DISPLAY_SHIELD: {
+          Screen.image.fillRect(x, y, width, height, c)
+        }
+        case ConnectedDisplayType.WDS: {
+          radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_FILL_RECT, x, y, width, height, c]));
+        }
+        case ConnectedDisplayType.JACDAC_DISPLAY: {
+          modules.bitmap1.fillRectangle(x, y, width, height, c);
+        }
+      }
     }
 
     public static fillRectXfrm(
-        xfrm: Affine,
-        x: number,
-        y: number,
-        width: number,
-        height: number,
-        c: number
+      xfrm: Affine,
+      x: number,
+      y: number,
+      width: number,
+      height: number,
+      c: number
     ) {
-        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
-            const w = xfrm.worldPos
-            Screen.fillRect(x + w.x, y + w.y, width, height, c)
-        }
+      const w = xfrm.worldPos
+      Screen.fillRect(x + w.x, y + w.y, width, height, c)
     }
 
     public static fillBoundsXfrm(xfrm: Affine, bounds: Bounds, c: number) {
-        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
-            Screen.fillRectXfrm(
-                xfrm,
-                bounds.left,
-                bounds.top,
-                bounds.width,
-                bounds.height,
-                c
-            )
-        }
+      Screen.fillRectXfrm(
+        xfrm,
+        bounds.left,
+        bounds.top,
+        bounds.width,
+        bounds.height,
+        c
+      )
     }
 
     public static drawBoundsXfrm(xfrm: Affine, bounds: Bounds, c: number) {
-        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
-            Screen.drawRectXfrm(
-                xfrm,
-                bounds.left,
-                bounds.top,
-                bounds.width,
-                bounds.height,
-                c
-            )
-        }
+      Screen.drawRectXfrm(
+        xfrm,
+        bounds.left,
+        bounds.top,
+        bounds.width,
+        bounds.height,
+        c
+      )
     }
 
     // Draws a rounded outline rectangle of the bounds.
     public static outlineBoundsXfrm(
-        xfrm: Affine,
-        bounds: Bounds,
-        dist: number,
-        c: number
+      xfrm: Affine,
+      bounds: Bounds,
+      dist: number,
+      c: number
     ) {
-        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
-            if (!c) return
+      if (!c) return
 
-            const w = xfrm.worldPos
-            const left = bounds.left + w.x
-            const top = bounds.top + w.y
-            const right = bounds.right + w.x
-            const bottom = bounds.bottom + w.y
+      const w = xfrm.worldPos
+      const left = bounds.left + w.x
+      const top = bounds.top + w.y
+      const right = bounds.right + w.x
+      const bottom = bounds.bottom + w.y
 
-            // Left
-            Screen.drawLine(left - dist, top, left - dist, bottom, c)
-            // Right
-            Screen.drawLine(right + dist, top, right + dist, bottom, c)
-            // Top
-            Screen.drawLine(left, top - dist, right, top - dist, c)
-            // Bottom
-            Screen.drawLine(left, bottom + dist, right, bottom + dist, c)
+      // Left
+      Screen.drawLine(left - dist, top, left - dist, bottom, c)
+      // Right
+      Screen.drawLine(right + dist, top, right + dist, bottom, c)
+      // Top
+      Screen.drawLine(left, top - dist, right, top - dist, c)
+      // Bottom
+      Screen.drawLine(left, bottom + dist, right, bottom + dist, c)
 
-            // Connect corners
-            if (dist > 1) {
-                // Left-Top
-                Screen.drawLine(left - dist, top, left, top - dist, c)
-                // Right-Top
-                Screen.drawLine(right + dist, top, right, top - dist, c)
-                // Left-Bottom
-                Screen.drawLine(left - dist, bottom, left, bottom + dist, c)
-                // Right-Bottom
-                Screen.drawLine(right + dist, bottom, right, bottom + dist, c)
-            }
-        }
+      // Connect corners
+      if (dist > 1) {
+        // Left-Top
+        Screen.drawLine(left - dist, top, left, top - dist, c)
+        // Right-Top
+        Screen.drawLine(right + dist, top, right, top - dist, c)
+        // Left-Bottom
+        Screen.drawLine(left - dist, bottom, left, bottom + dist, c)
+        // Right-Bottom
+        Screen.drawLine(right + dist, bottom, right, bottom + dist, c)
+      }
     }
 
     // Draws a rounded outline rectangle of the bounds.
     public static outlineBoundsXfrm4(
-        xfrm: Affine,
-        bounds: Bounds,
-        dist: number,
-        colors: { top: number; left: number; right: number; bottom: number }
+      xfrm: Affine,
+      bounds: Bounds,
+      dist: number,
+      colors: { top: number; left: number; right: number; bottom: number }
     ) {
-        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
-            // no borders!
-            if (!colors.top && !colors.left && !colors.right && !colors.bottom)
-                return
+      // no borders!
+      if (!colors.top && !colors.left && !colors.right && !colors.bottom)
+        return
 
-            const w = xfrm.worldPos
-            const left = bounds.left + w.x
-            const top = bounds.top + w.y
-            const right = bounds.right + w.x
-            const bottom = bounds.bottom + w.y
+      const w = xfrm.worldPos
+      const left = bounds.left + w.x
+      const top = bounds.top + w.y
+      const right = bounds.right + w.x
+      const bottom = bounds.bottom + w.y
 
-            // Left
-            if (colors.left)
-                Screen.drawLine(
-                    left - dist,
-                    top,
-                    left - dist,
-                    bottom,
-                    colors.left
-                )
-            // Right
-            if (colors.right)
-                Screen.drawLine(
-                    right + dist,
-                    top,
-                    right + dist,
-                    bottom,
-                    colors.right
-                )
-            // Top
-            if (colors.top)
-                Screen.drawLine(left, top - dist, right, top - dist, colors.top)
-            // Bottom
-            if (colors.bottom)
-                Screen.drawLine(
-                    left,
-                    bottom + dist,
-                    right,
-                    bottom + dist,
-                    colors.bottom
-                )
+      // Left
+      if (colors.left)
+        Screen.drawLine(
+          left - dist,
+          top,
+          left - dist,
+          bottom,
+          colors.left
+        )
+      // Right
+      if (colors.right)
+        Screen.drawLine(
+          right + dist,
+          top,
+          right + dist,
+          bottom,
+          colors.right
+        )
+      // Top
+      if (colors.top)
+        Screen.drawLine(left, top - dist, right, top - dist, colors.top)
+      // Bottom
+      if (colors.bottom)
+        Screen.drawLine(
+          left,
+          bottom + dist,
+          right,
+          bottom + dist,
+          colors.bottom
+        )
 
-            // Connect corners
-            if (dist > 1) {
-                // Left-Top
-                if (colors.left)
-                    Screen.drawLine(
-                        left - dist,
-                        top,
-                        left,
-                        top - dist,
-                        colors.left
-                    )
-                // Right-Top
-                if (colors.right)
-                    Screen.drawLine(
-                        right + dist,
-                        top,
-                        right,
-                        top - dist,
-                        colors.right
-                    )
-                // Left-Bottom
-                if (colors.left)
-                    Screen.drawLine(
-                        left - dist,
-                        bottom,
-                        left,
-                        bottom + dist,
-                        colors.left
-                    )
-                // Right-Bottom
-                if (colors.right)
-                    Screen.drawLine(
-                        right + dist,
-                        bottom,
-                        right,
-                        bottom + dist,
-                        colors.right
-                    )
-            }
-        }
+      // Connect corners
+      if (dist > 1) {
+        // Left-Top
+        if (colors.left)
+          Screen.drawLine(
+            left - dist,
+            top,
+            left,
+            top - dist,
+            colors.left
+          )
+        // Right-Top
+        if (colors.right)
+          Screen.drawLine(
+            right + dist,
+            top,
+            right,
+            top - dist,
+            colors.right
+          )
+        // Left-Bottom
+        if (colors.left)
+          Screen.drawLine(
+            left - dist,
+            bottom,
+            left,
+            bottom + dist,
+            colors.left
+          )
+        // Right-Bottom
+        if (colors.right)
+          Screen.drawLine(
+            right + dist,
+            bottom,
+            right,
+            bottom + dist,
+            colors.right
+          )
+      }
     }
 
     public static setPixel(x: number, y: number, c: number) {
-        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
-            if (c) {
-                Screen.image.setPixel(Screen.x(x), Screen.y(y), c)
-            }
+      const SCREEN_FN_ID_SET_PIXEL: number = 21;
+
+      if (c) {
+        switch (Screen.connectedDisplayType) {
+          case ConnectedDisplayType.NONE: {
+            Screen.updateConnectedDisplayType();
+          }
+          case ConnectedDisplayType.DISPLAY_SHIELD: {
+            Screen.image.setPixel(Screen.x(x), Screen.y(y), c)
+          }
+          case ConnectedDisplayType.WDS: {
+            radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_SET_PIXEL, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
+          }
+          case ConnectedDisplayType.JACDAC_DISPLAY: {
+            modules.bitmap1.setPixel(x, y, c);
+          }
         }
+      }
     }
 
     public static setPixelXfrm(
-        xfrm: Affine,
-        x: number,
-        y: number,
-        c: number
+      xfrm: Affine,
+      x: number,
+      y: number,
+      c: number
     ) {
-        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
-            const w = xfrm.worldPos
-            Screen.setPixel(x + w.x, y + w.y, c)
-        }
+      const w = xfrm.worldPos
+      Screen.setPixel(x + w.x, y + w.y, c)
     }
 
     public static print(
-        text: string,
-        x: number,
-        y: number,
-        color?: number,
-        font?: bitmaps.Font,
-        offsets?: texteffects.TextEffectState[]
+      text: string,
+      x: number,
+      y: number,
+      color?: number,
+      font?: bitmaps.Font,
+      offsets?: texteffects.TextEffectState[]
     ) {
-        if (Screen.connectedDisplayType == ConnectedDisplayType.DISPLAY_SHIELD) {
-            Screen.image.print(
-                text,
-                Screen.x(x),
-                Screen.y(y),
-                color,
-                font,
-                offsets
-            )
+      const SCREEN_FN_ID_PRINT: number = 23;
+
+      switch (Screen.connectedDisplayType) {
+        case ConnectedDisplayType.NONE: {
+          Screen.updateConnectedDisplayType();
+        }
+        case ConnectedDisplayType.DISPLAY_SHIELD: {
+          Screen.image.print(
+            text,
+            Screen.x(x),
+            Screen.y(y),
+            color,
+            font,
+            offsets
+          )
+        }
+        case ConnectedDisplayType.WDS: {
+          radio.sendString(text);
+          const c: number = (color == null) ? 0 : color;
+          radio.sendBuffer(Buffer.fromArray([SCREEN_FN_ID_PRINT, x + Screen.HALF_WIDTH, y + Screen.HALF_HEIGHT, c]));
+        }
+        case ConnectedDisplayType.JACDAC_DISPLAY: {
+          // font8 is default TODO: see bitmap1.print() and maybe change away from font8 default.
+          let font_size = (font == bitmaps.font12) ? 12 : (font == bitmaps.font5) ? 5 : 8;
+          // TODO: Add offsets:
+          modules.bitmap1.print(text, x, y, color, font_size);
+        }
       }
     }
   }
