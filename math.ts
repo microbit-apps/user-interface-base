@@ -1,4 +1,7 @@
 namespace user_interface_base {
+    /**
+    * Used by Affine and others, useful for operations on Sprites.
+    */
     export class Vec2 {
         public get x() {
             return this.x_

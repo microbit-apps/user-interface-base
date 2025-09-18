@@ -4,6 +4,12 @@ namespace user_interface_base {
     const RENDER_PRIORITY = 30
     const SCREEN_PRIORITY = 100
 
+    /**
+    * Top-level abstraction drawn to the screen.
+    * Extended by CursorScene when you want to have a GUI with Button support.
+    * Useful if you: don't want buttons, aren't making a GUI, or to make a more complex GUI.
+    * CursorScene overwrites a number of these abstract methods.
+    */
     export abstract class Scene implements IComponent {
         private xfrm_: Affine
         private color_: number
@@ -103,6 +109,15 @@ namespace user_interface_base {
         }
     }
 
+
+    /**
+    * This is an wrapper around a stack of scenes.
+    * You can .push() and .pop() scenes to navigator your application.
+    * In a microbit App this SceneManager is setup in app.ts,
+    * which has a wrapper around SceneManager methods.
+    * The app object is normally passed as a reference between scenes,
+    * so that they can access this SceneManager.
+    */
     export class SceneManager {
         scenes: Scene[]
 

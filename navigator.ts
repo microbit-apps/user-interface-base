@@ -1,4 +1,14 @@
 namespace user_interface_base {
+    /**
+    * A Navigator is a wrapper over a group of buttons.
+    * It is owned by a CursorScene. When you press a physical button on a controller,
+    * the cursor will invoke methods on the Navigator and Cursor to change the GUI.
+    * Dynamically adding or removing buttons is supported.
+    * The main types of Navigator are Row and Grid.
+    *
+    * You do not need to hold references to buttons locally, they can all be held in here.
+    * Ensure that this.navigator.drawComponents() is invoked in your CursorScene.draw()
+    */
     export interface INavigator {
         clear: () => void
         setBtns: (btns: Button[][]) => void
@@ -23,8 +33,16 @@ namespace user_interface_base {
         }
     }
 
-    // ragged rows of buttons
+
+    /**
+    * A ragged rows of buttons
+    * When B is pressed the CursorScene, but not the CursorSceneWithPriorPage,
+    * will tell this Navigator to show the Cursor as hovering over the first button again.
+    * You can have multiple rows (addRow() is supported) if you wish,
+    * But the GridNavigator is recommended for that usecase.
+    */
     export class RowNavigator implements INavigator {
+        /** This can be used to support multiple Rows, but this is not recommended. */
         protected buttonGroups: Button[][]
         protected row: number
         protected col: number
@@ -91,6 +109,9 @@ namespace user_interface_base {
             return undefined
         }
 
+        /**
+        * Invoked by the CursorScene.
+        */
         public move(dir: CursorDir) {
             this.makeGood()
             switch (dir) {
@@ -161,7 +182,10 @@ namespace user_interface_base {
         public getCurrent(): Button {
             return this.buttonGroups[this.row][this.col]
         }
-
+        
+        /**
+        * Helper function to ensure .row and .col are not out of bounds.
+        */
         protected makeGood() {
             if (this.row >= this.buttonGroups.length)
                 this.row = this.buttonGroups.length - 1
@@ -169,6 +193,10 @@ namespace user_interface_base {
                 this.col = this.buttonGroups[this.row].length - 1
         }
 
+
+        /**
+        * Ensure that the default cursor position is inbounds.
+        */
         public initialCursor(row: number = 0, col: number = 0) {
             const rows = this.buttonGroups.length
             while (row < 0) row = (row + rows) % rows
@@ -180,6 +208,10 @@ namespace user_interface_base {
         }
     }
 
+
+    /**
+    * A Navigator for hetrogenous rows and columns.
+    */
     export class GridNavigator extends RowNavigator {
         private height: number;
         private widths: number[];
@@ -204,7 +236,6 @@ namespace user_interface_base {
         public getCol() {
           return this.col;
         }
-
 
         public setBtns(btns: Button[][]) {
             this.buttonGroups = btns
@@ -296,9 +327,10 @@ namespace user_interface_base {
     }
 
 
-    // mostly a matrix, except for last row, which may be ragged
-    // also supports delete button
-    // add support for aria
+    /**
+    * Mostly a matrix, except for last row, which may be ragged
+    * Supports delete button
+    */
     export class PickerNavigator implements INavigator {
         protected deleteButton: Button
         protected row: number
