@@ -217,7 +217,7 @@ namespace user_interface_base {
   */
   export class Button extends ButtonBase {
     /** The bitmap to be displayed by the button, if it is a string it will be looked up; see coreAssets.ts */
-    private iconId: string | Bitmap
+    private iconId: string | number | Bitmap
     /** The text to be displayed below the button, formerly used as a lookup for the text to be displayed. */
     private _ariaId: string
     /**
@@ -276,7 +276,7 @@ namespace user_interface_base {
     constructor(opts: {
       parent?: IPlaceable
       style?: ButtonStyle
-      icon?: string | Bitmap
+      icon?: string | number | Bitmap
       ariaId?: string
       x?: number
       y?: number
@@ -342,12 +342,12 @@ namespace user_interface_base {
     }
 
     private image_() {
-      return typeof this.iconId == "string"
+      return typeof this.iconId == "string" || typeof this.iconId == "number"
         ? getIcon(this.iconId, false)
         : this.iconId
     }
 
-    public setIcon(iconId: string, img?: Bitmap) {
+    public setIcon(iconId: string | number, img?: Bitmap) {
       this.iconId = iconId
       if (img) this.icon.setImage(img)
       else this.buildSprite(this.image_())
