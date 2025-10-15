@@ -238,11 +238,12 @@ namespace user_interface_base {
     * used by .dynamicBoundaryColorsOn and .selected, see .draw()
     */
     private boundaryColor: number
+
     /**
     * Seldom used, you can store arbitrary data here.
     * This might be useful when you choose to pass button with onClick().
     */
-    public state: number[]
+    public state: any[]
     /**
     * Used to disable a button.
     */
