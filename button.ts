@@ -285,7 +285,7 @@ namespace user_interface_base {
       dynamicBoundaryColorsOn?: boolean
       boundaryColor?: number,
       flipIcon?: boolean,
-      state?: number[]
+      state?: any[]
     }) {
       super(
         (opts.x != null) ? opts.x : 0,
