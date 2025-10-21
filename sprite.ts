@@ -1,4 +1,11 @@
 namespace user_interface_base {
+    /**
+    * This is a wrapper around a Bitmap,
+    * Notably providing a hitbox.
+    * It will draw the provided bitmap transparently.
+    * This means that any black pixels in the bitmap will
+    * change to be the same colour as whatever is behind the bitmap.
+    */
     export class Sprite implements IComponent, IPlaceable, ISizable {
         private xfrm_: Affine
         image: Bitmap

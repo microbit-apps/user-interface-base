@@ -1,11 +1,27 @@
 namespace user_interface_base {
     let extraImage: Bitmap = null
 
+    /**
+    * This is used by the webapp. Ignore otherwise.
+    */
     //% shim=TD_NOOP
     function extraSamples(name: string) {
 
     }
 
+
+    /**
+    * This contains a number of assets that are shared by all Microbit apps.
+    * Simply invoke icons.get("compass") to get a bitmap.
+    * If your program does not use an icon it will be tree-shaken from your program.
+    * So binary size should be minimised.
+    *
+    * The argument nullIfMissing is false by default meaning the icondb.MISSING icon is returned.
+    * 
+    * If you are adding your own assets we recommend making your own get function in your own namespace,
+    * that checks for your bitmap names, and invokes this function if it cannot find them.
+    * See MicroData/assets.ts as an example.
+    */
     export class icons {
         public static get(name: string, nullIfMissing = false): Bitmap {
             // editor icons

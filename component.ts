@@ -1,5 +1,4 @@
 namespace user_interface_base {
-
     export interface IComponent {
         update: () => void
         draw: () => void

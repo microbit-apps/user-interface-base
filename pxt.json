@@ -1,6 +1,6 @@
 {
     "name": "user-interface-base",
-    "version": "0.0.19",
+    "version": "0.0.26",
     "files": [
         "affine.ts",
         "bounds.ts",
