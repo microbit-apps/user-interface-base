@@ -2,20 +2,6 @@ namespace user_interface_base {
   import Screen = user_interface_base.Screen
   import Scene = user_interface_base.Scene
 
-  /**
-   * Used to control the flow between scenes,
-   * The SensorSelect scene is used to set the sensors before the RecordData, DistributedLogging and LiveDataViewer scenes
-   * This enum may be passed to the constructors of these scenes so that they can dynamically control this flow.
-   * TODO: REMOVE THIS!!
-   */
-  export enum CursorSceneEnum {
-    LiveDataViewer,
-    SensorSelect,
-    RecordingConfigSelect,
-    RecordData,
-    DistributedLogging
-  }
-
 
   /**
   * Top-level abstraction that is rendered on the screen.
@@ -68,50 +54,47 @@ namespace user_interface_base {
     * If you wish to override what the controller buttons do, then pass controlSetupFn.
     * overrides parent method, still invokes it.
     */
-    startup(controlSetupFn?: () => void) {
+    startup() {
       super.startup()
-      if (controlSetupFn != null) {
-        controlSetupFn();
-      } else {
-        control.onEvent(
-          ControllerButtonEvent.Pressed,
-          controller.right.id,
-          () => this.moveCursor(CursorDir.Right)
-        )
-        control.onEvent(
-          ControllerButtonEvent.Pressed,
-          controller.up.id,
-          () => this.moveCursor(CursorDir.Up)
-        )
-        control.onEvent(
-          ControllerButtonEvent.Pressed,
-          controller.down.id,
-          () => this.moveCursor(CursorDir.Down)
-        )
-        control.onEvent(
-          ControllerButtonEvent.Pressed,
-          controller.left.id,
-          () => this.moveCursor(CursorDir.Left)
-        )
+      control.onEvent(
+        ControllerButtonEvent.Pressed,
+        controller.right.id,
+        () => this.moveCursor(CursorDir.Right)
+      )
+      control.onEvent(
+        ControllerButtonEvent.Pressed,
+        controller.up.id,
+        () => this.moveCursor(CursorDir.Up)
+      )
+      control.onEvent(
+        ControllerButtonEvent.Pressed,
+        controller.down.id,
+        () => this.moveCursor(CursorDir.Down)
+      )
+      control.onEvent(
+        ControllerButtonEvent.Pressed,
+        controller.left.id,
+        () => this.moveCursor(CursorDir.Left)
+      )
 
-        // click
-        const click = () => this.cursor.click()
-        control.onEvent(
-          ControllerButtonEvent.Pressed,
-          controller.A.id,
-          click
-        )
-        control.onEvent(
-          ControllerButtonEvent.Pressed,
-          controller.A.id + keymap.PLAYER_OFFSET,
-          click
-        )
-        control.onEvent(
-          ControllerButtonEvent.Pressed,
-          controller.B.id,
-          () => this.back()
-        )
-      }
+      // click
+      const click = () => this.cursor.click()
+      control.onEvent(
+        ControllerButtonEvent.Pressed,
+        controller.A.id,
+        click
+      )
+      control.onEvent(
+        ControllerButtonEvent.Pressed,
+        controller.A.id + keymap.PLAYER_OFFSET,
+        click
+      )
+      control.onEvent(
+        ControllerButtonEvent.Pressed,
+        controller.B.id,
+        () => this.back()
+      )
+
       this.cursor = new Cursor()
       this.picker = new Picker(this.cursor)
       if (this.navigator == null)
@@ -174,84 +157,6 @@ namespace user_interface_base {
         /* override */ draw() {
       this.picker.draw()
       this.cursor.draw()
-    }
-  }
-
-
-  /**
-  * Ovverides the B button on the controller to go invoke a passed function.
-  * That passed function is normally {this.app.popScene(); this.app.pushScene(new ...);
-  * Defaults to RowNavigator if not passsed.
-  */
-  export class CursorSceneWithPriorPage extends CursorScene {
-    private goBack1PageFn: () => void;
-
-    constructor(app: AppInterface, goBack1PageFn: () => void, navigator?: INavigator) {
-      super(app)
-      this.backgroundColor = 11
-
-      if (navigator)
-        this.navigator = navigator
-      else
-        this.navigator = null
-      this.goBack1PageFn = goBack1PageFn
-    }
-
-        /* override */ startup(controlSetupFn?: () => void) {
-      if (controlSetupFn != null) {
-        controlSetupFn();
-      } else {
-        control.onEvent(
-          ControllerButtonEvent.Pressed,
-          controller.right.id,
-          () => this.moveCursor(CursorDir.Right)
-        )
-        control.onEvent(
-          ControllerButtonEvent.Pressed,
-          controller.up.id,
-          () => this.moveCursor(CursorDir.Up)
-        )
-        control.onEvent(
-          ControllerButtonEvent.Pressed,
-          controller.down.id,
-          () => this.moveCursor(CursorDir.Down)
-        )
-        control.onEvent(
-          ControllerButtonEvent.Pressed,
-          controller.left.id,
-          () => this.moveCursor(CursorDir.Left)
-        )
-
-        // click
-        const click = () => this.cursor.click()
-        control.onEvent(
-          ControllerButtonEvent.Pressed,
-          controller.A.id,
-          click
-        )
-        control.onEvent(
-          ControllerButtonEvent.Pressed,
-          controller.A.id + keymap.PLAYER_OFFSET,
-          click
-        )
-        control.onEvent(
-          ControllerButtonEvent.Pressed,
-          controller.B.id,
-          () => this.back()
-        )
-
-        control.onEvent(
-          ControllerButtonEvent.Pressed,
-          controller.B.id,
-          () => this.goBack1PageFn()
-        )
-      }
-      this.cursor = new Cursor()
-      this.picker = new Picker(this.cursor)
-
-      if (this.navigator == null)
-        this.navigator = new RowNavigator()
-      this.cursor.navigator = this.navigator
     }
   }
 }
