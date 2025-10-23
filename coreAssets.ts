@@ -87,6 +87,24 @@ namespace icondb {
     // SMALL ICONS:
     //-------------
 
+    export const microbit_logo_btn = bmp`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . f f f f f f f f . . . . 
+        . . . f 1 1 1 1 1 1 1 1 f . . . 
+        . . f 1 1 1 1 1 1 1 1 1 1 f . . 
+        . . f 1 f f 1 1 1 1 f f 1 f . . 
+        . . f 1 f f 1 1 1 1 f f 1 f . . 
+        . . f 1 1 1 1 1 1 1 1 1 1 f . . 
+        . . . f 1 1 1 1 1 1 1 1 f . . . 
+        . . . . f f f f f f f f . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . .
+    `
 
     export const microbitLogoWhiteBackground = bmp`
         11111111111111111
