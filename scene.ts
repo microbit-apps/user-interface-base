@@ -106,8 +106,9 @@ namespace user_interface_base {
           this.draw()
           if (Options.fps)
             Screen.image.print(context.EventContext.lastStats, 1, 1, 15)
-          if (screen() !== Screen.image)
-            screen().drawBitmap(Screen.image, 0, 0)
+
+          // if (screen() !== Screen.image)
+          //   screen().drawBitmap(Screen.image, 0, 0)
 
           // control.__screen.update(); // not neccessary?
         }

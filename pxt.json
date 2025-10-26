@@ -1,36 +1,38 @@
 {
-    "name": "user-interface-base",
-    "version": "0.0.27",
-    "files": [
-        "affine.ts",
-        "bounds.ts",
-        "component.ts",
-        "math.ts",
-        "screen.ts",
-        "sprite.ts",
-        "appconfig.ts",
-        "accessibility.ts",
-        "keymap.ts",
-        "button.ts",
-        "scene.ts",
-        "cursor.ts",
-        "picker.ts",
-        "navigator.ts",
-        "cursorscene.ts",
-        "options.ts",
-        "coreAssets.ts"
-    ],
-    "supportedTargets": [
-        "microbit"
-    ],
-    "testFiles": [
-        "test.ts"
-    ],
-    "dependencies": {
-        "core": "*",
-        "radio": "*",
-        "microphone": "*",
-        "display-shield": "github:microbit-apps/display-shield#v1.0.4"
-    },
-    "testDependencies": {}
+  "name": "user-interface-base",
+  "version": "0.0.27",
+  "files": [
+    "affine.ts",
+    "bounds.ts",
+    "component.ts",
+    "math.ts",
+    "screen.ts",
+    "sprite.ts",
+    "appconfig.ts",
+    "accessibility.ts",
+    "keymap.ts",
+    "button.ts",
+    "scene.ts",
+    "cursor.ts",
+    "picker.ts",
+    "navigator.ts",
+    "cursorscene.ts",
+    "options.ts",
+    "coreAssets.ts",
+    "text.ts"
+  ],
+  "supportedTargets": [
+    "microbit"
+  ],
+  "testFiles": [
+    "test.ts"
+  ],
+  "dependencies": {
+    "core": "*",
+    "radio": "*",
+    "microphone": "*",
+    "bitmap": "*",
+    "IO-Devices": "file:../IO-Devices"
+  },
+  "testDependencies": {}
 }
