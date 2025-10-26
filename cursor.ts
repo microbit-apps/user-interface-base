@@ -1,9 +1,9 @@
 namespace user_interface_base {
-  import Affine = user_interface_base.Affine
-  import Bounds = user_interface_base.Bounds
+  import Affine = vector_math.Affine
+  import Bounds = vector_math.Bounds
+  import Vec2 = vector_math.Vec2
   import Screen = user_interface_base.Screen
   import IPlaceable = user_interface_base.IPlaceable
-  import Vec2 = user_interface_base.Vec2
   import IComponent = user_interface_base.IComponent
   import Button = user_interface_base.Button
 

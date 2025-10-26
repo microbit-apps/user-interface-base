@@ -1,3 +1,7 @@
+import Affine = vector_math.Affine
+import Bounds = vector_math.Bounds
+import Vec2 = vector_math.Vec2
+
 /**
  * Tagged bitmap literal converter
  * TODO: THIS SHOULD LIVE IN /bitmap
