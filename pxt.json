@@ -30,7 +30,7 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "display-shield": "github:microbit-apps/display-shield#v1.0.8"
+        "display-shield": "github:microbit-apps/display-shield#v1.0.9"
     },
     "testDependencies": {}
 }
