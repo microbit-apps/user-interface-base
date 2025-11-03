@@ -56,22 +56,22 @@ namespace user_interface_base {
     */
     startup() {
       super.startup()
-      control.onEvent(
+      context.onEvent(
         ControllerButtonEvent.Pressed,
         controller.right.id,
         () => this.moveCursor(CursorDir.Right)
       )
-      control.onEvent(
+      context.onEvent(
         ControllerButtonEvent.Pressed,
         controller.up.id,
         () => this.moveCursor(CursorDir.Up)
       )
-      control.onEvent(
+      context.onEvent(
         ControllerButtonEvent.Pressed,
         controller.down.id,
         () => this.moveCursor(CursorDir.Down)
       )
-      control.onEvent(
+      context.onEvent(
         ControllerButtonEvent.Pressed,
         controller.left.id,
         () => this.moveCursor(CursorDir.Left)
@@ -79,17 +79,17 @@ namespace user_interface_base {
 
       // click
       const click = () => this.cursor.click()
-      control.onEvent(
+      context.onEvent(
         ControllerButtonEvent.Pressed,
         controller.A.id,
         click
       )
-      control.onEvent(
+      context.onEvent(
         ControllerButtonEvent.Pressed,
         controller.A.id + keymap.PLAYER_OFFSET,
         click
       )
-      control.onEvent(
+      context.onEvent(
         ControllerButtonEvent.Pressed,
         controller.B.id,
         () => this.back()
