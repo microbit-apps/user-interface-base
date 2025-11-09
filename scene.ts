@@ -2,7 +2,7 @@ namespace user_interface_base {
     const INPUT_PRIORITY = 10
     const UPDATE_PRIORITY = 20
     const RENDER_PRIORITY = 30
-    const SCREEN_PRIORITY = 100
+    const SCREEN_PRIORITY = 50
 
     /**
     * Top-level abstraction drawn to the screen.

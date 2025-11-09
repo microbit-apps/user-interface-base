@@ -266,12 +266,12 @@ namespace user_interface_base {
 
 
     reportAria(force = false) {
-      const msg: accessibility.TileAccessibilityMessage = {
-        type: "tile",
-        value: this.ariaId,
-        force,
-      }
-      accessibility.setLiveContent(msg)
+      // const msg: accessibility.TileAccessibilityMessage = {
+      //   type: "tile",
+      //   value: this.ariaId,
+      //   force,
+      // }
+      // accessibility.setLiveContent(msg)
     }
 
     constructor(opts: {

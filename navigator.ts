@@ -487,15 +487,15 @@ namespace user_interface_base {
         }
 
         protected reportAria() {
-            if (this.row == -1) {
-                accessibility.setLiveContent(<
-                    accessibility.TextAccessibilityMessage
-                    >{
-                        type: "text",
-                        value: "delete_tile",
-                        force: true,
-                    })
-            }
+            // if (this.row == -1) {
+            //     accessibility.setLiveContent(<
+            //         accessibility.TextAccessibilityMessage
+            //         >{
+            //             type: "text",
+            //             value: "delete_tile",
+            //             force: true,
+            //         })
+            // }
         }
     }
 
@@ -507,18 +507,18 @@ namespace user_interface_base {
             this.col = 2
         }
         protected reportAria() {
-            super.reportAria()
-            if (this.row == -1) return
-            const on = true // TODO: btn.getIcon() == "solid_red"
-            accessibility.setLiveContent(<
-                accessibility.LEDAccessibilityMessage
-                >{
-                    type: "led",
-                    on,
-                    x: this.col,
-                    y: this.row,
-                    force: true,
-                })
+            // super.reportAria()
+            // if (this.row == -1) return
+            // const on = true // TODO: btn.getIcon() == "solid_red"
+            // accessibility.setLiveContent(<
+            //     accessibility.LEDAccessibilityMessage
+            //     >{
+            //         type: "led",
+            //         on,
+            //         x: this.col,
+            //         y: this.row,
+            //         force: true,
+            //     })
         }
     }
 
@@ -530,18 +530,18 @@ namespace user_interface_base {
             this.col = 2
         }
         protected reportAria() {
-            super.reportAria()
-            if (this.row == -1) return
-            const on = true // TODO btn.getIcon() === "note_on"
-            const index = this.hasDelete ? this.row - 1 : this.row
-            accessibility.setLiveContent(<
-                accessibility.NoteAccessibilityMessage
-                >{
-                    type: "note",
-                    on,
-                    index,
-                    force: true,
-                })
+            // super.reportAria()
+            // if (this.row == -1) return
+            // const on = true // TODO btn.getIcon() === "note_on"
+            // const index = this.hasDelete ? this.row - 1 : this.row
+            // accessibility.setLiveContent(<
+            //     accessibility.NoteAccessibilityMessage
+            //     >{
+            //         type: "note",
+            //         on,
+            //         index,
+            //         force: true,
+            //     })
         }
     }
 }
